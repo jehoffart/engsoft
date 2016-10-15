@@ -1,0 +1,20 @@
+{
+  "name": "facens",
+  "version": "1.0.0",
+  "description": "Projeto MEAN",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Amanda",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.12.3",
+    "consign": "^0.1.2",
+    "express": "^4.12.3",
+    "mongoose": "^4.3.1",
+    "nedb": "^1.1.2"
+  },
+  "devDependencies": {}
+}
