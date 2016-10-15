@@ -1,10 +1,12 @@
-# single-page-application-angular2
+# WEB EVICÊNCIAS
 
 ### Quick Setup
-- `$ git clone https://github.com/rahil471/single-page-application-angular2.git`
+- `$ git clone https://github.com/jehoffart/engsoft.git
 - Navigate into the directory using command line interface
 - `$ npm install`
 - `$ npm start`
 
-### Full Tutorial
-*Visit* - https://code.ciphertrick.com/2016/07/26/build-single-page-application-angular-2/
+### Pages
+- html deve ficar na pasta web-evidencias
+- pasta web-evicencias/app/'controller'/'controller'.component.js (lugar onde estará a controller)
+- arquivo app.routing.js será feito o import da controller
