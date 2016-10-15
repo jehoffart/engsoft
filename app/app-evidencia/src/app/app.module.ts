@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
-import { ProblemPage } from '../pages/problemPage/problemPage';
-import { ProjectPage } from '../pages/projectPage/projectPage';
+
+//pages
+import { ProblemPage } from '../pages/problem-page/problem-page';
+import { ProjectPage } from '../pages/project-page/project-page';
+import { RegisterStudentPage } from '../pages/register-student-page/register-student-page';
+import { RegisterCompanyPage } from '../pages/register-company-page/register-company-page';
 
 @NgModule({
   declarations: [
     MyApp,
-    Page1,
-    Page2,
     ProblemPage,
-    ProjectPage
+    ProjectPage,
+    RegisterStudentPage,
+    RegisterCompanyPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -20,10 +22,10 @@ import { ProjectPage } from '../pages/projectPage/projectPage';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    Page1,
-    Page2,
     ProblemPage,
-    ProjectPage
+    ProjectPage,
+    RegisterStudentPage,
+    RegisterCompanyPage
   ],
   providers: []
 })
