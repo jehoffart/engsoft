@@ -5,8 +5,8 @@ import { StatusBar } from 'ionic-native';
 //pages
 import { ProblemPage } from '../pages/problem-page/problem-page';
 import { ProjectPage } from '../pages/project-page/project-page';
-import { RegisterStudentPage } from '../pages/register-student-page/register-student-page';
-import { RegisterCompanyPage } from '../pages/register-company-page/register-company-page';
+import { RegisterUserPage } from '../pages/register-user-page/register-user-page';
+import { RegisterEnterprisePage } from '../pages/register-enterprise-page/register-enterprise-page';
 
 
 @Component({
@@ -26,8 +26,8 @@ export class MyApp {
     this.pages = [
       { title: 'Problemas', component: ProblemPage },
       { title: 'Meus Projetos', component: ProjectPage },
-      { title: 'Cadastro Aluno', component: RegisterStudentPage },
-      { title: 'Cadastro Empresa', component: RegisterCompanyPage }
+      { title: 'Cadastro Aluno', component: RegisterUserPage },
+      { title: 'Cadastro Empresa', component: RegisterEnterprisePage }
     ];
 
   }

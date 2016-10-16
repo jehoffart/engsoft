@@ -5,16 +5,16 @@ import { MyApp } from './app.component';
 //pages
 import { ProblemPage } from '../pages/problem-page/problem-page';
 import { ProjectPage } from '../pages/project-page/project-page';
-import { RegisterStudentPage } from '../pages/register-student-page/register-student-page';
-import { RegisterCompanyPage } from '../pages/register-company-page/register-company-page';
+import { RegisterUserPage } from '../pages/register-user-page/register-user-page';
+import { RegisterEnterprisePage } from '../pages/register-enterprise-page/register-enterprise-page';
 
 @NgModule({
   declarations: [
     MyApp,
     ProblemPage,
     ProjectPage,
-    RegisterStudentPage,
-    RegisterCompanyPage
+    RegisterUserPage,
+    RegisterEnterprisePage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -24,8 +24,8 @@ import { RegisterCompanyPage } from '../pages/register-company-page/register-com
     MyApp,
     ProblemPage,
     ProjectPage,
-    RegisterStudentPage,
-    RegisterCompanyPage
+    RegisterUserPage,
+    RegisterEnterprisePage
   ],
   providers: []
 })

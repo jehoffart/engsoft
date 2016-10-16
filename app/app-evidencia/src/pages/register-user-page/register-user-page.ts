@@ -6,7 +6,7 @@ import {Validators, FormBuilder } from '@angular/forms';
   selector: 'page-register-student-page',
   templateUrl: 'register-student-page.html'
 })
-export class RegisterStudentPage {
+export class RegisterUserPage {
 
 public registrationForm:any;
 
