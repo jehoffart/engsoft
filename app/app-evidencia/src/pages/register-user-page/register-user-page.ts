@@ -3,8 +3,8 @@ import { NavController } from 'ionic-angular';
 import {Validators, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'page-register-student-page',
-  templateUrl: 'register-student-page.html'
+  selector: 'page-register-user-page',
+  templateUrl: 'register-user-page.html'
 })
 export class RegisterUserPage {
 
