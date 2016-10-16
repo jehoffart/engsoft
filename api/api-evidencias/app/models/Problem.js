@@ -9,21 +9,24 @@ var schema = mongoose.Schema({
         Description: {
             type: String
         },
-        Ask: {
+        Questions: {
             type: [String] 
         },
         MaxCost: {
             type: Number
         },
-        Type: {
-            type: String
+        Categories: {
+            type: [String]
         },
-        Registration: [
+        Registrations: [
             {
-                type: mongoose.Schema.Types.ObjectId, 
-                ref: 'Project',
+                ProjectId: 
+                {
+                    type: mongoose.Schema.Types.ObjectId, 
+                    ref: 'Project'
+                },
 
-                respostas: {
+                Answers: {
                     type: [String] 
                 }
             }

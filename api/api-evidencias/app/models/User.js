@@ -6,7 +6,7 @@ var schema = mongoose.Schema({
         type: String,
         required: true
     },
-    Old: {
+    Age: {
         type: Number,
         required: true
     },

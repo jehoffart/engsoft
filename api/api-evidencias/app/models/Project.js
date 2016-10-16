@@ -20,7 +20,7 @@ var schema = mongoose.Schema({
     Cost: {
         type: Number
     },
-    Category: {  
+    Categories: {  
         type: [String]    
     },
     Team: [ 

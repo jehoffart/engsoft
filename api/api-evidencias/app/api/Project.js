@@ -5,7 +5,6 @@ var model = mongoose.model('Project');
 
 api.get = function(req, res) {  
    model.find({})
-
    .then(function(projects){
        res.json(projects);
    }, function(error){

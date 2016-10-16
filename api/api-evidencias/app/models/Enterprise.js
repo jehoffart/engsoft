@@ -26,13 +26,13 @@ var schema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    Category: {  
+    Categories: {  
         type: [String]    
     },
     Website: {
         type: String
     },
-    Problem:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Problem' }]
+    Problems:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Problem' }]
 
 
 });
