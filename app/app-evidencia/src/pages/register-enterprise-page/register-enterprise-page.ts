@@ -1,22 +1,30 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
-/*
-  Generated class for the RegisterEnterprisePage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+import {Validators, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'page-register-enterprise-page',
   templateUrl: 'register-enterprise-page.html'
 })
 export class RegisterEnterprisePage {
 
-  constructor(public navCtrl: NavController) {}
+  public registrationForm:any;
 
-  ionViewDidLoad() {
-    console.log('Hello RegisterEnterprisePage Page');
-  }
+    constructor(private formBuilder: FormBuilder) {}
+
+    ionViewDidLoad() {
+      this.registrationForm = this.formBuilder.group({
+        CNPJ: ['', Validators.required],
+        Name: ['',Validators.required],
+        Login: ['',Validators.required],
+        Password: ['',Validators.required],
+        Description: ['',Validators.required],
+        Categories: ['', Validators.required],
+        Website: ['',Validators.required],
+        RegistrationDate: [new Date()]
+      });
+    }
+    logForm(){
+      console.log(this.registrationForm.value)
+    }
 
 }

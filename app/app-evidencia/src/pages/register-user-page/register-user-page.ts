@@ -23,6 +23,7 @@ public registrationForm:any;
       About: [''],
       Login: ['',Validators.required],
       Password: ['',Validators.required],
+      RegistrationDate: [new Date()]
     });
   }
   logForm(){
