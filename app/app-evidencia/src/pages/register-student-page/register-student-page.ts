@@ -1,22 +1,31 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {Validators, FormBuilder } from '@angular/forms';
 
-/*
-  Generated class for the RegisterStudentPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-register-student-page',
   templateUrl: 'register-student-page.html'
 })
 export class RegisterStudentPage {
 
-  constructor(public navCtrl: NavController) {}
+public registrationForm:any;
+
+  constructor(private formBuilder: FormBuilder) {}
 
   ionViewDidLoad() {
-    console.log('Hello RegisterStudentPage Page');
+    this.registrationForm = this.formBuilder.group({
+      Name: ['', Validators.required],
+      Age: ['',Validators.required],
+      Email: ['',Validators.required],
+      Street: ['',Validators.required],
+      City: ['',Validators.required],
+      State: ['',Validators.required],
+      About: [''],
+      Login: ['',Validators.required],
+      Password: ['',Validators.required],
+    });
   }
-
+  logForm(){
+    console.log(this.registrationForm.value)
+  }
 }

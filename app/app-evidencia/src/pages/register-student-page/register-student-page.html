@@ -13,7 +13,44 @@
   </ion-navbar>
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content padding class="form-register-student">
+  <form [formGroup]="registrationForm" (ngSubmit)="logForm()">
+      <ion-item>
+        <ion-label floating>Nome</ion-label>
+        <ion-input type="text" formControlName="Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Idade</ion-label>
+        <ion-input type="number" formControlName="Age"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" formControlName="Email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Rua</ion-label>
+        <ion-input type="text" formControlName="Street"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Cidade</ion-label>
+        <ion-input type="text" formControlName="City"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Estado</ion-label>
+        <ion-input type="text" formControlName="State"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Sobre</ion-label>
+        <ion-input type="text" formControlName="About"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Login</ion-label>
+        <ion-input type="text" formControlName="Login"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Senha</ion-label>
+        <ion-input type="password" formControlName="Password"></ion-input>
+      </ion-item>
+      <button ion-button padding full color="secondary" [disabled]="!registrationForm.valid">Criar conta</button>
+    </form>
 </ion-content>
