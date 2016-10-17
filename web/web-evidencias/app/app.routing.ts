@@ -1,13 +1,17 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home/home.component'; //import home components
-import { AboutComponent } from './about/about.component'; //import about component
+import { ProblemListComponent } from './problem/list.component';
+import { ProjectListComponent } from './project/list.component';
+import { UserEditComponent } from './user/edit.component';
+import { EnterpriseEditComponent } from './enterprise/edit.component';
 
 const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: '', component: HomeComponent, pathMatch: 'full'} // redirect to home page on load
+  { path: 'problem-list', component: ProblemListComponent },
+  { path: 'project-list', component: ProjectListComponent },
+  { path: 'user-edit', component: ProjectListComponent },
+  { path: 'enterprise-edit', component: EnterpriseEditComponent },
+  { path: '', component: ProblemListComponent, pathMatch: 'full'} 
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
