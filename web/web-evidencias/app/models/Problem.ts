@@ -2,7 +2,7 @@ import {Model} from './model';
 import {Project} from './Project';
 
 export class Problem extends Model {
-    id: number;
+    _id: string;
     Name:string;
     Description: string;
     Questions: [string];
@@ -14,5 +14,5 @@ export class Problem extends Model {
     }];
            
 
-    attributeNames: string[] = ['id', 'Name', 'Description', 'Question', 'Categories', 'Registrations'];
+    attributeNames: string[] = ['_id', 'Name', 'Description', 'Question', 'Categories', 'Registrations'];
 }

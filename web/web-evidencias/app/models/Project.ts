@@ -2,7 +2,7 @@ import {Model} from './model';
 import {User} from './User';
 
 export class Project extends Model {
-    id: number;
+    _id: string;
     Name: string;
     Description: string;
     Status: string
@@ -12,5 +12,5 @@ export class Project extends Model {
     Team: [User];
            
 
-    attributeNames: string[] = ['id', 'Name', 'Description', 'Status', 'RegistrationsDate', 'Cost', 'Categories', 'Team'];
+    attributeNames: string[] = ['_id', 'Name', 'Description', 'Status', 'RegistrationsDate', 'Cost', 'Categories', 'Team'];
 }

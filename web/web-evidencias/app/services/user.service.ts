@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { User } from '../models/User';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
   
   private url: string = 'http://localhost:8080/user/';
   private users: User[] = [];
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) {}
     
@@ -27,13 +29,13 @@ export class UserService {
 
   post(user) {
     return this.http
-      .post(this.url, JSON.stringify(user))
+      .post(this.url, JSON.stringify(user), { headers: this.headers })
       .map(res => res.json());
   }
 
-  getById(id) {
-    return this.http.get(this.url + '/${id}')
-      .map(res => res.json());
+  getById(id) : Observable<User> {
+    return this.http.get(this.url + id)
+      .map(res => <User> res.json());
   }
 
   put(users) {

@@ -2,7 +2,7 @@ import {Model} from './model';
 import {Problem} from './Problem';
 
 export class Enterprise extends Model {
-    id: number;
+    _id: string;
     CNPJ:string;
     Name: string;
     Login: string;
@@ -14,6 +14,6 @@ export class Enterprise extends Model {
     Problems: [Problem];
            
 
-    attributeNames: string[] = ['id', 'CNPJ', 'Name', 'Login', 'Password', 'Description', 'RegistationDate', 
+    attributeNames: string[] = ['_id', 'CNPJ', 'Name', 'Login', 'Password', 'Description', 'RegistationDate', 
     'Categories', 'WebSite', 'Problems'];
 }

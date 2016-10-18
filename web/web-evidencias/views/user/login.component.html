@@ -1,0 +1,15 @@
+<div *ngIf="!submitted">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="Login">Usuário</label>
+            <input type="text" class="form-control" formControlName="Login" />
+            <div class="alert alert-danger" [hidden]="userForm.controls.Login.valid">O usuário é obrigatório</div>
+        </div>
+        <div class="form-group">
+            <label for="Password">Senha</label>
+            <input type="password" class="form-control" formControlName="Password" />
+            <div class="alert alert-danger" [hidden]="userForm.controls.Password.valid">A senha é obrigatória</div>
+        </div>
+        <button type="submit" class="btn btn-default form-control" [disabled]="!userForm.valid">Login</button> 
+    </form>  
+</div>

@@ -28,3 +28,4 @@ export class EnterpriseEditComponent implements OnInit {
 	        	return this._service.getById(id);
       		});*/
     }
+}
