@@ -1,10 +1,12 @@
 var mongoose = require('mongoose');
+var util = require('util.js');
 
 var api = {}
 var model = mongoose.model('Problem');
 
 api.get = function(req, res) {  
-   model.find({})
+	res = util.setResponse(res);
+	model.find({})
 
    .then(function(problems){
        res.json(problems);
@@ -15,6 +17,7 @@ api.get = function(req, res) {
 };
 
 api.getById = function(req, res) {
+	res = util.setResponse(res);
     model.findById(req.params.id)
     .then(function(problem){
       if(!problem) throw Error('Problema não encontrado')
@@ -26,6 +29,7 @@ api.getById = function(req, res) {
 };
 
 api.delete = function(req, res) {
+	res = util.setResponse(res);
     model.remove({_id : req.params.id})
     .then(function(){
         res.sendStatus(204);
@@ -36,6 +40,7 @@ api.delete = function(req, res) {
 };
 
 api.post = function(req, res){
+	res = util.setResponse(res);
     var problem = req.body;
 
     model.create(problem)

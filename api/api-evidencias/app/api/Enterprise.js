@@ -1,21 +1,24 @@
 var mongoose = require('mongoose');
+var util = require('util.js');
 
 var api = {}
 var model = mongoose.model('Enterprise');
 
 api.get = function(req, res) {  
-   model.find({})
+	res = util.setResponse(res);
+	model.find({})
 
-   .then(function(enterprises){
-       res.json(enterprises);
-   }, function(error){
-       console.log(error);
-       res.status(500).json(error);
-   });  
+	.then(function(enterprises){
+		res.json(enterprises);
+	}, function(error){
+		console.log(error);
+		res.status(500).json(error);
+	});  
 };
 
 api.getById = function(req, res) {
-    model.findById(req.params.id)
+    res = util.setResponse(res);
+	model.findById(req.params.id)
     .then(function(enterprise){
       if(!enterprise) throw Error('Empresa não encontrado')
         res.json(enterprise);      
@@ -26,7 +29,8 @@ api.getById = function(req, res) {
 };
 
 api.delete = function(req, res) {
-    model.remove({_id : req.params.id})
+    res = util.setResponse(res);
+	model.remove({_id : req.params.id})
     .then(function(){
         res.sendStatus(204);
     }, function(error){
@@ -36,7 +40,8 @@ api.delete = function(req, res) {
 };
 
 api.post = function(req, res){
-    var enterprise = req.body;
+    res = util.setResponse(res);
+	var enterprise = req.body;
 
     model.create(enterprise)
     .then(function(empresa){
@@ -48,13 +53,14 @@ api.post = function(req, res){
 }
 
 api.put = function(req, res){
-     model.findByIdAndUpdate(req.params.id, req.body)
-     .then(function(){
-         res.json(enterprise);
-     }, function(error){
-        console.log(error);
-        res.status(500).json(error);
-    })
+	res = util.setResponse(res);
+	model.findByIdAndUpdate(req.params.id, req.body)
+	.then(function(){
+		res.json(enterprise);
+	}, function(error){
+		console.log(error);
+		res.status(500).json(error);
+	})
 }
 
 

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {Http} from '@angular/http';
-import {User} from '../models/User';
+import {User} from '../../models/User';
 
 @Component({
     selector: 'user-edit',
-    templateUrl: './views/user/form.component.html'
+    templateUrl: '../../../../views/user/form.component.html'
 })
 export class UserEditComponent implements OnInit {
     user: User[] = [];

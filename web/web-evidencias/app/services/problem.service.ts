@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {Problem} from '../models/Problem';
+import { Problem } from '../models/Problem';
 
 @Injectable()
 export class ProblemService {
   
   private url: string = 'http://localhost:8080/problem/';
+  private problems: Problem[] = [];
 
-  constructor(http: Http) {
-    this._http = http;
-  }
-
+  constructor(private http: Http) {}
+    
   get() {
-    problems: Problem[] = [];
     this.http.get(this.url)
         .map(res => res.json())
         .subscribe(
@@ -24,23 +22,23 @@ export class ProblemService {
           });
         }
     );
-    return problems;
+    return this.problems;
   }
 
   post(problem) {
-    return this._http
-      .post(url, JSON.stringify(problem))
+    return this.http
+      .post(this.url, JSON.stringify(problem))
       .map(res => res.json());
   }
 
-  get(id) {
-    return this._http.get(url + '/${id}')
+  getById(id) {
+    return this.http.get(this.url + '/${id}')
       .map(res => res.json());
   }
 
   put(problem) {
-    return this._http
-      .post(url + '/${problem.id}', JSON.stringify(problem))
+    return this.http
+      .post(this.url + '/${problem.id}', JSON.stringify(problem))
       .map(res => res.json());
   }
 }
