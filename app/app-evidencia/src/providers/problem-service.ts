@@ -29,7 +29,7 @@ export class ProblemService {
 
   public get() : any{
     //console.log(this.baseService.get("https://randomuser.me/api/?results=10"));
-    return this.baseService.get("http://localhost:3000/problem").map(res => <Array<Problem>>(res.json()));
+    return this.baseService.get("http://localhost:3000/problem").map(res => (res.json()));
     //console.log(res);
   }
   public post(problem: Problem){

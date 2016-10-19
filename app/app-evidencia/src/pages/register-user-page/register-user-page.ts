@@ -33,11 +33,11 @@ private listUsers : Array<User>;
     console.log(user);
     console.log(JSON.stringify(user));
 
-    userService.post(user);
+    userService.post(user);*/
     userService.get().subscribe(x =>
       {this.listUsers = x;
         console.log(this.listUsers);
-      });*/
+      });
 
   }
 
@@ -56,6 +56,21 @@ private listUsers : Array<User>;
     });
   }
   logForm(){
-    console.log(this.registrationForm.value)
+    console.log(this.registrationForm.value);
+    let user = new User();
+    user.Name = this.registrationForm.value.Name;
+    user.Age = this.registrationForm.value.Age;
+    user.Email = this.registrationForm.value.Email;
+    user.City = this.registrationForm.value.City;
+    user.State = this.registrationForm.value.State;
+    user.Street = this.registrationForm.value.Street;
+    user.About = this.registrationForm.value.About;
+    user.Login = this.registrationForm.value.Login;
+    user.Password = this.registrationForm.value.Password;
+    this.userService.post(user);
+    this.registrationForm.clear();
   }
+
+
+
 }

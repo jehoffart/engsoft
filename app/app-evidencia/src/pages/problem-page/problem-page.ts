@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import {ProblemService} from '../../providers/problem-service';
+import {BaseService} from '../../providers/base-service';
 /*
   Generated class for the ProblemPage page.
 
@@ -9,11 +10,14 @@ import { NavController } from 'ionic-angular';
 */
 @Component({
   selector: 'page-problem-page',
-  templateUrl: 'problem-page.html'
+  templateUrl: 'problem-page.html',
+  providers: [ProblemService,BaseService]
 })
 export class ProblemPage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, private problemService : ProblemService) {
+
+  }
 
   ionViewDidLoad() {
     console.log('Hello ProblemPage Page');

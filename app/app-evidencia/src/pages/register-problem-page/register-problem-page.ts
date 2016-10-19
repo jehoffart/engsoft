@@ -15,7 +15,13 @@ export class RegisterProblemPage {
 
 public registrationForm:any;
 
-  constructor(public navCtrl: NavController, private formBuilder: FormBuilder, private problemService: ProblemService) {}
+  constructor(public navCtrl: NavController, private formBuilder: FormBuilder, private problemService: ProblemService) {
+    console.log("Register problem");
+    problemService.get().subscribe(res => {
+      console.log("subscribe");
+      console.log(res);
+    });
+  }
 
   ionViewDidLoad() {
     this.registrationForm = this.formBuilder.group({
@@ -26,7 +32,13 @@ public registrationForm:any;
     });
   }
   logForm(){
-    console.log(this.registrationForm.value)
+    console.log(this.registrationForm.value);
+    let problem = new Problem();
+    problem.Name = this.registrationForm.value.Name;
+    problem.Description = this.registrationForm.value.Description;
+    problem.MaxCost = this.registrationForm.value.MaxCost;
+    problem.Categories = this.registrationForm.value.Categories;
+    this.problemService.post(problem);
   }
 
 }
