@@ -8,6 +8,7 @@ import { ProjectPage } from '../pages/project-page/project-page';
 import { RegisterUserPage } from '../pages/register-user-page/register-user-page';
 import { RegisterEnterprisePage } from '../pages/register-enterprise-page/register-enterprise-page';
 import { LoginPage } from '../pages/login-page/login-page';
+import { RegisterProblemPage } from '../pages/register-problem-page/register-problem-page';
 
 @Component({
   templateUrl: 'app.html'
@@ -28,7 +29,8 @@ export class MyApp {
       { title: 'Meus Projetos', component: ProjectPage },
       { title: 'Cadastro Aluno', component: RegisterUserPage },
       { title: 'Cadastro Empresa', component: RegisterEnterprisePage },
-      { title: 'Login', component: LoginPage }
+      { title: 'Login', component: LoginPage },
+      { title: 'Cadastro de Problema', component: RegisterProblemPage }
     ];
 
   }

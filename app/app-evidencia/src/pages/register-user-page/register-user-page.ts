@@ -28,8 +28,8 @@ public registrationForm:any;
     user.RegistrationDate = "2016-10-15T22:02:08.107Z";
     console.log(user);
     console.log(JSON.stringify(user));
-    userService.post(user);
-    userService.get();
+    //userService.post(user);
+    //userService.get();
   }
 
   ionViewDidLoad() {

@@ -33,7 +33,7 @@ export class UserService {
   public post(user: User){
     return  this.baseService.post("http://localhost:3000/user",JSON.stringify(user)).subscribe(res => {
       console.log(res);
-    });;
+    });
   }
 
   public put(user){
