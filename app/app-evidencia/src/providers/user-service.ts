@@ -4,6 +4,8 @@ import { Http } from '@angular/http';
 import { BaseService } from './base-service';
 import 'rxjs/add/operator/map';
 
+import {User} from '../models/User'
+
 @Component({
   providers: [BaseService]
 })
@@ -22,11 +24,16 @@ export class UserService {
   }
 
   public get(){
-    console.log(this.baseService.get("https://randomuser.me/api/?results=10"));
+    //console.log(this.baseService.get("https://randomuser.me/api/?results=10"));
+    this.baseService.get("http://localhost:3000/user").map(res => res.json()).subscribe(res => {
+      console.log(res);
+    });
     //console.log(res);
   }
-  public post(user){
-
+  public post(user: User){
+    return  this.baseService.post("http://localhost:3000/user",JSON.stringify(user)).subscribe(res => {
+      console.log(res);
+    });;
   }
 
   public put(user){
