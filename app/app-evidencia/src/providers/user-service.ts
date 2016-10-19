@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 import { BaseService } from './base-service';
 import 'rxjs/add/operator/map';
 
-import {User} from '../models/User'
+import {User} from '../models/User';
 
 @Component({
   providers: [BaseService]
@@ -20,7 +20,7 @@ export class UserService {
   }
 
   public getById(id) : any{
-    return this.baseService.get("http://localhost:3000/user/" + id).map(res => <User>(res.json()));
+    return this.baseService.get("http://localhost:3000/user/:" + id).map(res => <User>(res.json()));
   }
 
   public get() : any{
@@ -34,11 +34,17 @@ export class UserService {
     });
   }
 
-  public put(user){
-
+  public put(user:User, id) : any{
+      return this.baseService.put("http://localhost:3000/user/:" + id,user).subscribe(res => {
+        console.log(res);
+      });
   }
 
-  public delete(id:any){
-
+  public delete(id:any) : any{
+      return this.baseService.delete("http://localhost:3000/user/:" + id).subscribe(res => {
+        console.log(res);
+      });
   }
+
+
 }

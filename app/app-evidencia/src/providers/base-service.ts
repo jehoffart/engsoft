@@ -27,10 +27,10 @@ constructor(private http:Http){}
     }
 
     public put(url:string, data:any) : any{
-
+        return this.http.put(url,data).map(res => res.json());
     }
 
-    public delete(url:string, data:any) : any{
-
+    public delete(url:string) : any{
+        return this.http.delete(url).map(res => res.json());
     }
 }
