@@ -15,7 +15,9 @@ export class RegisterProjectPage {
 
 public registrationForm:any;
 
-  constructor(public navCtrl: NavController, private formBuilder: FormBuilder, private projectService: ProjectService) {}
+  constructor(public navCtrl: NavController, private formBuilder: FormBuilder, private projectService: ProjectService) {
+    this.projectService.get().subscribe(res => {console.log(res)});
+  }
 
   ionViewDidLoad() {
     this.registrationForm = this.formBuilder.group({
@@ -29,6 +31,14 @@ public registrationForm:any;
     });
   }
   logForm(){
-    console.log(this.registrationForm.value)
+    console.log(this.registrationForm.value);
+    let project = new Project();
+    project.Name = this.registrationForm.value.Name;
+    project.Description = this.registrationForm.value.Description;
+    project.Status = this.registrationForm.value.Status;
+    project.Cost = this.registrationForm.value.Cost;
+    project.Categories = this.registrationForm.value.Cost;
+    this.projectService.post(project);
+
   }
 }
