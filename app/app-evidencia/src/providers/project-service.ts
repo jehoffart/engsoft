@@ -20,39 +20,42 @@ import {User} from '../models/User';
 @Injectable()
 export class ProjectService {
 
+  private baseUrl: string;
+
   constructor(public http: Http, private baseService: BaseService) {
     console.log('Hello ProjectService Provider');
+    this.baseUrl = "http://localhost:3000/project/";
   }
 
   public getById(id) : any{
-    return this.baseService.get("http://localhost:3000/project/" + id).map(res => <Project>(res.json()));
+    return this.baseService.get(this.baseUrl + id).map(res => <Project>(res.json()));
   }
 
   public get() : any{
     //console.log(this.baseService.get("https://randomuser.me/api/?results=10"));
-    return this.baseService.get("http://localhost:3000/project").map(res => <Array<Project>>(res.json()));
+    return this.baseService.get(this.baseUrl).map(res => <Array<Project>>(res.json()));
     //console.log(res);
   }
   public post(project: Project){
-    return  this.baseService.post("http://localhost:3000/project",(project)).subscribe(res => {
+    return  this.baseService.post(this.baseUrl,(project)).subscribe(res => {
       console.log(res);
     });
   }
 
   public put(project:Project, id) : any{
-      return this.baseService.put("http://localhost:3000/project/" + id,project).subscribe(res => {
+      return this.baseService.put(this.baseUrl + id,project).subscribe(res => {
         console.log(res);
       });
   }
 
   public delete(id:any) : any{
-      return this.baseService.delete("http://localhost:3000/project/" + id).subscribe(res => {
+      return this.baseService.delete(this.baseUrl + id).subscribe(res => {
         console.log(res);
       });
   }
 
   public getUsers(id) : any{
-    return this.baseService.get("http://localhost:3000/project/findbyuser/" + id).map(res => <Array<Project>>(res.json));
+    return this.baseService.get(this.baseUrl + id).map(res => <Array<Project>>(res.json));
   }
 
 }
