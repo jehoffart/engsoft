@@ -1,5 +1,6 @@
 export class Problem{
 
+    public _id : string;
     public Name : string;
     public Description : string;
     public Questions : string;

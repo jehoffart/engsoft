@@ -1,6 +1,7 @@
 import{ Problem } from './Problem';
 export class Enterprise{
 
+public _id : string;
   public CNPJ : string;
   public Name : string;
   public Login : string;

@@ -14,11 +14,12 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Problemas</h3>
-
-  <p>
-        Aqui vai a listagem de problemas malucos.
-   </p>
+  <ion-list>
+    <button ion-item *ngFor="let problem of problems" (click)="goToDetails(problem._id)">
+      <h2>{{ problem.Name }}</h2>
+      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-right></ion-icon>
+    </button>
+  </ion-list>
 
   <button ion-button secondary menuToggle>Toggle Menu</button>
 </ion-content>

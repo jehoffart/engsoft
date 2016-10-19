@@ -10,6 +10,7 @@ import { RegisterEnterprisePage } from '../pages/register-enterprise-page/regist
 import { LoginPage } from '../pages/login-page/login-page';
 import { RegisterProblemPage } from '../pages/register-problem-page/register-problem-page';
 import { RegisterProjectPage } from '../pages/register-project-page/register-project-page';
+import {ProblemDetails} from '../pages/problem-details/problem-details';
 
 @Component({
   templateUrl: 'app.html'
@@ -32,7 +33,8 @@ export class MyApp {
       { title: 'Cadastro Empresa', component: RegisterEnterprisePage },
       { title: 'Login', component: LoginPage },
       { title: 'Cadastro de Problema', component: RegisterProblemPage },
-      { title: 'Cadastro de Projeto', component: RegisterProjectPage }
+      { title: 'Cadastro de Projeto', component: RegisterProjectPage },
+      {title: 'Detalhes do problema', component : ProblemDetails}
     ];
 
   }
