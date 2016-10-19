@@ -25,7 +25,7 @@ export class ProjectService {
   }
 
   public getById(id) : any{
-    return this.baseService.get("http://localhost:3000/project/:" + id).map(res => <Project>(res.json()));
+    return this.baseService.get("http://localhost:3000/project/" + id).map(res => <Project>(res.json()));
   }
 
   public get() : any{
@@ -40,19 +40,19 @@ export class ProjectService {
   }
 
   public put(project:Project, id) : any{
-      return this.baseService.put("http://localhost:3000/project/:" + id,project).subscribe(res => {
+      return this.baseService.put("http://localhost:3000/project/" + id,project).subscribe(res => {
         console.log(res);
       });
   }
 
   public delete(id:any) : any{
-      return this.baseService.delete("http://localhost:3000/project/:" + id).subscribe(res => {
+      return this.baseService.delete("http://localhost:3000/project/" + id).subscribe(res => {
         console.log(res);
       });
   }
 
   public getUsers(id) : any{
-    return this.baseService.get("http://localhost:3000/project/findbyuser/:" + id).map(res => <Array<Project>>(res.json));
+    return this.baseService.get("http://localhost:3000/project/findbyuser/" + id).map(res => <Array<Project>>(res.json));
   }
 
 }

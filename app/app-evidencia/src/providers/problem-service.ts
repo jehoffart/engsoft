@@ -24,7 +24,7 @@ export class ProblemService {
   }
 
   public getById(id) : any{
-    return this.baseService.get("http://localhost:3000/problem/:" + id).map(res => <Problem>(res.json()));
+    return this.baseService.get("http://localhost:3000/problem/" + id).map(res => <Problem>(res.json()));
   }
 
   public get() : any{
@@ -39,19 +39,19 @@ export class ProblemService {
   }
 
   public registerProject(id,project : Project ) : any{
-    return this.baseService.post("http://localhost:3000/problem/newRegistration/:" + id, project).subscribe(res => {
+    return this.baseService.post("http://localhost:3000/problem/newRegistration/" + id, project).subscribe(res => {
       console.log(res);
     });
   }
 
   public put(problem:Problem, id) : any{
-      return this.baseService.put("http://localhost:3000/problem/:" + id,problem).subscribe(res => {
+      return this.baseService.put("http://localhost:3000/problem/" + id,problem).subscribe(res => {
         console.log(res);
       });
   }
 
   public delete(id:any) : any{
-      return this.baseService.delete("http://localhost:3000/problem/:" + id).subscribe(res => {
+      return this.baseService.delete("http://localhost:3000/problem/" + id).subscribe(res => {
         console.log(res);
       });
   }

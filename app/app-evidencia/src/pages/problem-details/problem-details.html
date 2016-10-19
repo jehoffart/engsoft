@@ -7,12 +7,34 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>problem-details</ion-title>
+    <ion-title>Detalhes do problema</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <h3>Detalhes do {{problem.Name}}</h3>
+  <ion-list>
+    <ion-item>
+      <ion-label>Nome</ion-label>
+      <ion-badge item-right>{{problem.Name}}</ion-badge>
+    </ion-item>
+     <ion-item>
+      <ion-label>Descrição</ion-label>
+      <ion-badge item-right>{{problem.Description}}</ion-badge>
+    </ion-item>
+     <ion-item>
+      <ion-label>Custo maximo</ion-label>
+      <ion-badge item-right>{{problem.MaxCost}}</ion-badge>
+    </ion-item>
+     <ion-item>
+      <ion-label>Categorias</ion-label>
+      <ion-badge item-right>{{problem.Categories}}</ion-badge>
+    </ion-item>
+    <ion-item>
+     <ion-label>Resgistrados</ion-label>
+     <ion-badge item-right>{{problem.Registrations}}</ion-badge>
+   </ion-item>
+  </ion-list>
 </ion-content>

@@ -23,6 +23,8 @@ export class ProblemDetails {
   constructor(public navCtrl: NavController, private navParams : NavParams, private problemService : ProblemService) {
     this.id = navParams.get("_id");
     console.log(this.id);
+    this.problem = new Problem();
+    
     this.problemService.getById(this.id).subscribe(res => {
         this.problem = res;
     })

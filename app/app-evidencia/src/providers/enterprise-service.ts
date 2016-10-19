@@ -17,7 +17,7 @@ export class EnterpriseService {
     console.log('Hello EnterpriseService Provider');
   }
   public getById(id) : any{
-    return this.baseService.get("http://localhost:3000/enterprise/:" + id).map(res => <Enterprise>(res.json()));
+    return this.baseService.get("http://localhost:3000/enterprise/" + id).map(res => <Enterprise>(res.json()));
   }
 
   public get() : any{
@@ -32,13 +32,13 @@ export class EnterpriseService {
   }
 
   public put(enterprise:Enterprise, id) : any{
-      return this.baseService.put("http://localhost:3000/enterprise/:" + id,enterprise).subscribe(res => {
+      return this.baseService.put("http://localhost:3000/enterprise/" + id,enterprise).subscribe(res => {
         console.log(res);
       });
   }
 
   public delete(id:any) : any{
-      return this.baseService.delete("http://localhost:3000/enterprise/:" + id).subscribe(res => {
+      return this.baseService.delete("http://localhost:3000/enterprise/" + id).subscribe(res => {
         console.log(res);
       });
   }
