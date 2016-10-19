@@ -9,7 +9,7 @@ import { RegisterUserPage } from '../pages/register-user-page/register-user-page
 import { RegisterEnterprisePage } from '../pages/register-enterprise-page/register-enterprise-page';
 import { LoginPage } from '../pages/login-page/login-page';
 import { RegisterProblemPage } from '../pages/register-problem-page/register-problem-page';
-
+import { RegisterProjectPage } from '../pages/register-project-page/register-project-page';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { RegisterProblemPage } from '../pages/register-problem-page/register-pro
     RegisterUserPage,
     RegisterEnterprisePage,
     LoginPage,
-    RegisterProblemPage
+    RegisterProblemPage,
+    RegisterProjectPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -32,7 +33,8 @@ import { RegisterProblemPage } from '../pages/register-problem-page/register-pro
     RegisterUserPage,
     RegisterEnterprisePage,
     LoginPage,
-    RegisterProblemPage
+    RegisterProblemPage,
+    RegisterProjectPage
   ],
   providers: []
 })

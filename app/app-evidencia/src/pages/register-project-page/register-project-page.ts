@@ -1,22 +1,34 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {Validators, FormBuilder } from '@angular/forms';
+import{ ProjectService } from '../../providers/project-service';
+import {BaseService} from '../../providers/base-service';
 
-/*
-  Generated class for the RegisterProjectPage page.
+import{ Project } from '../../models/Project';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-register-project-page',
-  templateUrl: 'register-project-page.html'
+  templateUrl: 'register-project-page.html',
+  providers: [ProjectService, BaseService]
 })
 export class RegisterProjectPage {
 
-  constructor(public navCtrl: NavController) {}
+public registrationForm:any;
+
+  constructor(public navCtrl: NavController, private formBuilder: FormBuilder, private projectService: ProjectService) {}
 
   ionViewDidLoad() {
-    console.log('Hello RegisterProjectPage Page');
+    this.registrationForm = this.formBuilder.group({
+      Name: ['', Validators.required],
+      Description: ['',Validators.required],
+      Status: ['',Validators.required],
+      RegistrationDate: [new Date()],
+      Cost: ['', Validators.required],
+      Categories: [''],
+      Team: ['']
+    });
   }
-
+  logForm(){
+    console.log(this.registrationForm.value)
+  }
 }
