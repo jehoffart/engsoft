@@ -1,7 +1,7 @@
 export class User{
 
   public Name : string;
-  public Age : string;
+  public Age : number;
   public Email : string;
   public City : string;
   public State : string;
@@ -10,5 +10,5 @@ export class User{
   public Login : string;
   public Password : string;
   public RegistrationDate : string;
-  
+
 }

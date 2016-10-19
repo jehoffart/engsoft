@@ -15,21 +15,30 @@ export class RegisterUserPage {
 
 public registrationForm:any;
 
+private listUsers : Array<User>;
+
   constructor(private formBuilder: FormBuilder, private userService: UserService) {
-    var user = new User();
+    /*var user = new User();
     user.Name = "Guilherme Dimarchi";
-    user.Age = "22";
+    user.Age = 22;
     user.Email = "gui@gui.com";
     user.City = "Sorocaba";
     user.State = "SP";
     user.Street = "Rua x";
     user.About = "Descricao/curriculo";
+    user.Login = "guilhermedimarchi3";
     user.Password =  "senhacriptografada";
     user.RegistrationDate = "2016-10-15T22:02:08.107Z";
+
     console.log(user);
     console.log(JSON.stringify(user));
-    //userService.post(user);
-    //userService.get();
+
+    userService.post(user);
+    userService.get().subscribe(x =>
+      {this.listUsers = x;
+        console.log(this.listUsers);
+      });*/
+
   }
 
   ionViewDidLoad() {
