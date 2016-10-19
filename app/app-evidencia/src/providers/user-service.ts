@@ -19,19 +19,17 @@ export class UserService {
     console.log('Hello UserService Provider');
   }
 
-  public getById(id){
-
+  public getById(id) : any{
+    return this.baseService.get("http://localhost:3000/user/" + id).map(res => <User>(res.json()));
   }
 
-  public get(){
+  public get() : any{
     //console.log(this.baseService.get("https://randomuser.me/api/?results=10"));
-    this.baseService.get("http://localhost:3000/user").map(res => res.json()).subscribe(res => {
-      console.log(res);
-    });
+    return this.baseService.get("http://localhost:3000/user").map(res => <Array<User>>(res.json()));
     //console.log(res);
   }
   public post(user: User){
-    return  this.baseService.post("http://localhost:3000/user",JSON.stringify(user)).subscribe(res => {
+    return  this.baseService.post("http://localhost:3000/user",(user)).subscribe(res => {
       console.log(res);
     });;
   }
