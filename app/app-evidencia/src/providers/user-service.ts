@@ -12,10 +12,12 @@ export class UserService {
   private baseUrl: string;
 
   private url:string;
+  private urlAuth:string;
 
   constructor(public http: Http, private baseService: BaseService) {
     console.log('Hello UserService Provider');
     this.baseUrl = "http://localhost:3000/user/";
+    this.urlAuth = "http://localhost:3000/auth";
   }
 
   public getById(id) : any{
@@ -43,6 +45,12 @@ export class UserService {
       return this.baseService.delete(this.baseUrl + id).subscribe(res => {
         console.log(res);
       });
+  }
+
+  public auth(user:User){
+    return  this.baseService.post(this.urlAuth,(user)).subscribe(res => {
+      console.log(res);
+    });
   }
 
 
