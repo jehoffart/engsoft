@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
+import { StatusBar, Toast } from 'ionic-native';
 
 //pages
 import { ProblemPage } from '../pages/problem-page/problem-page';
@@ -19,11 +19,13 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = ProblemPage;
+  window: any;
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform) {
     this.initializeApp();
+    this.platform = platform;
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -52,4 +54,12 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
+  showToast(message, position) {
+    console.log("Exibir Toast com as msgs" + message + ' ' + position);
+        this.platform.ready().then(() => {
+            this.window.plugins.toast.show(message, "short", position);
+        });
+    }
+
 }

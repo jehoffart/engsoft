@@ -55,20 +55,11 @@ private listUsers : Array<User>;
       RegistrationDate: [new Date()]
     });
   }
-  logForm(){
+  save(){
     console.log(this.registrationForm.value);
-    let user = new User();
-    user.Name = this.registrationForm.value.Name;
-    user.Age = this.registrationForm.value.Age;
-    user.Email = this.registrationForm.value.Email;
-    user.City = this.registrationForm.value.City;
-    user.State = this.registrationForm.value.State;
-    user.Street = this.registrationForm.value.Street;
-    user.About = this.registrationForm.value.About;
-    user.Login = this.registrationForm.value.Login;
-    user.Password = this.registrationForm.value.Password;
+    let user = <User> this.registrationForm.value;
     this.userService.post(user);
-    this.registrationForm.clear();
+    this.registrationForm.reset();
   }
 
 

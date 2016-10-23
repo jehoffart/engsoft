@@ -14,7 +14,7 @@
 </ion-header>
 
 <ion-content padding class="form-register-user">
-  <form [formGroup]="registrationForm" (ngSubmit)="logForm()">
+  <form [formGroup]="registrationForm" (ngSubmit)="save()">
       <ion-item>
         <ion-label floating>Nome</ion-label>
         <ion-input type="text" formControlName="Name"></ion-input>

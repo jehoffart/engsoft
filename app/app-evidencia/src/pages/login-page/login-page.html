@@ -14,7 +14,7 @@
 </ion-header>
 
 <ion-content padding class="form-login">
-  <form [formGroup]="registrationForm" (ngSubmit)="logForm()">
+  <form [formGroup]="registrationForm" (ngSubmit)="authentication()">
       <ion-item>
         <ion-label floating>Login</ion-label>
         <ion-input type="text" formControlName="Login"></ion-input>
@@ -25,4 +25,5 @@
       </ion-item>
       <button ion-button padding full color="secondary" [disabled]="!registrationForm.valid">Entrar</button>
     </form>
+    <button ion-button (click)="showToast('Hello World', 'top')">Hello Word</button>
 </ion-content>
