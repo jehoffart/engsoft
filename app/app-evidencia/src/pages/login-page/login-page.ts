@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import {Validators, FormBuilder } from '@angular/forms';
 import { Toast } from 'ionic-native';
 import { User } from '../../models/User';

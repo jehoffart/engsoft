@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar, Toast } from 'ionic-native';
+import { StatusBar } from 'ionic-native';
 
 //pages
 import { ProblemPage } from '../pages/problem-page/problem-page';
@@ -54,12 +54,5 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
-
-  showToast(message, position) {
-    console.log("Exibir Toast com as msgs" + message + ' ' + position);
-        this.platform.ready().then(() => {
-            this.window.plugins.toast.show(message, "short", position);
-        });
-    }
 
 }

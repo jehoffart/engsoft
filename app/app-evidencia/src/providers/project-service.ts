@@ -7,16 +7,6 @@ import 'rxjs/add/operator/map';
 import {Project} from '../models/Project';
 import {User} from '../models/User';
 
-/*
-  Generated class for the ProjectService provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
-@Component({
-  providers: [BaseService]
-})
-
 @Injectable()
 export class ProjectService {
 

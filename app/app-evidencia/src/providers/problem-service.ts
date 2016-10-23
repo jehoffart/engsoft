@@ -6,15 +6,6 @@ import 'rxjs/add/operator/map';
 
 import {Problem} from '../models/Problem';
 import {Project} from '../models/Project';
-/*
-  Generated class for the ProblemService provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
-@Component({
-  providers: [BaseService]
-})
 
 @Injectable()
 export class ProblemService {

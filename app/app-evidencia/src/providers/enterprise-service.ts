@@ -6,10 +6,6 @@ import 'rxjs/add/operator/map';
 
 import {Enterprise} from '../models/Enterprise';
 
-@Component({
-  providers: [BaseService]
-})
-
 @Injectable()
 export class EnterpriseService {
 

@@ -6,10 +6,6 @@ import 'rxjs/add/operator/map';
 
 import {User} from '../models/User';
 
-@Component({
-  providers: [BaseService]
-})
-
 @Injectable()
 export class UserService {
 
