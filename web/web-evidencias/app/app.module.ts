@@ -1,5 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { DataTableModule } from "angular2-datatable";
 
 import { AppComponent }   from './app.component';
 
@@ -29,14 +30,14 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, ReactiveFormsModule, routing, HttpModule ], //other modules the app depends on
+  imports:      [ BrowserModule, FormsModule, ReactiveFormsModule, routing, HttpModule, DataTableModule ], 
   declarations: [ AppComponent, 
 				ProblemListComponent, ProblemCreateComponent, ProblemEditComponent, ProblemShowComponent,
 				ProjectListComponent, ProjectCreateComponent, ProjectEditComponent, ProjectShowComponent,
 				EnterpriseListComponent, EnterpriseCreateComponent, EnterpriseEditComponent, EnterpriseShowComponent,
 				UserEditComponent, UserCreateComponent, UserShowComponent, 
 				LoginComponent
-  				], // declare all derectives and components
-  bootstrap : [ AppComponent ] // root component to bootstarp
+  				],
+  bootstrap : [ AppComponent ]
 })
 export class AppModule { }

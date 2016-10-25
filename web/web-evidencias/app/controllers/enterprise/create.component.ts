@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { EnterpriseService } from '../../services/enterprise.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Enterprise } from '../../models/Enterprise';
-import { Util } from '../../models/Util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -20,9 +19,8 @@ export class EnterpriseCreateComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
-                private router: Router, 
-                private util: Util) {
-
+                private router: Router) {
+      
       this.enterpriseForm = this.formBuilder.group({
           Name: ['', Validators.required],
           CNPJ: ['', Validators.required],
@@ -39,7 +37,9 @@ export class EnterpriseCreateComponent implements OnInit {
 
     onSubmit() {
       this.submitted = true;
-      this._service.post(this.enterpriseForm.value).subscribe(enterprise => 
-        this.router.navigate(['enterprise-show/' + enterprise._id]));
-    }
+      if(this.enterpriseForm.valid) {
+        this._service.post(this.enterpriseForm.value).subscribe(enterprise => 
+          this.router.navigate(['enterprise/show/' + enterprise._id]));
+        }
+      }
 }

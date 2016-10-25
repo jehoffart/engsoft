@@ -52,6 +52,9 @@ export class UserEditComponent implements OnInit {
 
     onSubmit() {
     	this.submitted = true;
-    	this._service.put(this.userForm.value).subscribe(user => this.router.navigate(['user-show/' + user._id]));
+
+      if(this.userForm.valid) {
+    	  this._service.put(this.userForm.value).subscribe(user => this.router.navigate(['user/show/' + user._id]));
+      }
 	}
 }

@@ -22,8 +22,7 @@ export class EnterpriseEditComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
-                private router: Router, 
-                private util: Util) {
+                private router: Router) {
 
       this.enterpriseForm = this.formBuilder.group({
           Name: ['', Validators.required],
@@ -52,7 +51,10 @@ export class EnterpriseEditComponent implements OnInit {
 
     onSubmit() {
       this.submitted = true;
-      this._service.post(this.enterpriseForm.value).subscribe(enterprise => 
-        this.router.navigate(['enterprise-show/' + enterprise._id]));
-    }
+
+      if(this.enterpriseForm.valid) {
+        this._service.post(this.enterpriseForm.value).subscribe(enterprise => 
+          this.router.navigate(['enterprise/show/' + enterprise._id]));
+        }
+      }
 }

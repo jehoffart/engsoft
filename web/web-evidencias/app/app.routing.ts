@@ -23,26 +23,26 @@ import { EnterpriseEditComponent } from './controllers/enterprise/edit.component
 import { EnterpriseShowComponent } from './controllers/enterprise/show.component';
 
 const appRoutes: Routes = [
-  { path: 'problem-list', component: ProblemListComponent },
-  { path: 'problem-edit/:id', component: ProblemEditComponent },
-  { path: 'problem-create', component: ProblemCreateComponent },
-  { path: 'problem-show/:id', component: ProblemShowComponent },
+  { path: 'problem', component: ProblemListComponent },
+  { path: 'problem/edit/:id', component: ProblemEditComponent },
+  { path: 'problem/create', component: ProblemCreateComponent },
+  { path: 'problem/show/:id', component: ProblemShowComponent },
   
-  { path: 'project-list', component: ProjectListComponent },
-  { path: 'project-edit/:id', component: ProjectEditComponent },
-  { path: 'project-create', component: ProjectCreateComponent },
-  { path: 'project-show/:id', component: ProjectShowComponent }, 
+  { path: 'project', component: ProjectListComponent },
+  { path: 'project/edit/:id', component: ProjectEditComponent },
+  { path: 'project/create', component: ProjectCreateComponent },
+  { path: 'project/show/:id', component: ProjectShowComponent }, 
 
-  { path: 'user-edit/:id', component: UserEditComponent },
-  { path: 'user-show/:id', component: UserShowComponent },
-  { path: 'user-create', component: UserCreateComponent },
+  { path: 'user/edit/:id', component: UserEditComponent },
+  { path: 'user/show/:id', component: UserShowComponent },
+  { path: 'user/create', component: UserCreateComponent },
  
   { path: 'login', component: LoginComponent },
  
-  { path: 'enterprise-list', component: EnterpriseListComponent },
-  { path: 'enterprise-edit/:id', component: EnterpriseEditComponent },
-  { path: 'enterprise-create', component: EnterpriseCreateComponent },
-  { path: 'enterprise-show/:id', component: EnterpriseShowComponent },
+  { path: 'enterprise', component: EnterpriseListComponent },
+  { path: 'enterprise/edit/:id', component: EnterpriseEditComponent },
+  { path: 'enterprise/create', component: EnterpriseCreateComponent },
+  { path: 'enterprise/show/:id', component: EnterpriseShowComponent },
 
   { path: '', component: ProblemListComponent, pathMatch: 'full'} 
 ];

@@ -1,49 +1,61 @@
-<div *ngIf="!submitted">
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="Name">Nome</label>
-            <input type="text" class="form-control" formControlName="Name" [(ngModel)]="model.Name" />
-            <div class="alert alert-danger" [hidden]="userForm.controls.Name.valid">O nome é obrigatório</div>
-        </div>
-        <div class="form-group">
-            <label for="Age">Idade</label>
-            <input type="text" class="form-control" formControlName="Age" [(ngModel)]="model.Age" />
-            <div class="alert alert-danger" [hidden]="userForm.controls.Age.valid">A idade é obrigatória</div>
-        </div>
-        <div class="form-group">
-            <label for="Email">E-mail</label>
-            <input type="text" class="form-control" formControlName="Email" [(ngModel)]="model.Email" />
-            <div class="alert alert-danger" [hidden]="userForm.controls.Email.valid">O e-mail é obrigatório</div>
-        </div>
-        <div class="form-group">
-            <label for="City">Cidade</label>
-            <input type="text" class="form-control" formControlName="City" [(ngModel)]="model.City" />
-            <div class="alert alert-danger" [hidden]="userForm.controls.City.valid">A cidade é obrigatória</div>
-        </div>
-        <div class="form-group">
-            <label for="State">Estado</label>
-            <input type="text" class="form-control" formControlName="State" [(ngModel)]="model.State" />
-            <div class="alert alert-danger" [hidden]="userForm.controls.State.valid">O estado é obrigatório</div>
-        </div>
-        <div class="form-group">
-            <label for="Street">Endereço</label>
-            <input type="text" class="form-control" formControlName="Street" [(ngModel)]="model.Street" />
-            <div class="alert alert-danger" [hidden]="userForm.controls.Street.valid">O endereço é obrigatória</div>
-        </div>
-        <div class="form-group">
-            <label for="About">Sobre</label>
-            <textarea rows="5" class="form-control" formControlName="About" [(ngModel)]="model.About"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="Login">Usuário</label>
-            <input type="text" class="form-control" formControlName="Login" [(ngModel)]="model.Login" />
-            <div class="alert alert-danger" [hidden]="userForm.controls.Login.valid">O usuário é obrigatório</div>
-        </div>
-        <div class="form-group">
-            <label for="Password">Senha</label>
-            <input type="text" class="form-control" formControlName="Password" [(ngModel)]="model.Password" />
-            <div class="alert alert-danger" [hidden]="userForm.controls.Password.valid">A senha é obrigatória</div>
-        </div>
-        <button type="submit" class="btn btn-default form-control" [disabled]="!userForm.valid">Login</button> 
-    </form>  
+<div class="page-header">
+    <h2>
+        Usuário
+        <a routerLink="/user/show/{{model._id}}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-eye-open"></span></a>
+    </h2>
 </div>
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="Name">Nome</label>
+        <input type="text" class="form-control" formControlName="Name" [(ngModel)]="model.Name" />
+        <div class="alert alert-danger" [hidden]="userForm.controls.Name.valid || !submitted">O nome é obrigatório</div>
+    </div>
+    <div class="form-group">
+        <label for="Age">Idade</label>
+        <input type="text" class="form-control" formControlName="Age" [(ngModel)]="model.Age" />
+        <div class="alert alert-danger" [hidden]="userForm.controls.Age.valid || !submitted">A idade é obrigatória</div>
+    </div>
+    <div class="form-group">
+        <label for="Email">E-mail</label>
+        <input type="text" class="form-control" formControlName="Email" [(ngModel)]="model.Email" />
+        <div class="alert alert-danger" [hidden]="userForm.controls.Email.valid || !submitted">O e-mail é obrigatório</div>
+    </div>
+    <div class="form-group">
+        <label for="City">Cidade</label>
+        <input type="text" class="form-control" formControlName="City" [(ngModel)]="model.City" />
+        <div class="alert alert-danger" [hidden]="userForm.controls.City.valid || !submitted">A cidade é obrigatória</div>
+    </div>
+    <div class="form-group">
+        <label for="State">Estado</label>
+        <input type="text" class="form-control" formControlName="State" [(ngModel)]="model.State" />
+        <div class="alert alert-danger" [hidden]="userForm.controls.State.valid || !submitted">O estado é obrigatório</div>
+    </div>
+    <div class="form-group">
+        <label for="Street">Endereço</label>
+        <input type="text" class="form-control" formControlName="Street" [(ngModel)]="model.Street" />
+        <div class="alert alert-danger" [hidden]="userForm.controls.Street.valid || !submitted">O endereço é obrigatória</div>
+    </div>
+    <div class="form-group">
+        <label for="About">Sobre</label>
+        <textarea rows="5" class="form-control" formControlName="About" [(ngModel)]="model.About"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Login">Usuário</label>
+        <input type="text" class="form-control" formControlName="Login" [(ngModel)]="model.Login" />
+        <div class="alert alert-danger" [hidden]="userForm.controls.Login.valid || !submitted">O usuário é obrigatório</div>
+    </div>
+    <div class="form-group">
+        <label for="Password">Senha</label>
+        <input type="text" class="form-control" formControlName="Password" [(ngModel)]="model.Password" />
+        <div class="alert alert-danger" [hidden]="userForm.controls.Password.valid || !submitted">A senha é obrigatória</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-lg-offset-3">
+            <a class="btn btn-danger form-control" routerLink="/user/show/{{model._id}}">Cancelar</a> 
+        </div>
+        <div class="col-lg-3">
+            <button type="submit" class="btn btn-success form-control">Salvar</button> 
+        </div>
+    </div>
+</form>

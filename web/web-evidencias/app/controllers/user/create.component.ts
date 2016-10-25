@@ -40,6 +40,9 @@ export class UserCreateComponent implements OnInit {
 
     onSubmit() {
       this.submitted = true;
-      this._service.post(this.userForm.value).subscribe(user => this.router.navigate(['user-show/' + user._id]));
+ 
+      if(this.userForm.valid) {
+        this._service.post(this.userForm.value).subscribe(user => this.router.navigate(['user/show/' + user._id]));
+      }
     }
 }

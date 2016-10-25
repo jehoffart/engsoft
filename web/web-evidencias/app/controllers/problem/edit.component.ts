@@ -17,19 +17,19 @@ export class ProblemEditComponent implements OnInit {
     model: Problem = new Problem();
     submitted: boolean = false;
     private subscription: Subscription;  
+    private util: Util = new Util();
 
     constructor(private _service: ProblemService, 
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
-                private router: Router, 
-                private util: Util) {
+                private router: Router) {
 
       this.problemForm = this.formBuilder.group({
           Name: ['', Validators.required],
           Description: [''],
           Status: [''],
-          MaxCost: ['', util.Coin]
+          MaxCost: ['', this.util.Coin]
       });
     }
 
@@ -50,7 +50,10 @@ export class ProblemEditComponent implements OnInit {
 
     onSubmit() {
       this.submitted = true;
-      this._service.post(this.problemForm.value).subscribe(problem => 
-        this.router.navigate(['problem-show/' + problem._id]));
-    }
+
+      if(this.problemForm.valid) {
+        this._service.post(this.problemForm.value).subscribe(problem => 
+          this.router.navigate(['problem/show/' + problem._id]));
+        }
+      }
 }

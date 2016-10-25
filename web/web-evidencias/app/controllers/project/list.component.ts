@@ -18,4 +18,8 @@ export class ProjectListComponent implements OnInit {
     	this.auth.checkCredentials();
       	this.projects = this._service.get();
     }
+
+    private sortByWordLength = (a:any) => {
+        return a.name.length;
+    }
 };

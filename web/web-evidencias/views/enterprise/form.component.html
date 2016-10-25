@@ -1,0 +1,45 @@
+<div class="page-header">
+    <h2>
+        Empresa
+        <a routerLink="/enterprise/show/{{model._id}}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-eye-open"></span></a>
+    </h2>
+</div>
+
+<form [formGroup]="enterpriseForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="Name">Nome</label>
+        <input type="text" class="form-control" formControlName="Name" [(ngModel)]="model.Name" />
+        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Name.valid || !submitted">O nome é obrigatório</div>
+    </div>
+    <div class="form-group">
+        <label for="CNPJ">CNPJ</label>
+        <input type="text" class="form-control" formControlName="CNPJ" [(ngModel)]="model.CNPJ" />
+        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.CNPJ.valid || !submitted">O CNPJ é obrigatório</div>
+    </div>
+    <div class="form-group">
+        <label for="Description">Descrição</label>
+        <textarea rows="5" class="form-control" formControlName="Description" [(ngModel)]="model.Description"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Website">Website</label>
+        <input type="text" class="form-control" formControlName="Website" [(ngModel)]="model.Website" />
+    </div>
+    <div class="form-group">
+        <label for="Login">Usuário</label>
+        <input type="text" class="form-control" formControlName="Login" [(ngModel)]="model.Login" />
+        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Login.valid || !submitted">O usuário é obrigatório</div>
+    </div>
+    <div class="form-group">
+        <label for="Password">Senha</label>
+        <input type="text" class="form-control" formControlName="Password" [(ngModel)]="model.Password" />
+        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Password.valid || !submitted">A senha é obrigatória</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-lg-offset-3">
+            <a class="btn btn-danger form-control" routerLink="/enterprise/show/{{model._id}}">Cancelar</a> 
+        </div>
+        <div class="col-lg-3">
+            <button type="submit" class="btn btn-success form-control">Salvar</button> 
+        </div>
+    </div>
+</form>

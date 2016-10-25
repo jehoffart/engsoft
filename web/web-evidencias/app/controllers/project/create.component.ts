@@ -15,19 +15,19 @@ export class ProjectCreateComponent implements OnInit {
     projectForm: FormGroup;
     model: Project = new Project();
     submitted: boolean = false;
+    private util: Util = new Util();
 
     constructor(private _service: ProjectService, 
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
-                private router: Router, 
-                private util: Util) {
+                private router: Router) {
 
       this.projectForm = this.formBuilder.group({
           Name: ['', Validators.required],
           Description: [''],
           Status: [''],
-          Cost: ['', util.Coin]
+          Cost: ['', this.util.Coin]
       });
     }
 
@@ -37,7 +37,10 @@ export class ProjectCreateComponent implements OnInit {
 
     onSubmit() {
       this.submitted = true;
-      this._service.post(this.projectForm.value).subscribe(project => 
-        this.router.navigate(['project-show/' + project._id]));
-    }
+
+      if(this.projectForm.valid) {
+        this._service.post(this.projectForm.value).subscribe(project => 
+          this.router.navigate(['project/show/' + project._id]));
+        }
+      }
 }
