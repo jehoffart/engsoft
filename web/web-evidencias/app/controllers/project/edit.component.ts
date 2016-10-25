@@ -1,37 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { EnterpriseService } from '../../services/enterprise.service';
+import {Component, OnInit } from '@angular/core';
+import { ProjectService } from '../../services/project.service';
 import { AuthenticationService } from '../../services/authentication.service';
-import { Enterprise } from '../../models/enterprise';
+import { Project } from '../../models/Project';
 import { Util } from '../../models/Util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 @Component({
-    selector: 'enterprise-edit',
-    templateUrl: '../../../../views/enterprise/form.component.html',
-    providers: [ EnterpriseService, AuthenticationService ]
+    selector: 'project-edit',
+    templateUrl: '../../../../views/project/form.component.html',
+    providers: [ ProjectService, AuthenticationService ]
 })
-export class EnterpriseEditComponent implements OnInit {
-    enterpriseForm: FormGroup;
-    model: Enterprise = new Enterprise();
+export class ProjectEditComponent implements OnInit {
+    projectForm: FormGroup;
+    model: Project = new Project();
     submitted: boolean = false;
     private subscription: Subscription;  
 
-    constructor(private _service: EnterpriseService, 
+    constructor(private _service: ProjectService, 
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
                 private router: Router, 
                 private util: Util) {
 
-      this.enterpriseForm = this.formBuilder.group({
+      this.projectForm = this.formBuilder.group({
           Name: ['', Validators.required],
-          CNPJ: ['', Validators.required],
-          Login: ['', Validators.required],
-          Password: ['', Validators.required],
           Description: [''],
-          Website: ['']
+          Status: [''],
+          Cost: ['', util.Coin]
       });
     }
 
@@ -44,7 +42,7 @@ export class EnterpriseEditComponent implements OnInit {
           var id = params['id'];
           
           if(!!id) {
-            this._service.getById(id).subscribe(enterprise => this.model = enterprise);
+            this._service.getById(id).subscribe(project => this.model = project);
           }
         }
       );
@@ -52,7 +50,7 @@ export class EnterpriseEditComponent implements OnInit {
 
     onSubmit() {
       this.submitted = true;
-      this._service.post(this.enterpriseForm.value).subscribe(enterprise => 
-        this.router.navigate(['enterprise-show/' + enterprise._id]));
+      this._service.post(this.projectForm.value).subscribe(project => 
+        this.router.navigate(['project-show/' + project._id]));
     }
 }

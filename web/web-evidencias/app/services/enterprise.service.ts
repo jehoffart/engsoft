@@ -2,18 +2,20 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Enterprise } from '../models/Enterprise';
+import { Observable } from 'rxjs/Observable';
+import { App } from './app';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class EnterpriseService {
   
-  private url: string = 'http://localhost:8080/enterprise/';
   private enterprises: Enterprise[] = [];
-  private enterprise: Enterprise;
+  private app: App = new App();
+  private url = "enterprise";
 
-  constructor(private http: Http) {}
-    
+  constructor(private http: Http) {}  
   get() {
-    this.http.get(this.url)
+    this.http.get(this.app.url + this.url)
         .map(res => res.json())
         .subscribe(
           (enterprises) => {
@@ -27,28 +29,23 @@ export class EnterpriseService {
   }
 
   post(enterprise) {
-    this.http
-      .post(this.url, JSON.stringify(enterprise))
-      .map(res => res.json()).subscribe((value: Response) => {
-        this.enterprise = <Enterprise> value.json();
-      });  
-    return this.enterprise;;
+    return this.http.post(this.app.url + this.url, JSON.stringify(enterprise), { headers: this.app.headers })
+      .map(res => res.json());
   }
 
-  getById(id) : Enterprise{
-    this.http.get(this.url + '/${id}')
-      .map(res => res.json()).subscribe((value: Response) => {
-        this.enterprise = <Enterprise> value.json();
-      });  
-    return this.enterprise;
+  getById(id) : Observable<Enterprise> {
+    return this.http.get(this.app.url + this.url + "/" + id)
+      .map(res => <Enterprise> res.json());
   }
 
   put(enterprise) {
+    return this.http
+      .put(this.app.url + this.url + enterprise._id, JSON.stringify(enterprise))
+      .map(res => <Enterprise> res.json());
+  }
+
+  delete(enterprise) {
     this.http
-      .post(this.url + '/${enterprise.id}', JSON.stringify(enterprise))
-      .map(res => res.json()).subscribe((value: Response) => {
-        this.enterprise = <Enterprise> value.json();
-      });  
-    return this.enterprise;;
+      .delete(this.app.url + this.url + enterprise._id);
   }
 }

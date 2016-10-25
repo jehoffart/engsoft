@@ -1,22 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { EnterpriseService } from '../../services/enterprise.service';
 import { AuthenticationService } from '../../services/authentication.service';
-import { Enterprise } from '../../models/enterprise';
+import { Enterprise } from '../../models/Enterprise';
 import { Util } from '../../models/Util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
 
 @Component({
-    selector: 'enterprise-edit',
+    selector: 'enterprise-create',
     templateUrl: '../../../../views/enterprise/form.component.html',
     providers: [ EnterpriseService, AuthenticationService ]
 })
-export class EnterpriseEditComponent implements OnInit {
+export class EnterpriseCreateComponent implements OnInit {
     enterpriseForm: FormGroup;
     model: Enterprise = new Enterprise();
     submitted: boolean = false;
-    private subscription: Subscription;  
 
     constructor(private _service: EnterpriseService, 
                 private formBuilder: FormBuilder,
@@ -37,17 +35,6 @@ export class EnterpriseEditComponent implements OnInit {
 
     ngOnInit() {
       this.auth.checkCredentials();
-
-
-      this.subscription = this.route.params.subscribe(
-        (params: any) => {
-          var id = params['id'];
-          
-          if(!!id) {
-            this._service.getById(id).subscribe(enterprise => this.model = enterprise);
-          }
-        }
-      );
     }
 
     onSubmit() {

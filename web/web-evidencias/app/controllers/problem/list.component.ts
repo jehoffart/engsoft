@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { Problem } from '../../models/Problem';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Problem } from '../../models/problem';
 import { ProblemService } from '../../services/problem.service';
 
 @Component({
     selector: 'problem-list',
     templateUrl: '../../../../views/problem/list.component.html',
-    providers: [ ProblemService ]
+    providers: [ ProblemService, AuthenticationService ]
 })
 export class ProblemListComponent implements OnInit {
     problems: Problem[] = [];
-        
-    constructor(private _service: ProblemService) {};
+    
+    constructor(private _service: ProblemService, 
+                private auth: AuthenticationService) {}
 
     ngOnInit() {
-    	this.problems = this._service.get();
+    	this.auth.checkCredentials();
+      	this.problems = this._service.get();
     }
 };
