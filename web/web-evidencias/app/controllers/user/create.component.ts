@@ -1,20 +1,26 @@
-import {Component, OnInit} from '@angular/core';
-import 'rxjs/add/operator/map';
+import {Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { User } from '../../models/User';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'user-edit',
+    selector: 'user-create',
     templateUrl: '../../../../views/user/form.component.html',
-    providers: [ UserService ]
+    providers: [ UserService, AuthenticationService ]
 })
 export class UserCreateComponent implements OnInit {
     userForm: FormGroup;
-    model: User;
+    model: User = new User();
     submitted: boolean = false;
 
-    constructor(private _service: UserService, private formBuilder: FormBuilder) {
+    constructor(private _service: UserService, 
+                private formBuilder: FormBuilder,
+                private auth: AuthenticationService,
+                private route: ActivatedRoute, 
+                private router: Router) {
+
       this.userForm = this.formBuilder.group({
           Name: ['', Validators.required],
           Age: ['', Validators.required],
@@ -22,16 +28,21 @@ export class UserCreateComponent implements OnInit {
           City: ['', Validators.required],
           State: ['', Validators.required],
           Street: ['', Validators.required],
-          About: ['', Validators.required],
+          About: [''],
           Login: ['', Validators.required],
           Password: ['', Validators.required]
       });
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+      this.auth.checkCredentials();
+    }
 
     onSubmit() {
       this.submitted = true;
-      this._service.post(this.userForm.value);
+ 
+      if(this.userForm.valid) {
+        this._service.post(this.userForm.value).subscribe(user => this.router.navigate(['user/show/' + user._id]));
+      }
     }
 }

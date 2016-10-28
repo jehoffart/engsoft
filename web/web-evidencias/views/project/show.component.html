@@ -1,0 +1,71 @@
+<div class="page-header">
+    <h2>
+        Projeto
+        <a routerLink="/project" class="btn btn-default btn-md"><span class="glyphicon glyphicon-th-list"></span></a>
+        <a routerLink="/project/edit/{{model._id}}" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-edit"></span></a>
+    </h2>
+</div>
+
+<div class="col-lg-12">
+	<h3>
+		<small>Nome</small>
+	</h3>
+	{{model.Name}}
+</div>
+
+<div class="col-lg-12">
+	<h3>
+		<small>Descrição</small>
+	</h3>
+	{{model.Description}}
+</div>
+
+<div class="col-lg-6">
+	<h3>
+		<small>Custo</small>
+	</h3>
+	{{model.Cost}}
+</div>
+
+<div class="col-lg-6">
+	<h3>
+		<small>Status</small>
+	</h3>
+	{{model.Status}}
+</div>
+
+<div class="col-lg-12">
+	<h3>
+		<small>Categoria</small>
+	</h3>
+	<span *ngFor="let item of model.Categories">{{item}}; </span>
+</div>
+
+<div class="col-lg-12">
+	<table class="table table-striped" [mfData]="model.Team" #mf="mfDataTable" [mfRowsOnPage]="5">
+	    <thead>
+	    <tr>
+	        <th style="width: 20%">
+	            <mfDefaultSorter by="Name">Nome</mfDefaultSorter>
+	        </th>
+	        
+	        <th style="width: 20%">
+	            <mfDefaultSorter by="Age">Idade</mfDefaultSorter>
+	        </th>
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <tr *ngFor="let item of model.Team">
+	        <td>{{item.Name}}</td>
+	        <td>{{item.Age}}</td>
+	    </tr>
+	    </tbody>
+	    <tfoot>
+	    <tr>
+	        <td colspan="4">
+	            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+	        </td>
+	    </tr>
+	    </tfoot>
+</table>
+</div>

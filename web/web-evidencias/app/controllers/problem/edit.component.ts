@@ -1,36 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { EnterpriseService } from '../../services/enterprise.service';
+import { ProblemService } from '../../services/problem.service';
 import { AuthenticationService } from '../../services/authentication.service';
-import { Enterprise } from '../../models/enterprise';
+import { Problem } from '../../models/Problem';
 import { Util } from '../../models/Util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 @Component({
-    selector: 'enterprise-edit',
-    templateUrl: '../../../../views/enterprise/form.component.html',
-    providers: [ EnterpriseService, AuthenticationService ]
+    selector: 'problem-edit',
+    templateUrl: '../../../../views/problem/form.component.html',
+    providers: [ ProblemService, AuthenticationService ]
 })
-export class EnterpriseEditComponent implements OnInit {
-    enterpriseForm: FormGroup;
-    model: Enterprise = new Enterprise();
+export class ProblemEditComponent implements OnInit {
+    problemForm: FormGroup;
+    model: Problem = new Problem();
     submitted: boolean = false;
     private subscription: Subscription;  
+    private util: Util = new Util();
 
-    constructor(private _service: EnterpriseService, 
+    constructor(private _service: ProblemService, 
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
                 private router: Router) {
 
-      this.enterpriseForm = this.formBuilder.group({
+      this.problemForm = this.formBuilder.group({
           Name: ['', Validators.required],
-          CNPJ: ['', Validators.required],
-          Login: ['', Validators.required],
-          Password: ['', Validators.required],
           Description: [''],
-          Website: ['']
+          Status: [''],
+          MaxCost: ['', this.util.Coin]
       });
     }
 
@@ -43,7 +42,7 @@ export class EnterpriseEditComponent implements OnInit {
           var id = params['id'];
           
           if(!!id) {
-            this._service.getById(id).subscribe(enterprise => this.model = enterprise);
+            this._service.getById(id).subscribe(problem => this.model = problem);
           }
         }
       );
@@ -52,9 +51,9 @@ export class EnterpriseEditComponent implements OnInit {
     onSubmit() {
       this.submitted = true;
 
-      if(this.enterpriseForm.valid) {
-        this._service.post(this.enterpriseForm.value).subscribe(enterprise => 
-          this.router.navigate(['enterprise/show/' + enterprise._id]));
+      if(this.problemForm.valid) {
+        this._service.post(this.problemForm.value).subscribe(problem => 
+          this.router.navigate(['problem/show/' + problem._id]));
         }
       }
 }

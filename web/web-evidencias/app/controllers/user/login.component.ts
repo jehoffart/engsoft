@@ -1,30 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { User } from '../../models/User';
-import { LoginService } from '../../services/login.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component} from '@angular/core';
+import {AuthenticationService} from '../../services/authentication.service'
 
 @Component({
-    selector: 'login',
-    templateUrl: '../../../../views/user/login.component.html',
-    providers: [ LoginService ]
+    selector: 'login-form',
+    providers: [AuthenticationService],
+    templateUrl: '../../../../views/user/login.component.html'
 })
-export class LoginComponent implements OnInit {
-    userForm: FormGroup;
-    model: User;
-    submitted: boolean = false;
 
-    constructor(private _service: LoginService, private formBuilder: FormBuilder) {
-    	this.userForm = this.formBuilder.group({
-      		Login: ['', Validators.required],
-      		Password: ['', Validators.required],
-      });
-  	}
+export class LoginComponent {
 
-    ngOnInit() {}
+    public username: string;
+    public password: string;
+    public errorMsg = '';
 
-  	onSubmit() {
-      this.submitted = true;
-    	this._service.post(this.model);
-  	}
-};
+    constructor(private _service: AuthenticationService) {}
+
+    login() {
+        this._service.logout();
+        if(!this._service.login(this.username, this.password)){
+            this.errorMsg = 'Failed to login';
+        }
+    }
+}
+

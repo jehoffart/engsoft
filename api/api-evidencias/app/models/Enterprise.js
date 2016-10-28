@@ -11,14 +11,6 @@ var schema = mongoose.Schema({
         type: String,
         required: true
     },
-    Login: {
-        type: String,
-        required: true
-    },
-    Password: {
-        type: String,
-        required: true,
-    },
     Description: {
         type: String
     },

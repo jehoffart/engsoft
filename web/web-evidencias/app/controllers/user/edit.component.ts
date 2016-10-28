@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import 'rxjs/add/operator/map';
 import { UserService } from '../../services/user.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { User } from '../../models/User';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,44 +10,51 @@ import { Subscription } from 'rxjs/Rx';
 	moduleId: module.id,
     selector: 'user-edit',
     templateUrl: '../../../../views/user/form.component.html',
-    providers: [ UserService ]
+    providers: [ UserService, AuthenticationService ]
 })
 export class UserEditComponent implements OnInit {
     userForm: FormGroup;
-    model: User;
+    model: User = new User();
     submitted: boolean = false;
-	private subscription: Subscription;	
+	  private subscription: Subscription;	
 
-    constructor(private _service: UserService, private formBuilder: FormBuilder, 
-    				private route: ActivatedRoute, private router: Router) {}
+    constructor(private _service: UserService,
+    			private formBuilder: FormBuilder,
+    			private route: ActivatedRoute, 
+    			private router: Router,
+    			private auth: AuthenticationService) {}
     
     ngOnInit() {
-		this.subscription = this.route.params.subscribe(
-			(params: any) => {
-				var id = params['id'];
-				this._service.getById(id);
-			
-	      	this.userForm = this.formBuilder.group({
-				Name: [this.model.Name, Validators.required],
-				Age: [this.model.Age, Validators.required],
-				Email: [this.model.Email, Validators.required],
-				City: [this.model.City, Validators.required],
-				State: [this.model.State, Validators.required],
-				Street: [this.model.Street, Validators.required],
-				About: [this.model.About, Validators.required],
-				Login: [this.model.Login, Validators.required],
-				Password: [this.model.Password, Validators.required]
-	      	});
-      		}
-		);
+    	this.auth.checkCredentials();
+    	
+		  this.subscription = this.route.params.subscribe(
+			  (params: any) => {
+  				var id = params['id'];
+				  
+				  if(!!id) {
+  					this._service.getById(id).subscribe(user => this.model = user);
+				  }
+    	  }
+		  );
+
+		this.userForm = this.formBuilder.group({
+          Name: ['', Validators.required],
+          Age: ['', Validators.required],
+          Email: ['', Validators.required],
+          City: ['', Validators.required],
+          State: ['', Validators.required],
+          Street: ['', Validators.required],
+          About: [''],
+          Login: ['', Validators.required],
+          Password: ['', Validators.required]
+      	});
     }
 
     onSubmit() {
-      	this.submitted = true;
-      	this._service.post(this.userForm.value).subscribe(() => {
-	  		this.router.navigate(['']);
-      	}, (err) => {
-        	console.error(err);
-      	});
+    	this.submitted = true;
+
+      if(this.userForm.valid) {
+    	  this._service.put(this.userForm.value).subscribe(user => this.router.navigate(['user/show/' + user._id]));
+      }
 	}
 }

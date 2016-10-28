@@ -3,18 +3,20 @@ import { Http, Response, Headers } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { User } from '../models/User';
 import { Observable } from 'rxjs/Observable';
+import { App } from './app';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
   
-  private url: string = 'http://localhost:8080/user/';
   private users: User[] = [];
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private app: App = new App();
+  private url = "user";
 
   constructor(private http: Http) {}
     
   get() {
-    this.http.get(this.url)
+    this.http.get(this.app.url + this.url)
         .map(res => res.json())
         .subscribe(
           (users) => {
@@ -28,19 +30,23 @@ export class UserService {
   }
 
   post(user) {
-    return this.http
-      .post(this.url, JSON.stringify(user), { headers: this.headers })
+    return this.http.post(this.app.url + this.url, JSON.stringify(user), { headers: this.app.headers })
       .map(res => res.json());
   }
 
   getById(id) : Observable<User> {
-    return this.http.get(this.url + id)
+    return this.http.get(this.app.url + this.url + "/" + id)
       .map(res => <User> res.json());
   }
 
-  put(users) {
+  put(user) {
     return this.http
-      .post(this.url + '/${user.id}', JSON.stringify(users))
-      .map(res => res.json());
+      .put(this.app.url + this.url + user._id, JSON.stringify(user))
+      .map(res => <User> res.json());
+  }
+
+  delete(user) {
+    this.http
+      .delete(this.app.url + this.url + user._id);
   }
 }

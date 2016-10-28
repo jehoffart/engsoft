@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { Enterprise } from '../../models/Enterprise';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Enterprise } from '../../models/enterprise';
 import { EnterpriseService } from '../../services/enterprise.service';
 
 @Component({
     selector: 'enterprise-list',
     templateUrl: '../../../../views/enterprise/list.component.html',
-    providers: [ EnterpriseService ]
+    providers: [ EnterpriseService, AuthenticationService ]
 })
-export class ProblemListComponent implements OnInit {
+export class EnterpriseListComponent implements OnInit {
     enterprises: Enterprise[] = [];
-        
-    constructor(private _service: EnterpriseService) {};
+    
+    constructor(private _service: EnterpriseService, 
+                private auth: AuthenticationService) {}
 
     ngOnInit() {
-    	this.enterprises = this._service.get();
+    	this.auth.checkCredentials();
+      	this.enterprises = this._service.get();
     }
 };

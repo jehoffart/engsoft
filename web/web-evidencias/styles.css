@@ -1,4 +1,9 @@
-.navbar-nav a.active {
-    background-color: #e7e7e7 !important;
-    color: #555 !important;
+form .r-p-0 {
+	padding-right: 0px;
+}
+form .l-p-0 {
+	padding-left: 0px;
+}
+form .m-b-15 {
+	margin-bottom: 15px;
 }
