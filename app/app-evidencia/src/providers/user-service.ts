@@ -16,8 +16,8 @@ export class UserService {
 
   constructor(public http: Http, private baseService: BaseService) {
     console.log('Hello UserService Provider');
-    this.baseUrl = "http://localhost:3000/user/";
-    this.urlAuth = "http://localhost:3000/auth";
+    this.baseUrl = "http://172.16.0.200:3000/user/";
+    this.urlAuth = "http://172.16.0.200:3000/auth";
   }
 
   public getById(id) : any{
@@ -48,8 +48,8 @@ export class UserService {
   }
 
   public auth(user:User){
-    return  this.baseService.post(this.urlAuth,(user)).subscribe(res => {
-      console.log(res);
+    this.baseService.post(this.urlAuth,(user)).subscribe(res => {
+      return res;
     });
   }
 
