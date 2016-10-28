@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EnterpriseService } from '../../services/enterprise.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Enterprise } from '../../models/Enterprise';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -27,7 +27,8 @@ export class EnterpriseCreateComponent implements OnInit {
           Login: ['', Validators.required],
           Password: ['', Validators.required],
           Description: [''],
-          Website: ['']
+          Website: [''],
+          Categories: this.formBuilder.array([this.initCategories()])
       });
     }
 
@@ -38,8 +39,26 @@ export class EnterpriseCreateComponent implements OnInit {
     onSubmit() {
       this.submitted = true;
       if(this.enterpriseForm.valid) {
+        
+        for (let c of this.enterpriseForm.value.Categories)
+          this.model.addCategory(c.Category);
+
         this._service.post(this.enterpriseForm.value).subscribe(enterprise => 
           this.router.navigate(['enterprise/show/' + enterprise._id]));
-        }
       }
+    }
+
+    initCategories() {
+      return this.formBuilder.group({Category: ['', Validators.required]});
+    }
+
+    addCategories() {
+      const control = <FormArray> this.enterpriseForm.controls['Categories'];
+      control.push(this.initCategories());
+    }
+
+    removeCategories(i: number) {
+      const control = <FormArray> this.enterpriseForm.controls['Categories'];
+      control.removeAt(i);
+    }
 }
