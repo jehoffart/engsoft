@@ -14,7 +14,7 @@ export class ProblemService {
 
   constructor(public http: Http, private baseService: BaseService) {
     console.log('Hello ProblemService Provider');
-    this.baseUrl = "http://172.16.0.200:3000/problem/";
+    this.baseUrl = "http://192.168.1.5:3000/problem/";
   }
 
   public getById(id) : any{

@@ -18,7 +18,7 @@ import {ProblemDetails} from '../pages/problem-details/problem-details';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ProblemPage;
+  rootPage: any = LoginPage;
   window: any;
 
   pages: Array<{title: string, component: any}>;

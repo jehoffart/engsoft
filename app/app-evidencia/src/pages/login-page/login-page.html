@@ -6,10 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Login</ion-title>
+    <ion-title>Projeto Evidência</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -25,4 +22,6 @@
       </ion-item>
       <button ion-button padding full color="secondary" [disabled]="!registrationForm.valid">Entrar</button>
     </form>
+    <a [navPush]="registerUser">Cadastrar-se como Aluno</a><br>
+    <a [navPush]="registerEnterprise">Cadastrar-se como Empresa</a>
 </ion-content>

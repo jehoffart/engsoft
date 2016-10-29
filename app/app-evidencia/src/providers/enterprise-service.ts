@@ -13,7 +13,7 @@ export class EnterpriseService {
 
   constructor(public http: Http, private baseService: BaseService) {
     console.log('Hello EnterpriseService Provider');
-    this.baseUrl = "http://172.16.0.200:3000/enterprise/";
+    this.baseUrl = "http://192.168.1.5:3000/enterprise/";
   }
   public getById(id) : any{
     return this.baseService.get(this.baseUrl + id).map(res => <Enterprise>(res.json()));
