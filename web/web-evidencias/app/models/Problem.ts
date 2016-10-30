@@ -12,7 +12,11 @@ export class Problem extends Model {
         Project: Project;
         Answers: [String];
     }];
-           
+    
+    addCategory(category) {
+        if(!this.Categories) this.Categories = [];
+        this.Categories.push(category);
+    }
 
     attributeNames: string[] = ['_id', 'Name', 'Description', 'Question', 'Categories', 'Registrations'];
 }

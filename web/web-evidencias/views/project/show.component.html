@@ -2,7 +2,7 @@
     <h2>
         Projeto
         <a routerLink="/project" class="btn btn-default btn-md"><span class="glyphicon glyphicon-th-list"></span></a>
-        <a routerLink="/project/edit/{model._id}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-edit"></span></a>
+        <a routerLink="/project/edit/{{model._id}}" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-edit"></span></a>
     </h2>
 </div>
 
@@ -22,9 +22,9 @@
 
 <div class="col-lg-6">
 	<h3>
-		<small>Custo Máximo</small>
+		<small>Custo</small>
 	</h3>
-	{{model.MaxCost}}
+	{{model.Cost}}
 </div>
 
 <div class="col-lg-6">
@@ -32,6 +32,13 @@
 		<small>Status</small>
 	</h3>
 	{{model.Status}}
+</div>
+
+<div class="col-lg-12">
+	<h3>
+		<small>Categoria</small>
+	</h3>
+	<span *ngFor="let item of model.Categories">{{item}}; </span>
 </div>
 
 <div class="col-lg-12">

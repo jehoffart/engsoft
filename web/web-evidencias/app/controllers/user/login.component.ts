@@ -13,9 +13,10 @@ export class LoginComponent {
     public password: string;
     public errorMsg = '';
 
-    constructor(private _service:AuthenticationService) {}
+    constructor(private _service: AuthenticationService) {}
 
     login() {
+        this._service.logout();
         if(!this._service.login(this.username, this.password)){
             this.errorMsg = 'Failed to login';
         }

@@ -33,6 +33,12 @@ export class ProblemService {
       .map(res => res.json());
   }
 
+  addProject(problem, project) {
+    return this.http
+      .post(this.app.url + this.url + "/newRegistration/" + problem, JSON.stringify(project), { headers: this.app.headers })
+      .map(res => res.json());
+  }
+
   getById(id) : Observable<Problem> {
     return this.http.get(this.app.url + this.url + "/" + id)
       .map(res => <Problem> res.json());

@@ -16,7 +16,7 @@ export class UserService {
   constructor(private http: Http) {}
     
   get() {
-    this.http.get(this.app.url)
+    this.http.get(this.app.url + this.url)
         .map(res => res.json())
         .subscribe(
           (users) => {

@@ -8,7 +8,8 @@
       </div>
     </div>
     <ul class="nav navbar-nav pull-right">
-      <li><a routerLink="/user/edit" routerLinkActive="active">Sair</a></li>
+      <li *ngIf="!auth.checkCredentials()"><a routerLink="/login" routerLinkActive="active">Entrar</a></li>
+      <li *ngIf="auth.checkCredentials()"><a routerLink="/login" routerLinkActive="active">Sair</a></li>
     </ul>
   </div>
 </nav>
@@ -20,12 +21,17 @@
         <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-pills nav-stacked well">
           <li><a routerLink="/problem" routerLinkActive="active">Problema</a></li>
           <li><a routerLink="/project" routerLinkActive="active">Projeto</a></li>
-          <li><a routerLink="/enterprise/edit" routerLinkActive="active">Empresa</a></li>
-          <li><a routerLink="/user/edit" routerLinkActive="active">Usuário</a></li>
+          <li *ngIf="auth.isEnterprise()"><a routerLink="/enterprise/show/{{auth.getToken()}}" routerLinkActive="active">Empresa</a></li>
+          <li *ngIf="auth.isUser()"><a routerLink="/user/show/{{auth.getToken()}}" routerLinkActive="active">Usuário</a></li>
         </ul>
       </div>
     <div class="col-lg-10">
       <router-outlet></router-outlet>
     </div>
+    <footer class="footer">
+      <div class="container text-center">
+        <p class="text-muted">Projeto Evidências - Faculdade de Engenharia de Sorocaba - Engenharia de Software - 2016</p> 
+      </div>
+    </footer>
   </div>
 </div>

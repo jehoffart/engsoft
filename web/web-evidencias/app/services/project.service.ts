@@ -40,7 +40,7 @@ export class ProjectService {
 
   put(project) {
     return this.http
-      .put(this.app.url + this.url + project._id, JSON.stringify(project))
+      .put(this.app.url + this.url + project._id, JSON.stringify(project), { headers: this.app.headers })
       .map(res => <Project> res.json());
   }
 

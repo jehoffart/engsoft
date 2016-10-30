@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2>
         Usuário
-        <a routerLink="/user/show/{{model._id}}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-eye-open"></span></a>
+        <a routerLink="/user/show/{{auth.getToken()}}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-eye-open"></span></a>
     </h2>
 </div>
 
