@@ -32,4 +32,10 @@ export class ProjectShowComponent implements OnInit {
           }
       );
     }
+
+    delete(id) {
+      this._service.delete(id).subscribe((res) => {
+        window.location.href = "/project";
+      });
+    }
 }

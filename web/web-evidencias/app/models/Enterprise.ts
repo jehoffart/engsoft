@@ -9,9 +9,9 @@ export class Enterprise extends Model {
     Password: string;
     Description: string;
     RegistrationDate: Date;
-    Categories: [string];
+    Categories: string[];
     Website: string;
-    Problems: [Problem];
+    Problems: Problem[];
 
     addCategory(category) {
         if(!this.Categories) this.Categories = [];

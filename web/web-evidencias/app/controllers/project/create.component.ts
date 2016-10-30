@@ -9,6 +9,7 @@ import { User } from '../../models/User';
 import { Util } from '../../models/Util';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ModalModule } from "ng2-modal";
 
 @Component({
     selector: 'project-create',
@@ -22,7 +23,11 @@ export class ProjectCreateComponent implements OnInit {
     users: User[] = [];
     model: Project = new Project();
     submitted: boolean = false;
+    submittedUser: boolean = false;
     private util: Util = new Util();
+
+    userForm: FormGroup;
+    userFormModel: User = new User();
 
     constructor(private _service: ProjectService, 
                 private userService: UserService,
@@ -44,6 +49,18 @@ export class ProjectCreateComponent implements OnInit {
           ])
       });
 
+      this.userForm = this.formBuilder.group({
+          Name: ['', Validators.required],
+          Age: ['', Validators.required],
+          Email: ['', Validators.required],
+          City: ['', Validators.required],
+          State: ['', Validators.required],
+          Street: ['', Validators.required],
+          About: [''],
+          Login: ['', Validators.required],
+          Password: ['', Validators.required]
+      });
+
       this.problems = this.problemService.get();
       this.users = this.userService.get();
     }
@@ -61,12 +78,17 @@ export class ProjectCreateComponent implements OnInit {
       for (let c of this.projectForm.value.Categories)
         this.model.addCategory(c.Category);
 
-        this._service.post(this.model.attributes).subscribe(project => 
-          this.problemService.addProject(this.problem, project).subscribe(p =>
-            this.router.navigate(['project/show/' + project._id])
-          )
-        );
+      for (let u of this.projectForm.value.Users)
+        this.model.addUser(u);
+
+        this._service.post(this.model.attributes).subscribe(project => this.bindProblem(project));
       }
+    }
+
+    bindProblem(project: Project) {
+      this.problemService.addProject(this.problem, project).subscribe(p =>
+        this.router.navigate(['project/show/' + project._id])
+      )
     }
 
     initCategories() {
@@ -92,8 +114,22 @@ export class ProjectCreateComponent implements OnInit {
       control.push(this.initUsers());
     }
 
+    createUser(userModel: User) {
+      this.users.push(userModel);
+      const control = <FormArray> this.projectForm.controls['Users'];
+      control.push(this.formBuilder.group({user: [userModel._id, Validators.required]}));
+    }
+
     removeUser(i: number) {
       const control = <FormArray> this.projectForm.controls['Users'];
       control.removeAt(i);
+    }
+
+    saveUser() {
+      this.submittedUser = true;
+ 
+      if(this.userForm.valid) {
+        this.userService.post(this.userForm.value).subscribe(user => this.createUser(user));
+      }
     }
 }

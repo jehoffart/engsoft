@@ -26,6 +26,7 @@
       'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
       'angular2-datatable': 'node_modules/angular2-datatable',
       'lodash': 'node_modules/lodash/lodash.js',
+      "ng2-modal": "node_modules/ng2-modal",
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -45,6 +46,7 @@
         defaultExtension: 'js'
       },
       'lodash': { defaultExtension: 'js' },
+      "ng2-modal": { "main": "index.js", "defaultExtension": "js" }
     }
   });
 })(this);

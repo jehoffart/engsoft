@@ -7,10 +7,10 @@ export class Problem extends Model {
     Description: string;
     Questions: [string];
     MaxCost: number;
-    Categories: [String];
+    Categories: string[];
     Registrations: [{
         Project: Project;
-        Answers: [String];
+        Answers: string[];
     }];
     
     addCategory(category) {

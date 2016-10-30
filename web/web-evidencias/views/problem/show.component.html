@@ -2,7 +2,7 @@
     <h2>
         Problema
         <a routerLink="/problem" class="btn btn-default btn-md"><span class="glyphicon glyphicon-th-list"></span></a>
-        <a routerLink="/problem/edit/{model._id}" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-edit"></span></a>
+        <button (click)="delete(model._id)" class="btn btn-md btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
     </h2>
 </div>
 

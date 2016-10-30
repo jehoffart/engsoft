@@ -44,8 +44,8 @@ export class EnterpriseService {
       .map(res => <Enterprise> res.json());
   }
 
-  delete(enterprise) {
-    this.http
-      .delete(this.app.url + this.url + enterprise._id);
+  delete(id) {
+    return this.http
+      .delete(this.app.url + this.url + "/" + id, { headers: this.app.headers });
   }
 }

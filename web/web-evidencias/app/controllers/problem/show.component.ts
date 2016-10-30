@@ -32,4 +32,10 @@ export class ProblemShowComponent implements OnInit {
           }
       );
     }
+
+    delete(id) {
+      this._service.delete(id).subscribe((res) => {
+        window.location.href = "/problem";
+      });
+    }
 }

@@ -18,4 +18,10 @@ export class ProblemListComponent implements OnInit {
     	this.auth.checkCredentials();
       	this.problems = this._service.get();
     }
+
+    delete(id) {
+      this._service.delete(id).subscribe((res) => {
+        window.location.href = "/problem";
+      });
+    }
 };

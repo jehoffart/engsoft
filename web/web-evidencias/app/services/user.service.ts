@@ -45,8 +45,8 @@ export class UserService {
       .map(res => <User> res.json());
   }
 
-  delete(user) {
-    this.http
-      .delete(this.app.url + this.url + user._id);
+  delete(id) {
+    return this.http
+      .delete(this.app.url + this.url + "/" + id, { headers: this.app.headers });
   }
 }

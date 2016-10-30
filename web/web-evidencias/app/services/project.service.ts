@@ -34,18 +34,18 @@ export class ProjectService {
   }
 
   getById(id) : Observable<Project> {
-    return this.http.get(this.app.url + this.url + "/" + id)
+    return this.http.get(this.app.url + this.url + "/" + id, { headers: this.app.headers })
       .map(res => <Project> res.json());
   }
 
   put(project) {
     return this.http
-      .put(this.app.url + this.url + project._id, JSON.stringify(project), { headers: this.app.headers })
+      .put(this.app.url + this.url + "/" + project._id, JSON.stringify(project), { headers: this.app.headers })
       .map(res => <Project> res.json());
   }
 
-  delete(project) {
-    this.http
-      .delete(this.app.url + this.url + project._id);
+  delete(id) {
+    return this.http
+      .delete(this.app.url + this.url + "/" + id, { headers: this.app.headers });
   }
 }

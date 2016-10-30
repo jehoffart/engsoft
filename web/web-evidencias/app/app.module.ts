@@ -1,6 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DataTableModule } from "angular2-datatable";
+import { ModalModule } from "ng2-modal";
 
 import { AppComponent }   from './app.component';
 
@@ -30,7 +31,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, ReactiveFormsModule, routing, HttpModule, DataTableModule ], 
+  imports:      [ BrowserModule, FormsModule, ReactiveFormsModule, routing, HttpModule, 
+  				DataTableModule, ModalModule ], 
   declarations: [ AppComponent, 
 				ProblemListComponent, ProblemCreateComponent, ProblemEditComponent, ProblemShowComponent,
 				ProjectListComponent, ProjectCreateComponent, ProjectEditComponent, ProjectShowComponent,

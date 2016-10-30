@@ -50,8 +50,8 @@ export class ProblemService {
       .map(res => <Problem> res.json());
   }
 
-  delete(problem) {
-    this.http
-      .delete(this.app.url + this.url + problem._id);
+  delete(id) {
+    return this.http
+      .delete(this.app.url + this.url + "/" + id, { headers: this.app.headers });
   }
 }
