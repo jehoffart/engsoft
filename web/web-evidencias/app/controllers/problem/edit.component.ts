@@ -23,19 +23,10 @@ export class ProblemEditComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
-                private router: Router) {
-
-      this.problemForm = this.formBuilder.group({
-          Name: ['', Validators.required],
-          Description: [''],
-          Status: [''],
-          MaxCost: ['', this.util.Coin]
-      });
-    }
+                private router: Router) {}
 
     ngOnInit() {
       this.auth.checkCredentials();
-
 
       this.subscription = this.route.params.subscribe(
         (params: any) => {
@@ -46,6 +37,13 @@ export class ProblemEditComponent implements OnInit {
           }
         }
       );
+
+      this.problemForm = this.formBuilder.group({
+          Name: ['', Validators.required],
+          Description: [''],
+          Status: [''],
+          MaxCost: ['', this.util.Coin]
+      });
     }
 
     onSubmit() {

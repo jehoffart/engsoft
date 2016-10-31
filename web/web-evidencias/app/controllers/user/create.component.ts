@@ -19,7 +19,10 @@ export class UserCreateComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
-                private router: Router) {
+                private router: Router) {}
+
+    ngOnInit() {
+      this.auth.checkCredentials();
 
       this.userForm = this.formBuilder.group({
           Name: ['', Validators.required],
@@ -32,10 +35,6 @@ export class UserCreateComponent implements OnInit {
           Login: ['', Validators.required],
           Password: ['', Validators.required]
       });
-    }
-
-    ngOnInit() {
-      this.auth.checkCredentials();
     }
 
     onSubmit() {

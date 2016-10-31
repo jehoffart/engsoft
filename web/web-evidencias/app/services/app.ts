@@ -24,7 +24,6 @@ export class App {
 
   getToken() {
     if(localStorage.getItem(this.token))
-      return localStorage.getItem(this.user);    
-    return "5806204f35048408c0e51a56";
+      return localStorage.getItem(this.user);
   }
 }

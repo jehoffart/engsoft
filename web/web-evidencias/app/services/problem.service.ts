@@ -9,23 +9,13 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ProblemService {
   
-  private problems: Problem[] = [];
   private app: App = new App();
   private url = "problem";
 
   constructor(private http: Http) {}  
   get() {
-    this.http.get(this.app.url + this.url)
-        .map(res => res.json())
-        .subscribe(
-          (problems) => {
-            problems.forEach( (problemData: Object) => {
-              var problem: Problem = new Problem(problemData);
-              this.problems.push(problem);
-          });
-        }
-    );
-    return this.problems;
+    return this.http.get(this.app.url + this.url)
+        .map(res => res.json());
   }
 
   post(problem) {

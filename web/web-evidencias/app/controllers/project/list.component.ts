@@ -11,14 +11,14 @@ import { Subscription } from 'rxjs/Rx';
 })
 export class ProjectListComponent implements OnInit {
     projects: Project[] = [];
-    private subscription: Subscription;
+    private subscription: Subscription; 
 
     constructor(private _service: ProjectService, 
                 private auth: AuthenticationService) {}
 
     ngOnInit() {
     	this.auth.checkCredentials();
-      	this.projects = this._service.get();
+      	this._service.get().subscribe(projects => this.projects = projects);
     }
 
     private sortByWordLength = (a:any) => {

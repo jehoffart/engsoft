@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Enterprise } from '../../models/enterprise';
 import { EnterpriseService } from '../../services/enterprise.service';
+import { Subscription } from 'rxjs/Rx';
 
 @Component({
     selector: 'enterprise-list',
@@ -16,6 +17,6 @@ export class EnterpriseListComponent implements OnInit {
 
     ngOnInit() {
     	this.auth.checkCredentials();
-      	this.enterprises = this._service.get();
+        this._service.get().subscribe(enterprises => this.enterprises = enterprises);
     }
 };

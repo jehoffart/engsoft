@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {AuthenticationService} from '../../services/authentication.service'
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service'
 
 @Component({
     selector: 'login-form',
@@ -7,13 +7,15 @@ import {AuthenticationService} from '../../services/authentication.service'
     templateUrl: '../../../../views/user/login.component.html'
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
     public username: string;
     public password: string;
     public errorMsg = '';
 
     constructor(private _service: AuthenticationService) {}
+
+    ngOnInit() {}
 
     login() {
         this._service.logout();

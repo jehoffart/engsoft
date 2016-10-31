@@ -21,10 +21,10 @@
       '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+      'angular2-datatable': 'node_modules/angular2-datatable',
       // other libraries
       'rxjs':                       'npm:rxjs',
       'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
-      'angular2-datatable': 'node_modules/angular2-datatable',
       'lodash': 'node_modules/lodash/lodash.js',
       "ng2-modal": "node_modules/ng2-modal",
     },
@@ -41,10 +41,7 @@
         main: './index.js',
         defaultExtension: 'js'
       },
-      'angular2-datatable': {
-        main: './index.js',
-        defaultExtension: 'js'
-      },
+      'angular2-datatable': {main: "index.js", defaultExtension: 'js' },
       'lodash': { defaultExtension: 'js' },
       "ng2-modal": { "main": "index.js", "defaultExtension": "js" }
     }

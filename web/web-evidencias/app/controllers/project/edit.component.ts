@@ -37,7 +37,10 @@ export class ProjectEditComponent implements OnInit {
                 private problemService: ProblemService,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
-                private router: Router) {
+                private router: Router) {}
+
+    ngOnInit() {
+      this.auth.checkCredentials();
 
       this.projectForm = this.formBuilder.group({
           Name: ['', Validators.required],
@@ -61,13 +64,15 @@ export class ProjectEditComponent implements OnInit {
           Password: ['', Validators.required]
       });
 
-      this.problems = this.problemService.get();
+      this.problemService.get().subscribe(
+        (problems) => {
+          problems.forEach( (problemData: Object) => {
+            var problem: Problem = new Problem(problemData);
+            this.problems.push(problem);
+        });
+      });
+      
       this.users = this.userService.get();
-    }
-
-    ngOnInit() {
-      this.auth.checkCredentials();
-
 
       this.subscription = this.route.params.subscribe(
         (params: any) => {

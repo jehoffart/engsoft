@@ -5,7 +5,7 @@
     </h2>
 </div>
 
-<table class="table table-striped" [mfData]="problems" #mf="mfDataTable" [mfRowsOnPage]="5">
+<table class="table table-striped" [mfData]="problems" #mf="mfDataTable" [mfRowsOnPage]="10">
     <thead>
     <tr>
         <th style="width: 60%">
@@ -18,7 +18,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of problems">
+    <tr *ngFor="let item of mf.data">
         <td>{{item.Name}}</td>
         <td>{{item.MaxCost}}</td>
         <td>

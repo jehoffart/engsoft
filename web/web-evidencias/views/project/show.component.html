@@ -42,7 +42,7 @@
 </div>
 
 <div class="col-lg-12">
-	<table class="table table-striped" [mfData]="model.Team" #mf="mfDataTable" [mfRowsOnPage]="5">
+	<table class="table table-striped" [mfData]="model.Team" #mf="mfDataTable" [mfRowsOnPage]="10">
 	    <thead>
 	    <tr>
 	        <th style="width: 20%">
@@ -55,7 +55,7 @@
 	    </tr>
 	    </thead>
 	    <tbody>
-	    <tr *ngFor="let item of model.Team">
+	    <tr *ngFor="let item of mf.data">
 	        <td>{{item.Name}}</td>
 	        <td>{{item.Age}}</td>
 	    </tr>
