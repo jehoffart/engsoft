@@ -2,7 +2,7 @@
 module.exports  = function(app) {
   var api = app.api.Login;
     var mongoose = require('mongoose');
-  
+
     var config = require('../../config/config');
     var model = mongoose.model('Login');
     var passport    = require('passport');
@@ -12,6 +12,7 @@ module.exports  = function(app) {
 
     app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "OPTION, GET, POST, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
     });

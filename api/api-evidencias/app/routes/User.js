@@ -2,7 +2,7 @@
 module.exports  = function(app) {
   var api = app.api.User;
     var mongoose = require('mongoose');
-  
+
     var config = require('../../config/config');
     var model = mongoose.model('User');
     var passport    = require('passport');
@@ -12,6 +12,7 @@ module.exports  = function(app) {
 
     app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "OPTION, GET, POST, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
     });
@@ -39,7 +40,7 @@ app.get('/memberinfo', passport.authenticate('jwt', { session: false}), function
       Login: decoded.Login
     }, function(err, user) {
         if (err) throw err;
- 
+
         if (!user) {
           return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
         } else {
@@ -63,7 +64,7 @@ getToken = function (headers) {
     return null;
   }
 };
- 
+
 
 
 */
