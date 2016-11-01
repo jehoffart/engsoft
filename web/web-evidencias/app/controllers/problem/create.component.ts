@@ -21,7 +21,10 @@ export class ProblemCreateComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
-                private router: Router) {
+                private router: Router) {}
+
+    ngOnInit() {
+      this.auth.checkCredentials("problem");
 
       this.problemForm = this.formBuilder.group({
           Name: ['', Validators.required],
@@ -32,19 +35,16 @@ export class ProblemCreateComponent implements OnInit {
       });
     }
 
-    ngOnInit() {
-      this.auth.checkCredentials();
-    }
-
     onSubmit() {
       this.submitted = true;
 
       if(this.problemForm.valid) {
+        this.model.Categories = [];
         for (let c of this.problemForm.value.Categories)
-          this.model.addCategory(c.Category);
+          this.model.Categories.push(c.Category);
 
-        this._service.post(this.problemForm.value).subscribe(problem => 
-          this.router.navigate(['problem/show/' + problem._id]));
+        this._service.post(this.model.attributes)
+            .subscribe(problem => this.beforeSave(problem));
       }
     }
 
@@ -60,5 +60,9 @@ export class ProblemCreateComponent implements OnInit {
     removeCategories(i: number) {
       const control = <FormArray> this.problemForm.controls['Categories'];
       control.removeAt(i);
+    }
+
+    beforeSave(problem) {
+      this.router.navigate(['problem/show/' + problem._id])
     }
 }

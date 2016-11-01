@@ -20,7 +20,7 @@ export class EnterpriseShowComponent implements OnInit {
                 private route: ActivatedRoute) {}
 
     ngOnInit() {
-      this.auth.checkCredentials();
+      this.auth.checkCredentials("enterprise");
       
       this.subscription = this.route.params.subscribe(
       (params: any) => {

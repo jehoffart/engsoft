@@ -17,7 +17,7 @@ export class ProjectListComponent implements OnInit {
                 private auth: AuthenticationService) {}
 
     ngOnInit() {
-    	this.auth.checkCredentials();
+    	this.auth.checkCredentials("project");
       	this._service.get().subscribe(projects => this.projects = projects);
     }
 

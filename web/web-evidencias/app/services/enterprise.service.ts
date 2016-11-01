@@ -24,13 +24,13 @@ export class EnterpriseService {
   }
 
   getById(id) : Observable<Enterprise> {
-    return this.http.get(this.app.url + this.url + "/" + id)
+    return this.http.get(this.app.url + this.url + "/" + id, { headers: this.app.headers })
       .map(res => <Enterprise> res.json());
   }
 
   put(enterprise) {
     return this.http
-      .put(this.app.url + this.url + enterprise._id, JSON.stringify(enterprise))
+      .put(this.app.url + this.url + enterprise._id, JSON.stringify(enterprise), { headers: this.app.headers })
       .map(res => <Enterprise> res.json());
   }
 

@@ -25,17 +25,15 @@ export class UserEditComponent implements OnInit {
     			private auth: AuthenticationService) {}
     
     ngOnInit() {
-    	this.auth.checkCredentials();
+    	this.auth.checkCredentials("user");
     	
-		  this.subscription = this.route.params.subscribe(
-			  (params: any) => {
-  				var id = params['id'];
+		  this.subscription = this.route.params.subscribe((params: any) => {
+				var id = params['id'];
 				  
-				  if(!!id) {
-  					this._service.getById(id).subscribe(user => this.model = user);
-				  }
-    	  }
-		  );
+			  if(!!id) {
+					this._service.getById(id).subscribe(user => this.model = user);
+			  }
+  	  });
 
 		this.userForm = this.formBuilder.group({
           Name: ['', Validators.required],
@@ -54,7 +52,13 @@ export class UserEditComponent implements OnInit {
     	this.submitted = true;
 
       if(this.userForm.valid) {
-    	  this._service.put(this.userForm.value).subscribe(user => this.router.navigate(['user/show/' + user._id]));
+    	  this._service.put(this.userForm.value)
+            .subscribe(user => this.beforeSave(user));
       }
-	}
+	  }
+
+    beforeSave(user: User) {
+      this.router.navigate(['user/show/' + user._id])
+    }
+
 }

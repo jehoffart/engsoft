@@ -17,7 +17,7 @@ export class ProblemListComponent implements OnInit {
                 private auth: AuthenticationService) {}
 
     ngOnInit() {
-    	this.auth.checkCredentials();
+    	//this.auth.checkCredentials("problem");
         this._service.get().subscribe(problems => this.problems = problems);
     }
 

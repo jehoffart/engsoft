@@ -16,7 +16,7 @@ export class EnterpriseListComponent implements OnInit {
                 private auth: AuthenticationService) {}
 
     ngOnInit() {
-    	this.auth.checkCredentials();
+    	this.auth.checkCredentials("enterprise");
         this._service.get().subscribe(enterprises => this.enterprises = enterprises);
     }
 };

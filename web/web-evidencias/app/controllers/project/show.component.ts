@@ -3,7 +3,7 @@ import { ProjectService } from '../../services/project.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Project } from '../../models/Project';
 import { Subscription } from 'rxjs/Rx';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -17,10 +17,11 @@ export class ProjectShowComponent implements OnInit {
 
     constructor(private _service: ProjectService, 
                 private auth: AuthenticationService,
-                private route: ActivatedRoute) {}
+                private route: ActivatedRoute,
+                private router: Router) {}
 
     ngOnInit() {
-      this.auth.checkCredentials();
+      this.auth.checkCredentials("project");
       
       this.subscription = this.route.params.subscribe(
       (params: any) => {
@@ -35,7 +36,7 @@ export class ProjectShowComponent implements OnInit {
 
     delete(id) {
       this._service.delete(id).subscribe((res) => {
-        window.location.href = "/project";
+        this.router.navigate(['project/']);
       });
     }
 }
