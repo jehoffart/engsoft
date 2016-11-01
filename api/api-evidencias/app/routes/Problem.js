@@ -3,7 +3,7 @@ module.exports  = function(app) {
 
     var api = app.api.Problem;
  var mongoose = require('mongoose');
-  
+
     var config = require('../../config/config');
     var model = mongoose.model('User');
     var passport    = require('passport');
@@ -13,17 +13,18 @@ module.exports  = function(app) {
 
     app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "OPTION, GET, POST, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
     });
     app.route('/problem')
-    .get(passport.authenticate('jwt', { session: false}),api.get)
-    .post(passport.authenticate('jwt', { session: false}),api.post); 
+    .get(api.get)
+    .post(passport.authenticate('jwt', { session: false}),api.post);
 
     app.route('/problem/:id')
-    .get(passport.authenticate('jwt', { session: false}),api.getById)
+    .get(api.getById)
     .delete(passport.authenticate('jwt', { session: false}),api.delete)
     .put(passport.authenticate('jwt', { session: false}),api.put);
-        
-  
+
+
 };
