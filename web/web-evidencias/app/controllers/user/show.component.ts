@@ -20,7 +20,7 @@ export class UserShowComponent implements OnInit {
                 private route: ActivatedRoute) {}
 
     ngOnInit() {
-      this.auth.checkCredentials();
+      this.auth.checkCredentials("user");
       
       this.subscription = this.route.params.subscribe(
       (params: any) => {

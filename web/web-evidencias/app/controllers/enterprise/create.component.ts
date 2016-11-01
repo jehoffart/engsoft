@@ -19,8 +19,11 @@ export class EnterpriseCreateComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
                 private route: ActivatedRoute, 
-                private router: Router) {
-      
+                private router: Router) {}
+
+    ngOnInit() {
+      //this.auth.checkCredentials("enterprise");
+
       this.enterpriseForm = this.formBuilder.group({
           Name: ['', Validators.required],
           CNPJ: ['', Validators.required],
@@ -32,19 +35,17 @@ export class EnterpriseCreateComponent implements OnInit {
       });
     }
 
-    ngOnInit() {
-      this.auth.checkCredentials();
-    }
-
     onSubmit() {
       this.submitted = true;
+      
       if(this.enterpriseForm.valid) {
         
+        this.model.Categories = [];
         for (let c of this.enterpriseForm.value.Categories)
-          this.model.addCategory(c.Category);
-
-        this._service.post(this.enterpriseForm.value).subscribe(enterprise => 
-          this.router.navigate(['enterprise/show/' + enterprise._id]));
+          this.model.Categories.push(c.Category);
+        
+        this._service.post(this.model.attributes)
+            .subscribe(enterprise => this.beforeSave(enterprise));
       }
     }
 
@@ -60,5 +61,9 @@ export class EnterpriseCreateComponent implements OnInit {
     removeCategories(i: number) {
       const control = <FormArray> this.enterpriseForm.controls['Categories'];
       control.removeAt(i);
+    }
+
+    beforeSave(enterprise) {
+      this.router.navigate(['enterprise/show/' + enterprise._id]);
     }
 }

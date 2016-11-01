@@ -20,7 +20,7 @@ export class ProblemShowComponent implements OnInit {
                 private route: ActivatedRoute) {}
 
     ngOnInit() {
-      this.auth.checkCredentials();
+//      this.auth.checkCredentials("problem");
       
       this.subscription = this.route.params.subscribe(
       (params: any) => {

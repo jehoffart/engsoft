@@ -10,7 +10,7 @@ export class App {
   public headers: Headers;
 
   constructor() {
-  	this.url = "http://localhost:8080/"; 
+  	this.url = "http://192.168.43.241:3000/"; 
   	this.token = "token";
     this.user = "id";
     this.type = "type";

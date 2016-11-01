@@ -13,14 +13,15 @@ export class LoginComponent implements OnInit {
     public password: string;
     public errorMsg = '';
 
-    constructor(private _service: AuthenticationService) {}
+    constructor(private _service: AuthenticationService) {
+        this._service.logout();
+    }
 
     ngOnInit() {}
 
     login() {
-        this._service.logout();
         if(!this._service.login(this.username, this.password)){
-            this.errorMsg = 'Failed to login';
+            this.errorMsg = 'Usuário ou senha inválidos';
         }
     }
 }

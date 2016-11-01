@@ -22,7 +22,7 @@ export class UserCreateComponent implements OnInit {
                 private router: Router) {}
 
     ngOnInit() {
-      this.auth.checkCredentials();
+      this.auth.checkCredentials("user");
 
       this.userForm = this.formBuilder.group({
           Name: ['', Validators.required],

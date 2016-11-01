@@ -38,7 +38,7 @@ export class ProjectCreateComponent implements OnInit {
                 private router: Router) {}
 
     ngOnInit() {
-      this.auth.checkCredentials();
+      //this.auth.checkCredentials("project");
 
       this.projectForm = this.formBuilder.group({
           Name: ['', Validators.required],
@@ -81,20 +81,17 @@ export class ProjectCreateComponent implements OnInit {
         
       this.problem = this.projectForm.value.Problem;
 
+      this.model.Categories = [];
       for (let c of this.projectForm.value.Categories)
-        this.model.addCategory(c.Category);
+        this.model.Categories.push(c.Category);
 
+      this.model.Team = []
       for (let u of this.projectForm.value.Users)
-        this.model.addUser(u);
+        this.model.Team.push(u);
 
-        this._service.post(this.model.attributes).subscribe(project => this.bindProblem(project));
+        this._service.post(this.model.attributes)
+            .subscribe(project => this.beforeSaveProject(project));
       }
-    }
-
-    bindProblem(project: Project) {
-      this.problemService.addProject(this.problem, project).subscribe(p =>
-        this.router.navigate(['project/show/' + project._id])
-      )
     }
 
     initCategories() {
@@ -120,12 +117,6 @@ export class ProjectCreateComponent implements OnInit {
       control.push(this.initUsers());
     }
 
-    createUser(userModel: User) {
-      this.users.push(userModel);
-      const control = <FormArray> this.projectForm.controls['Users'];
-      control.push(this.formBuilder.group({user: [userModel._id, Validators.required]}));
-    }
-
     removeUser(i: number) {
       const control = <FormArray> this.projectForm.controls['Users'];
       control.removeAt(i);
@@ -135,7 +126,24 @@ export class ProjectCreateComponent implements OnInit {
       this.submittedUser = true;
  
       if(this.userForm.valid) {
-        this.userService.post(this.userForm.value).subscribe(user => this.createUser(user));
+        
+        this.userService.post(this.userForm.value)
+            .subscribe(user => this.beforeSaveUser(user));
       }
+    }
+
+    beforeSaveUser(userModel: User) {
+      this.users.push(userModel);
+      const control = <FormArray> this.projectForm.controls['Users'];
+      control.push(this.formBuilder.group({user: [userModel._id, Validators.required]}));
+    }
+
+    beforeSaveProject(project: Project) {
+      this.problemService.addProject(this.problem, project)
+          .subscribe(p => this.beforeSaveProblem(p, project));
+    }
+
+    beforeSaveProblem(problem: Problem, project: Project) {
+      this.router.navigate(['project/show/' + project._id]);
     }
 }
