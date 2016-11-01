@@ -13,6 +13,9 @@ import { RegisterProjectPage } from '../pages/register-project-page/register-pro
 import {ProblemDetails} from '../pages/problem-details/problem-details';
 import {ProjectDetails} from '../pages/project-details/project-details';
 
+//Providers
+import { StorageService } from '../providers/storage-service';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -42,6 +45,6 @@ import {ProjectDetails} from '../pages/project-details/project-details';
     ProblemDetails,
     ProjectDetails
   ],
-  providers: []
+  providers: [StorageService]
 })
 export class AppModule {}

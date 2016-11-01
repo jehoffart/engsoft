@@ -11,6 +11,8 @@ import { LoginPage } from '../pages/login-page/login-page';
 import { RegisterProblemPage } from '../pages/register-problem-page/register-problem-page';
 import { RegisterProjectPage } from '../pages/register-project-page/register-project-page';
 import {ProblemDetails} from '../pages/problem-details/problem-details';
+//Providers
+import { StorageService } from '../providers/storage-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,12 +21,12 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage;
-  window: any;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, private storageService:StorageService) {
     this.initializeApp();
+    this.session();
     this.platform = platform;
 
     // used for an example of ngFor and navigation
@@ -53,6 +55,21 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  session(){
+    this.storageService.getToken().then(
+        data => {
+          console.log(data);
+          this.storageService.token = data.tk;
+          this.storageService.type = data.type;
+          this.openPage(ProblemPage);
+        },
+        error =>{
+          console.error(error);
+          this.openPage(LoginPage);
+        }
+      );
   }
 
 }

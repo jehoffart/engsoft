@@ -16,8 +16,8 @@ export class UserService {
 
   constructor(public http: Http, private baseService: BaseService) {
     console.log('Hello UserService Provider');
-    this.baseUrl = "http://192.168.1.5:3000/user/";
-    this.urlAuth = "http://192.168.1.5:3000/auth";
+    this.baseUrl = "http://172.16.0.200:3000/user/";
+    this.urlAuth = "http://172.16.0.200:3000/auth";
   }
 
   public getById(id) : any{

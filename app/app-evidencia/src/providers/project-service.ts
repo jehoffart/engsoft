@@ -14,7 +14,7 @@ export class ProjectService {
 
   constructor(public http: Http, private baseService: BaseService) {
     console.log('Hello ProjectService Provider');
-    this.baseUrl = "http://192.168.1.5:3000/project/";
+    this.baseUrl = "http://172.16.0.200:3000/project/";
   }
 
   public getById(id) : any{
