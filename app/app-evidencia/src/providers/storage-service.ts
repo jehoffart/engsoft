@@ -13,19 +13,21 @@ import 'rxjs/add/operator/map';
 export class StorageService {
 
   public storage;
+  public token : any;
+  public type: string;
 
   constructor(public http: Http) {
     console.log('Hello StorageService Provider');
   }
 
-  getToken() {
+  getToken():any {
     console.log("Buscando token");
-    return NativeStorage.getItem('token');
+    this.token = NativeStorage.getItem('token');
   }
 
-  insertToken(token: string) {
+  insertToken(token: string, type: string):any {
     console.log("Inserindo token");
-   return NativeStorage.setItem('token', {tk: token});
+   return NativeStorage.setItem('token', {tk: token, type: type});
  }
 
 }
