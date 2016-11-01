@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { NativeStorage } from 'ionic-native';
-import 'rxjs/add/operator/map';
 
 /*
   Generated class for the StorageService provider.

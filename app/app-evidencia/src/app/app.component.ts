@@ -26,8 +26,8 @@ export class MyApp {
 
   constructor(public platform: Platform, private storageService:StorageService) {
     this.initializeApp();
-    this.session();
     this.platform = platform;
+    this.session();
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -60,9 +60,9 @@ export class MyApp {
   session(){
     this.storageService.getToken().then(
         data => {
-          console.log(data);
           this.storageService.token = data.tk;
           this.storageService.type = data.type;
+          console.log("TOKEN: " + data.tk + "TIPO: " + data.type);
           this.openPage(ProblemPage);
         },
         error =>{
