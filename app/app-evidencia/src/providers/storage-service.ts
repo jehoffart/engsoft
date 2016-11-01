@@ -22,7 +22,7 @@ export class StorageService {
 
   getToken():any {
     console.log("Buscando token");
-    this.token = NativeStorage.getItem('token');
+    return NativeStorage.getItem('token');
   }
 
   insertToken(token: string, type: string):any {

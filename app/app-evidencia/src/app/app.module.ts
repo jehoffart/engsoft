@@ -14,7 +14,7 @@ import {ProblemDetails} from '../pages/problem-details/problem-details';
 import {ProjectDetails} from '../pages/project-details/project-details';
 
 //Providers
-import { StorageService } from '../providers/storage-service/storage-service';
+import { StorageService } from '../providers/storage-service';
 
 @NgModule({
   declarations: [

@@ -60,6 +60,7 @@ export class MyApp {
   session(){
     this.storageService.getToken().then(
         data => {
+          console.log(data);
           this.storageService.token = data.tk;
           this.storageService.type = data.type;
           this.openPage(ProblemPage);
