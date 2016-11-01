@@ -7,7 +7,7 @@ var modelLogin = mongoose.model('Login');
 var config = require('../../config/config');
 
 
-api.get = function(req, res) {  
+api.get = function(req, res) {
 	res = util.setResponse(res);
 	model.find({})
 	.then(function(users){
@@ -15,84 +15,81 @@ api.get = function(req, res) {
 	}, function(error){
 		console.log(error);
 		res.status(500).json(error);
-	});  
+	});
 };
 
 api.getById = function(req, res) {
-    res = util.setResponse(res);
-    var id = jwt.decode(req.params.id, config.secret);
-    console.log(id);
+	res = util.setResponse(res);
+	var id = jwt.decode(req.params.id, config.secret);
+	console.log(id);
 	model.findById(id)
-    .then(function(user){
-      if(!user) throw Error('Usuário não encontrado')
-        res.json(user);      
-    }, function(error){
-        console.log(error);
-        res.status(500).json(error);
-    })        
+	.then(function(user){
+		if(!user) throw Error('Usuário não encontrado')
+		res.json(user);
+	}, function(error){
+		console.log(error);
+		res.status(500).json(error);
+	})
 };
 
 api.delete = function(req, res) {
-    res = util.setResponse(res);
-	 model.remove({_id : req.params.id})
-    .then(function(){
-        res.sendStatus(204);
-    }, function(error){
-        console.log(error);
-        res.status(500).json(error);
-    })       
+	res = util.setResponse(res);
+	model.remove({_id : req.params.id})
+	.then(function(){
+		res.sendStatus(204);
+	}, function(error){
+		console.log(error);
+		res.status(500).json(error);
+	})
 };
 
 api.post = function(req, res){
-    res = util.setResponse(res);
-  //var user = req.body;
- 
-    var user = new model({
-      Name:     req.body.Name,
-      Age:      req.body.Age,
-      Email:    req.body.Email,
-      City:     req.body.City,
-      State:    req.body.State,
-      Street:   req.body.Street,
-      About:    req.body.About,
-      RegistrationDate: req.body.RegistrationDate
-    });
+	res = util.setResponse(res);
+	//var user = req.body;
 
-    model.create(user)
-    .then(function(user){
-        //res.json(user);
-    }, function(error){
-        console.log(error);
-        res.status(500).json(error);
-    })
- 
+	var login = new modelLogin({
+		Login: req.body.Login,
+		Password: req.body.Password,
+		Type: "user",
+		ReferenceId: user._id
+	});
 
-    var login = new modelLogin({
-      Login: req.body.Login,
-      Password: req.body.Password,
-      Type: "user",
-      ReferenceId: user._id
-    });
+	login.save(function(err) {
+		if (err) {
+			return res.json({success: false, msg: 'Username already exists.'});
+		}
+		//res.json({success: true, msg: 'Successful created new user.'});
+	});
+	var user = new model({
+		Name:     req.body.Name,
+		Age:      req.body.Age,
+		Email:    req.body.Email,
+		City:     req.body.City,
+		State:    req.body.State,
+		Street:   req.body.Street,
+		About:    req.body.About,
+		RegistrationDate: req.body.RegistrationDate
+	});
 
-
-    login.save(function(err) {
-      if (err) {
-        return res.json({success: false, msg: 'Username already exists.'});
-      }
-      res.json({success: true, msg: 'Successful created new user.'});
-    });
+	model.create(user)
+	.then(function(user){
+		res.json(user);
+	}, function(error){
+		console.log(error);
+		res.status(500).json(error);
+	})
 }
 
 
 api.put = function(req, res){
-    res = util.setResponse(res);
+	res = util.setResponse(res);
 	model.findByIdAndUpdate(req.params.id, req.body)
-    .then(function(){
-        res.json(user);
-    }, function(error){
-       console.log(error);
-       res.status(500).json(error);
-    })
+	.then(function(){
+		res.json(user);
+	}, function(error){
+		console.log(error);
+		res.status(500).json(error);
+	})
 }
 
 
