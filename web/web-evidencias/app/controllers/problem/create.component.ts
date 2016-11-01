@@ -16,11 +16,11 @@ export class ProblemCreateComponent implements OnInit {
     model: Problem = new Problem();
     submitted: boolean = false;
     private util: Util = new Util();
-    
-    constructor(private _service: ProblemService, 
+
+    constructor(private _service: ProblemService,
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
-                private route: ActivatedRoute, 
+                private route: ActivatedRoute,
                 private router: Router) {}
 
     ngOnInit() {
@@ -31,7 +31,8 @@ export class ProblemCreateComponent implements OnInit {
           Description: [''],
           Status: [''],
           MaxCost: ['', this.util.Coin],
-          Categories: this.formBuilder.array([this.initCategories()])
+          Categories: this.formBuilder.array([this.initCategories()]),
+          Questions: this.formBuilder.array([this.initQuestions()])
       });
     }
 
@@ -39,9 +40,14 @@ export class ProblemCreateComponent implements OnInit {
       this.submitted = true;
 
       if(this.problemForm.valid) {
+
         this.model.Categories = [];
         for (let c of this.problemForm.value.Categories)
           this.model.Categories.push(c.Category);
+
+        this.model.Questions = [];
+        for (let q of this.problemForm.value.Questions)
+          this.model.Questions.push(q.Question);
 
         this._service.post(this.model.attributes)
             .subscribe(problem => this.beforeSave(problem));
@@ -59,6 +65,20 @@ export class ProblemCreateComponent implements OnInit {
 
     removeCategories(i: number) {
       const control = <FormArray> this.problemForm.controls['Categories'];
+      control.removeAt(i);
+    }
+
+    initQuestions() {
+      return this.formBuilder.group({Question: ['', Validators.required]});
+    }
+
+    addQuestions() {
+      const control = <FormArray> this.problemForm.controls['Question'];
+      control.push(this.initQuestions());
+    }
+
+    removeQuestions(i: number) {
+      const control = <FormArray> this.problemForm.controls['Question'];
       control.removeAt(i);
     }
 

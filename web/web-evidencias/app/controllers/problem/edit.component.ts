@@ -16,13 +16,13 @@ export class ProblemEditComponent implements OnInit {
     problemForm: FormGroup;
     model: Problem = new Problem();
     submitted: boolean = false;
-    private subscription: Subscription;  
+    private subscription: Subscription;
     private util: Util = new Util();
 
-    constructor(private _service: ProblemService, 
+    constructor(private _service: ProblemService,
                 private formBuilder: FormBuilder,
                 private auth: AuthenticationService,
-                private route: ActivatedRoute, 
+                private route: ActivatedRoute,
                 private router: Router) {}
 
     ngOnInit() {
@@ -31,7 +31,7 @@ export class ProblemEditComponent implements OnInit {
       this.subscription = this.route.params.subscribe(
         (params: any) => {
           var id = params['id'];
-          
+
           if(!!id) {
             this._service.getById(id)
                 .subscribe(problem => this.initProblem(problem));
@@ -43,7 +43,9 @@ export class ProblemEditComponent implements OnInit {
           Name: ['', Validators.required],
           Description: [''],
           Status: [''],
-          MaxCost: ['', this.util.Coin]
+          MaxCost: ['', this.util.Coin],
+          Categories: this.formBuilder.array([this.initCategories()]),
+          Questions: this.formBuilder.array([this.initQuestions()])
       });
     }
 
@@ -52,15 +54,23 @@ export class ProblemEditComponent implements OnInit {
 
       for (let c of this.model.Categories)
           this.createCategories(c);
+
+      for (let q of this.model.Questions)
+          this.createQuestions(q);
     }
 
     onSubmit() {
       this.submitted = true;
 
       if(this.problemForm.valid) {
+
         this.model.Categories = [];
         for (let c of this.problemForm.value.Categories)
           this.model.Categories.push(c.Category);
+
+        this.model.Questions = [];
+        for (let q of this.problemForm.value.Questions)
+          this.model.Questions.push(q.Question);
 
         this._service.put(this.model.attributes)
             .subscribe(problem => this.beforeSave(problem));
@@ -84,6 +94,25 @@ export class ProblemEditComponent implements OnInit {
     removeCategories(i: number) {
       const control = <FormArray> this.problemForm.controls['Categories'];
       control.removeAt(i);
+    }
+
+    initQuestions() {
+      return this.formBuilder.group({Question: ['', Validators.required]});
+    }
+
+    addQuestions() {
+      const control = <FormArray> this.problemForm.controls['Question'];
+      control.push(this.initQuestions());
+    }
+
+    removeQuestions(i: number) {
+      const control = <FormArray> this.problemForm.controls['Question'];
+      control.removeAt(i);
+    }
+
+    createQuestions(question : string) {
+      const control = <FormArray> this.problemForm.controls['Question'];
+      control.push(this.formBuilder.group({Question: [question, Validators.required]}));
     }
 
     beforeSave(problem) {

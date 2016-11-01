@@ -5,18 +5,13 @@ export class Problem extends Model {
     _id: string;
     Name:string;
     Description: string;
-    Questions: [string];
+    Questions: string[];
     MaxCost: number;
     Categories: string[];
     Registrations: [{
         Project: Project;
         Answers: string[];
     }];
-    
-    addCategory(category) {
-        if(!this.Categories) this.Categories = [];
-        this.Categories.push(category);
-    }
 
     attributeNames: string[] = ['_id', 'Name', 'Description', 'Question', 'Categories', 'Registrations'];
 }
