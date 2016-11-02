@@ -17,6 +17,7 @@ export class EnterpriseEditComponent implements OnInit {
     model: Enterprise = new Enterprise();
     submitted: boolean = false;
     private subscription: Subscription;  
+    util: Util = new Util();
 
     constructor(private _service: EnterpriseService, 
                 private formBuilder: FormBuilder,
@@ -43,7 +44,7 @@ export class EnterpriseEditComponent implements OnInit {
           Login: ['', Validators.required],
           Password: ['', Validators.required],
           Description: [''],
-          Website: ['']
+          Website: ['', this.util.ValidURL]
       });
     }
 

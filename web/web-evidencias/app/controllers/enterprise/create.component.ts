@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EnterpriseService } from '../../services/enterprise.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Enterprise } from '../../models/Enterprise';
+import { Util } from '../../models/Util';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -14,6 +15,7 @@ export class EnterpriseCreateComponent implements OnInit {
     enterpriseForm: FormGroup;
     model: Enterprise = new Enterprise();
     submitted: boolean = false;
+    util: Util = new Util();
 
     constructor(private _service: EnterpriseService, 
                 private formBuilder: FormBuilder,
@@ -26,11 +28,11 @@ export class EnterpriseCreateComponent implements OnInit {
 
       this.enterpriseForm = this.formBuilder.group({
           Name: ['', Validators.required],
-          CNPJ: ['', Validators.required],
+          CNPJ: ['', [Validators.required, this.util.ValidCnpj, Validators.maxLength(18)]],
           Login: ['', Validators.required],
           Password: ['', Validators.required],
           Description: [''],
-          Website: [''],
+          Website: ['', this.util.ValidURL],
           Categories: this.formBuilder.array([this.initCategories()])
       });
     }

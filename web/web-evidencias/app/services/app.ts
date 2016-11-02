@@ -10,16 +10,21 @@ export class App {
   public headers: Headers;
 
   constructor() {
-  	this.url = "http://192.168.43.241:3000/"; 
+  	this.url = "http://localhost:8080/"; 
   	this.token = "token";
     this.user = "id";
     this.type = "type";
   	this.headers = new Headers(
   		{
   			'Content-Type': 'application/json; charset=utf-8',
-        'Authorization': this.getToken()
+        'Authorization': this.getJWT()
   		}
   	);
+  }
+
+  getJWT() {
+    if(localStorage.getItem(this.token))
+      return localStorage.getItem(this.token);
   }
 
   getToken() {

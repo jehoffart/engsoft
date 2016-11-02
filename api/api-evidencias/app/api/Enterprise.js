@@ -18,29 +18,31 @@ api.get = function(req, res) {
 };
 
 api.getById = function(req, res) {
-	res = util.setResponse(res);
+
+    res = util.setResponse(res);
 	model.findById(req.params.id)
-	.then(function(enterprise){
-		if(!enterprise) throw Error('Empresa não encontrado')
-		res.json(enterprise);
-	}, function(error){
-		console.log(error);
-		res.status(500).json(error);
-	})
+    .then(function(enterprise){
+      if(!enterprise) throw Error('Empresa não encontrado')
+        res.json(enterprise);
+    }, function(error){
+        console.log(error);
+        res.status(500).json(error);
+    })
 };
 
 api.delete = function(req, res) {
-	res = util.setResponse(res);
+    res = util.setResponse(res);
 	model.remove({_id : req.params.id})
-	.then(function(){
-		res.sendStatus(204);
-	}, function(error){
-		console.log(error);
-		res.status(500).json(error);
-	})
+    .then(function(){
+        res.sendStatus(204);
+    }, function(error){
+        console.log(error);
+        res.status(500).json(error);
+    })
 };
 
 api.post = function(req, res){
+
 	res = util.setResponse(res);
 
 	var enterprise = new model({
@@ -83,6 +85,32 @@ api.put = function(req, res){
 		console.log(error);
 		res.status(500).json(error);
 	})
+}
+
+api.newProblem = function(req, res){
+    res = util.setResponse(res);
+  var problem = req.body.ProblemId;
+
+    model.update(
+      { "_id": req.params.id  },
+      { $push: { "Problems": problem }}
+    )
+    .then(function(enterprise){
+        //res.json();
+    }, function(error){
+        console.log(error);
+        res.status(500).json(error);
+    })
+
+   model.findById(req.params.id)
+      .then(function(enterprise){
+        if(!enterprise) throw Error('Empresa não encontrado')
+          res.json(enterprise);
+      }, function(error){
+          console.log(error);
+          res.status(500).json(error);
+      })
+
 }
 
 

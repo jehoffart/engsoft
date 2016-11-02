@@ -22,12 +22,11 @@ export class AuthenticationService {
   }
 
   login(login: string, password: string){
-    var data = JSON.stringify({"Login": login, "Password": password})  
+    var data = {"Login": login, "Password": password };
     
-    this.http
+    return this.http
       .post(this.app.url + "auth", data)
-      .map(res => res.json())
-      .subscribe((login) => this.setLocalStorage(login));
+      .map(res => res.json());
   }
 
   setLocalStorage(auth) {
@@ -68,5 +67,11 @@ export class AuthenticationService {
   getToken() {
     if(localStorage.getItem(this.app.user))
       return localStorage.getItem(this.app.user);
+  }
+
+  compareId(id : string) {
+    if(localStorage.getItem(this.app.user) && localStorage.getItem(this.app.user) == id) 
+      return true;
+    return false;
   }
 }

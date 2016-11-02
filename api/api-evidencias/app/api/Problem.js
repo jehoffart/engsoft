@@ -53,6 +53,7 @@ api.post = function(req, res){
 }
 
 api.put = function(req, res){
+    res = util.setResponse(res);
      model.findByIdAndUpdate(req.params.id, req.body)
      .then(function(){
          res.json(problem);
@@ -60,6 +61,32 @@ api.put = function(req, res){
         console.log(error);
         res.status(500).json(error);
     })
+}
+
+api.newProject = function(req, res){
+  res = util.setResponse(res);
+  var project = req.body;
+  //console.log(project);
+    model.update(
+      { "_id": req.params.id  },
+      { $push: { "Registrations": project }}
+    )
+
+    .then(function(problem){
+      //  res.json(problem);
+    }, function(error){
+        console.log(error);
+        res.status(500).json(error);
+    })
+
+      model.findById(req.params.id)
+    .then(function(problem){
+      if(!problem) throw Error('Problema não encontrado')
+        res.json(problem);      
+    }, function(error){
+        console.log(error);
+        res.status(500).json(error);
+    }) 
 }
 
 
