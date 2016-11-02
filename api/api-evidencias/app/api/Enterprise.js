@@ -43,25 +43,6 @@ api.delete = function(req, res) {
 api.post = function(req, res){
 	res = util.setResponse(res);
 
-
-
-
-
-
-	var login = new modelLogin({
-		Login: req.body.Login,
-		Password: req.body.Password,
-		Type: "enterprise",
-		ReferenceId: enterprise._id
-	});
-
-
-	login.save(function(err) {
-		if (err) {
-			return res.json({success: false, msg: 'Username already exists.'});
-		}
-		//res.json({success: true, msg: 'Successful created new enterprise.'});
-	});
 	var enterprise = new model({
 		CNPJ:         req.body.CNPJ,
 		Name:         req.body.Name,
@@ -74,44 +55,23 @@ api.post = function(req, res){
 
 	model.create(enterprise)
 	.then(function(enterprise){
-		res.json(enterprise);
+		var login = new modelLogin({
+			Login: req.body.Login,
+			Password: req.body.Password,
+			Type: "enterprise",
+			ReferenceId: enterprise._id
+		});
+
+		login.save(function(err) {
+			if (err) {
+				return res.json({success: false, msg: 'Username already exists.'});
+			}
+			res.json(enterprise);
+		});
 	}, function(error){
 		console.log(error);
 		res.status(500).json(error);
-	})
-	var enterprise = new model({
-		CNPJ:         req.body.CNPJ,
-		Name:         req.body.Name,
-		Description:  req.body.Description,
-		RegistrationDate: req.body.RegistrationDate,
-		Categories:   req.body.Categories,
-		Website:      req.body.Website,
-		Problems:     req.body.Problems
 	});
-
-
-
-	model.create(enterprise)
-	.then(function(enterprise){
-		//res.json(enterprise);
-	}, function(error){
-		console.log(error);
-		res.status(500).json(error);
-	})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 api.put = function(req, res){
