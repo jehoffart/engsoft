@@ -26,5 +26,10 @@ module.exports  = function(app) {
     .delete(passport.authenticate('jwt', { session: false}),api.delete)
     .put(passport.authenticate('jwt', { session: false}),api.put);
 
+      
+    app.route('/problem/newProject/:id')
+    .post(passport.authenticate('jwt', { session: false}),api.newProject);
+        
+
 
 };

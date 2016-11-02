@@ -64,9 +64,6 @@ getToken = function (headers) {
     return null;
   }
 };
-
-
-
 */
 
 
