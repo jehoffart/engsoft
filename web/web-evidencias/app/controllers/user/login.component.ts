@@ -20,8 +20,13 @@ export class LoginComponent implements OnInit {
     ngOnInit() {}
 
     login() {
-        if(!this._service.login(this.username, this.password)){
-            this.errorMsg = 'Usuário ou senha inválidos';
+        this._service.login(this.username, this.password)
+            .subscribe((login) => this.setLocalStorage(login));
+    }
+
+    setLocalStorage(auth) {
+        if(!this._service.setLocalStorage(auth)) {
+            this.errorMsg = "Usuário ou Senha inválidos";
         }
     }
 }

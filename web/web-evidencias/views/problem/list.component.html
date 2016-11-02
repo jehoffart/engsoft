@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2>
         Problema
-        <a routerLink="/problem/create" class="btn btn-success btn-md"><span class="glyphicon glyphicon-plus"></span></a>
+        <a *ngIf="!auth.getToken()" routerLink="/problem/create" class="btn btn-success btn-md"><span class="glyphicon glyphicon-plus"></span></a>
     </h2>
 </div>
 
@@ -23,8 +23,8 @@
         <td>{{item.MaxCost}}</td>
         <td>
             <a routerLink="/problem/show/{{item._id}}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-eye-open"></span></a>
-            <a routerLink="/problem/edit/{{item._id}}" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-            <button (click)="delete(item._id)" class="btn btn-md btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+            <a *ngIf="!auth.getToken()" routerLink="/problem/edit/{{item._id}}" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+            <button *ngIf="!auth.getToken()" (click)="delete(item._id)" class="btn btn-md btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
         </td>
     </tr>
     </tbody>

@@ -13,8 +13,8 @@
     </div>
     <div class="form-group">
         <label for="CNPJ">CNPJ</label>
-        <input type="text" class="form-control" formControlName="CNPJ" [(ngModel)]="model.CNPJ" />
-        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.CNPJ.valid || !submitted">O CNPJ é obrigatório</div>
+        <input type="text" class="form-control" maxlength="18" formControlName="CNPJ" [(ngModel)]="model.CNPJ" />
+        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.CNPJ.valid || !submitted">O CNPJ deve ser digitado ou está num formato inválido</div>
     </div>
     <div class="form-group">
         <label for="Description">Descrição</label>
@@ -22,7 +22,8 @@
     </div>
     <div class="form-group">
         <label for="Website">Website</label>
-        <input type="text" class="form-control" formControlName="Website" [(ngModel)]="model.Website" />
+        <input type="text" class="form-control" formControlName="Website" placeholder="www.exemplo.com.br" [(ngModel)]="model.Website" />
+        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Website.valid || !submitted">O Website está num formato inválido</div>
     </div>
     
     <div formArrayName="Categories" class="form-group">

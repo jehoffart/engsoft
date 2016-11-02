@@ -43,9 +43,9 @@ export class ProblemEditComponent implements OnInit {
           Name: ['', Validators.required],
           Description: [''],
           Status: [''],
-          MaxCost: ['', this.util.Coin],
-          Categories: this.formBuilder.array([this.initCategories()]),
-          Questions: this.formBuilder.array([this.initQuestions()])
+          MaxCost: ['', this.util.ValidCoin],
+          Categories: this.formBuilder.array([]),
+          Questions: this.formBuilder.array([])
       });
     }
 
@@ -101,17 +101,17 @@ export class ProblemEditComponent implements OnInit {
     }
 
     addQuestions() {
-      const control = <FormArray> this.problemForm.controls['Question'];
+      const control = <FormArray> this.problemForm.controls['Questions'];
       control.push(this.initQuestions());
     }
 
     removeQuestions(i: number) {
-      const control = <FormArray> this.problemForm.controls['Question'];
+      const control = <FormArray> this.problemForm.controls['Questions'];
       control.removeAt(i);
     }
 
     createQuestions(question : string) {
-      const control = <FormArray> this.problemForm.controls['Question'];
+      const control = <FormArray> this.problemForm.controls['Questions'];
       control.push(this.formBuilder.group({Question: [question, Validators.required]}));
     }
 

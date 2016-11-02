@@ -30,7 +30,7 @@ export class ProblemCreateComponent implements OnInit {
           Name: ['', Validators.required],
           Description: [''],
           Status: [''],
-          MaxCost: ['', this.util.Coin],
+          MaxCost: ['', this.util.ValidCoin],
           Categories: this.formBuilder.array([this.initCategories()]),
           Questions: this.formBuilder.array([this.initQuestions()])
       });
@@ -73,12 +73,12 @@ export class ProblemCreateComponent implements OnInit {
     }
 
     addQuestions() {
-      const control = <FormArray> this.problemForm.controls['Question'];
+      const control = <FormArray> this.problemForm.controls['Questions'];
       control.push(this.initQuestions());
     }
 
     removeQuestions(i: number) {
-      const control = <FormArray> this.problemForm.controls['Question'];
+      const control = <FormArray> this.problemForm.controls['Questions'];
       control.removeAt(i);
     }
 

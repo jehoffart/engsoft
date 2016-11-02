@@ -44,7 +44,7 @@ export class ProjectCreateComponent implements OnInit {
           Name: ['', Validators.required],
           Description: [''],
           Status: [''],
-          Cost: ['', this.util.Coin],
+          Cost: ['', this.util.ValidCoin],
           Problem: ['', Validators.required],
           Categories: this.formBuilder.array([this.initCategories()]),
           Users: this.formBuilder.array([
