@@ -6,7 +6,7 @@ var model = mongoose.model('Enterprise');
 var modelLogin = mongoose.model('Login');
 var config = require('../../config/config');
 
-api.get = function(req, res) {  
+api.get = function(req, res) {
 	res = util.setResponse(res);
 	model.find({})
 	.then(function(enterprises){
@@ -14,7 +14,7 @@ api.get = function(req, res) {
 	}, function(error){
 		console.log(error);
 		res.status(500).json(error);
-	});  
+	});
 };
 
 api.getById = function(req, res) {
@@ -23,11 +23,11 @@ api.getById = function(req, res) {
 	model.findById(req.params.id)
     .then(function(enterprise){
       if(!enterprise) throw Error('Empresa não encontrado')
-        res.json(enterprise);      
+        res.json(enterprise);
     }, function(error){
         console.log(error);
         res.status(500).json(error);
-    })        
+    })
 };
 
 api.delete = function(req, res) {
@@ -38,48 +38,42 @@ api.delete = function(req, res) {
     }, function(error){
         console.log(error);
         res.status(500).json(error);
-    })       
+    })
 };
 
 api.post = function(req, res){
-    res = util.setResponse(res);
 
-  var enterprise = new model({
-      CNPJ:         req.body.CNPJ,
-      Name:         req.body.Name,
-      Description:  req.body.Description,
-      RegistrationDate: req.body.RegistrationDate,
-      Categories:   req.body.Categories,
-      Website:      req.body.Website,
-      Problems:     req.body.Problems
-    });
+	res = util.setResponse(res);
 
+	var enterprise = new model({
+		CNPJ:         req.body.CNPJ,
+		Name:         req.body.Name,
+		Description:  req.body.Description,
+		RegistrationDate: req.body.RegistrationDate,
+		Categories:   req.body.Categories,
+		Website:      req.body.Website,
+		Problems:     req.body.Problems
+	});
 
+	model.create(enterprise)
+	.then(function(enterprise){
+		var login = new modelLogin({
+			Login: req.body.Login,
+			Password: req.body.Password,
+			Type: "enterprise",
+			ReferenceId: enterprise._id
+		});
 
-    model.create(enterprise)
-    .then(function(enterprise){
-      //  res.json(enterprise);
-    }, function(error){
-        console.log(error);
-        res.status(500).json(error);
-    })
-
-   var login = new modelLogin({
-      Login: req.body.Login,
-      Password: req.body.Password,
-      Type: "enterprise",
-      ReferenceId: enterprise._id
-    });
-
-
-    login.save(function(err) {
-      if (err) {
-        return res.json({success: false, msg: 'Username already exists.'});
-      }
-      res.json(enterprise);
-    });
-
-
+		login.save(function(err) {
+			if (err) {
+				return res.json({success: false, msg: 'Username already exists.'});
+			}
+			res.json(enterprise);
+		});
+	}, function(error){
+		console.log(error);
+		res.status(500).json(error);
+	});
 }
 
 api.put = function(req, res){
@@ -111,11 +105,11 @@ api.newProblem = function(req, res){
    model.findById(req.params.id)
       .then(function(enterprise){
         if(!enterprise) throw Error('Empresa não encontrado')
-          res.json(enterprise);      
+          res.json(enterprise);
       }, function(error){
           console.log(error);
           res.status(500).json(error);
-      })  
+      })
 
 }
 
