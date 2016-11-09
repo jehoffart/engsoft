@@ -21,4 +21,12 @@ export class ProjectService {
     // Note: This is only an example. The following API call will fail because there is no actual API to talk to.
     return this.http.post('http://srv-facens9848.cloudapp.net:4000/project', project, options).map((res:Response) => res.json());
   }
+
+  getAllProjects()
+  {
+      let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    return this.http.get('http://srv-facens9848.cloudapp.net:4000/project', options).map((res:Response) => (res.json));
+  }
+
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ProjectService } from '../../providers/project-service';
+//import { Project } from '../../models/project';
 
 /*
   Generated class for the MyProjectsPage page.
@@ -9,14 +11,29 @@ import { NavController } from 'ionic-angular';
 */
 @Component({
   selector: 'page-my-projects-page',
-  templateUrl: 'my-projects-page.html'
+  templateUrl: 'my-projects-page.html',
+  providers : [ProjectService]
 })
 export class MyProjectsPage {
 
-  constructor(public navCtrl: NavController) {}
+public problems : any;
+
+  constructor(public navCtrl: NavController, private projectService : ProjectService) {
+     this.projectService.getAllProjects().subscribe(respose => {
+       console.log(respose);
+       
+        this.problems = respose;
+        
+     });
+  }
 
   ionViewDidLoad() {
     console.log('Hello MyProjectsPage Page');
+  }
+
+  goToDetails(id : string)
+  {
+
   }
 
 }
