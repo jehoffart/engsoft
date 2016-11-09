@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { StorageService } from '../../providers/storage-service';
 import {ProjectService} from '../../providers/project-service';
 import {Project} from '../../models/project';
-
+import {Observable} from 'rxjs/Rx';
 /*
 Generated class for the MyProjectsPage page.
 
@@ -17,18 +17,31 @@ Ionic pages and navigation.
 })
 export class MyProjectsPage {
 
-public projects : any;
+public projects: Project[];
 
-  constructor(public storage:StorageService, public navCtrl: NavController, projectService : ProjectService) {
-    projectService.getAllProjects().subscribe((projs) =>
-    {
-        console.log(projs);
-        this.projects = projs;
-    });
+  constructor(public storage:StorageService, public navCtrl: NavController, public projectService : ProjectService) {
+    this.storage.getSession().then(
+      data => {
+        projectService.token = data.operator.token;
+        this.getAllProjects();
+      },
+      error => console.error(error)
+    );
+
    }
 
   ionViewDidLoad() {
     console.log('Hello MyProjectsPage Page');
+  }
+
+  getAllProjects(){
+    this.projectService.getAllProjects().subscribe(
+      projs => {
+        this.projects = projs;
+    },
+    error => {
+      return Observable.throw(error);
+    });
   }
 
 }

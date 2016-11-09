@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
-import 'rxjs/RX';
 import { Project } from '../models/project'
 import { StorageService } from './storage-service';
 import {Observable} from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
 /*
   Generated class for the ProjectService provider.
@@ -14,12 +14,15 @@ import {Observable} from 'rxjs/Rx';
 @Injectable()
 export class ProjectService {
 
-token: string;
+  public token: string;
+  projects:any;
 
   constructor(public storage:StorageService, public http: Http) {
     console.log('Hello ProjectService Provider');
     this.storage.getSession().then(
-      data => this.token = data.operator.token,
+      data => {
+        this.token = data.operator.token;
+      },
       error => console.error(error)
     );
   }
@@ -37,7 +40,7 @@ token: string;
     let headers = new Headers({'Content-Type': 'application/json'});
     headers.append("Authorization", this.token);
     let options = new RequestOptions({headers: headers});
-    return this.http.get('http://srv-facens9848.cloudapp.net:4000/project', options).map((res:Response) => (res.json));
+    return this.http.get('http://srv-facens9848.cloudapp.net:4000/project', options).map(res => <Array<Project>>(res.json()));
   }
 
 }
