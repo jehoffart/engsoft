@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
-
+import { ProjectService } from '../../providers/project-service';
 
 @Component({
-  templateUrl: 'item-details.html'
+  templateUrl: 'item-details.html',
+  providers:[ProjectService]
 })
 export class ItemDetailsPage {
   selectedItem: any;

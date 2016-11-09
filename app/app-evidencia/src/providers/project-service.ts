@@ -34,6 +34,7 @@ token: string;
   getAllProjects()
   {
     let headers = new Headers({'Content-Type': 'application/json'});
+    headers.append("Authorization", this.token);
     let options = new RequestOptions({headers: headers});
     return this.http.get('http://srv-facens9848.cloudapp.net:4000/project', options).map((res:Response) => (res.json));
   }
