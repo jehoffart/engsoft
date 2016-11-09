@@ -1,25 +1,51 @@
 <!--
-  Generated template for the ProjectPage page.
+Generated template for the ProjectPage page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
+See http://ionicframework.com/docs/v2/components/#navigation for more info on
+Ionic pages and navigation.
 -->
 <ion-header>
+
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Meus projetos</ion-title>
+    <ion-title>Cadastro de Projeto</ion-title>
   </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <button ion-item *ngFor="let project of projects" (click)="goToDetails(project._id)">
-      <h2>{{ project.Name }}</h2>
-      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-right></ion-icon>
-    </button>
-  </ion-list>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+<ion-content padding>
+  <form [formGroup]="projectForm" (ngSubmit)="save()">
+    <ion-item>
+      <ion-label floating>Nome</ion-label>
+      <ion-input type="text" formControlName="Name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Descrição</ion-label>
+      <ion-textarea type="text" formControlName="Description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Status</ion-label>
+      <ion-input type="text" formControlName="Status"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Custo</ion-label>
+      <ion-input type="text" formControlName="Cost" type = "number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Categorias</ion-label>
+      <ion-input type="text" #category></ion-input>
+    </ion-item>
+    <ion-item>
+      <button type="button" ion-button (click)="addCategories(category)" [disabled]="category==''">Add</button>
+      <ul>
+        <li *ngFor="let cat of projectForm.value.Categories; let i = index;">
+          {{ cat }}
+        </li>
+      </ul>
+    </ion-item>
+    <button ion-button padding full color="secondary" [disabled]="!projectForm.valid">Cadastrar projeto</button>
+  </form>
 </ion-content>

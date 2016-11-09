@@ -1,76 +1,79 @@
-//Imports
 import { Component } from '@angular/core';
-import { Platform, NavController, LoadingController } from 'ionic-angular';
-import {Validators, FormBuilder } from '@angular/forms';
-import { Toast } from 'ionic-native';
-import 'rxjs/Rx';
-//Models
-import { User } from '../../models/User';
-//Providers
-import { UserService } from '../../providers/user-service';
-import { BaseService } from '../../providers/base-service';
-import { StorageService} from '../../providers/storage-service';
-//Pages
-import { ProblemPage } from '../problem-page/problem-page';
-import { RegisterUserPage } from '../register-user-page/register-user-page';
-import { RegisterEnterprisePage } from '../register-enterprise-page/register-enterprise-page';
+import { NavController, LoadingController, ToastController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {Observable} from 'rxjs/Rx';
+//models
+import { Login } from '../../models/login';
+//providers
+import { LoginService } from '../../providers/login-service';
+import { UserPage } from '../../pages/user-page/user-page';
+import { EnterprisePage } from '../../pages/enterprise-page/enterprise-page';
+import { MyProjectsPage } from '../../pages/my-projects-page/my-projects-page';
+/*
+Generated class for the LoginPage page.
 
+See http://ionicframework.com/docs/v2/components/#navigation for more info on
+Ionic pages and navigation.
+*/
 @Component({
-  selector: 'login-page',
+  selector: 'page-login-page',
   templateUrl: 'login-page.html',
-  providers: [UserService, BaseService]
+  providers: [LoginService]
 })
 export class LoginPage {
-  public registerUser = RegisterUserPage;
-  public registerEnterprise = RegisterEnterprisePage;
-  public registrationForm:any;
-  public token: string;
-  public load:any;
 
-  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, private storage: StorageService, private userService: UserService, private formBuilder: FormBuilder, public platform: Platform) {}
+  public login:Login;
+  public loginForm:FormGroup;
+  public load:any;
+  public enterprise:any;
+  public user:any;
+
+  constructor(private toastCtrl: ToastController ,public loadingCtrl:LoadingController, public navCtrl: NavController, public formBuilder:FormBuilder, public loginService:LoginService) {
+    this.login = new Login();
+    this.enterprise = EnterprisePage;
+    this.user = UserPage;
+  }
 
   ionViewDidLoad() {
-    this.registrationForm = this.formBuilder.group({
-      Login: ['',Validators.required],
-      Password: ['',Validators.required]
-    });
+    console.log('Hello LoginPage Page');
+  }
+
+  ngOnInit(): void {
+    this.buildForm();
   }
 
   authentication(){
     this.showLoad("Autenticando...");
-    let user = <User> this.registrationForm.value;
-    this.userService.auth(user).subscribe(res => {
-      console.log(res);
-      this.storeToken(res);
-    });
-  }
-
-  storeToken(obj:any){
-    if(obj.success){
-      console.log("Sucesso");
-      this.storage.insertToken(obj.token, obj.type).then(
-        () =>    {
-          this.storage.token = obj.token;
-          this.storage.type = obj.type;
-          this.showToast("Sucesso na autenticação","bottom");
-          this.navCtrl.setRoot(ProblemPage);
-        },
-        error => console.error('Error ao armazenar NativeStorage ', error)
-      );
-    }else{
-      console.log("Falha");
-      this.dismissLoad();
-      this.registrationForm.reset();
-      this.showToast(obj.msg, "top");
-    }
-  }
-
-  showToast(message, position) {
-    Toast.show(message, "short", position).subscribe(
-      toast => {
-        console.log(toast);
+    this.login = this.loginForm.value;
+    this.loginService.auth(this.login).subscribe(
+      data => {
+        if(data.success){
+          console.log(data);
+          this.showToast("Logged with success", 3000, "bottom");
+          this.navCtrl.setRoot(MyProjectsPage);
+        }else{
+          this.showToast("Login ou senha incorreta",3000,"top");
+          this.loginForm.reset();
+        }
+        //show Toast
+        this.dismissLoad();
+        return true;
+      },
+      error => {
+        console.error("Error authentication!");
+        this.dismissLoad();
+        this.loginForm.reset();
+        this.showToast("Server error",3000,"top");
+        return Observable.throw(error);
       }
     );
+  }
+
+  buildForm(){
+    this.loginForm = this.formBuilder.group({
+      Login: [this.login.Login,Validators.required],
+      Password: [this.login.Password,Validators.required]
+    });
   }
 
   showLoad(msg:string) {
@@ -78,11 +81,18 @@ export class LoginPage {
       dismissOnPageChange: true,
       content: msg
     });
-
     this.load.present();
   }
-
   dismissLoad(){
     this.load.dismiss();
   }
+  showToast(msg:string, time:number, pos:string) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: time,
+      position: pos
+    });
+    toast.present();
+  }
+
 }

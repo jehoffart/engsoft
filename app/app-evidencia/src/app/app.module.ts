@@ -1,33 +1,28 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
-
-//pages
-import { ProblemPage } from '../pages/problem-page/problem-page';
-import { ProjectPage } from '../pages/project-page/project-page';
-import { RegisterUserPage } from '../pages/register-user-page/register-user-page';
-import { RegisterEnterprisePage } from '../pages/register-enterprise-page/register-enterprise-page';
 import { LoginPage } from '../pages/login-page/login-page';
-import { RegisterProblemPage } from '../pages/register-problem-page/register-problem-page';
-import { RegisterProjectPage } from '../pages/register-project-page/register-project-page';
-import {ProblemDetails} from '../pages/problem-details/problem-details';
-import {ProjectDetails} from '../pages/project-details/project-details';
-
-//Providers
-import { StorageService } from '../providers/storage-service';
+import { EnterprisePage } from '../pages/enterprise-page/enterprise-page';
+import { UserPage } from '../pages/user-page/user-page';
+import { ProjectPage } from '../pages/project-page/project-page';
+import { ProblemPage } from '../pages/problem-page/problem-page';
+import { MyProjectsPage } from '../pages/my-projects-page/my-projects-page';
+import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+import { ItemDetailsPage } from '../pages/item-details/item-details';
+import { ListPage } from '../pages/list/list';
 
 @NgModule({
   declarations: [
     MyApp,
-    ProblemPage,
-    ProjectPage,
-    RegisterUserPage,
-    RegisterEnterprisePage,
     LoginPage,
-    RegisterProblemPage,
-    RegisterProjectPage,
-    ProblemDetails,
-    ProjectDetails
+    EnterprisePage,
+    UserPage,
+    ProjectPage,
+    ProblemPage,
+    MyProjectsPage,
+    HelloIonicPage,
+    ItemDetailsPage,
+    ListPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -35,16 +30,16 @@ import { StorageService } from '../providers/storage-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ProblemPage,
-    ProjectPage,
-    RegisterUserPage,
-    RegisterEnterprisePage,
     LoginPage,
-    RegisterProblemPage,
-    RegisterProjectPage,
-    ProblemDetails,
-    ProjectDetails
+    EnterprisePage,
+    UserPage,
+    ProjectPage,
+    ProblemPage,
+    MyProjectsPage,
+    HelloIonicPage,
+    ItemDetailsPage,
+    ListPage
   ],
-  providers: [StorageService]
+  providers: []
 })
 export class AppModule {}

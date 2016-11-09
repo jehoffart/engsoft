@@ -5,6 +5,11 @@ export class Problem{
     public Description : string;
     public Questions : string;
     public MaxCost : number;
-    public Categories : string;
+    public Categories : Array<string>;
     public Registrations : Array<Object>;
+
+    constructor(){
+      this.Categories = [];
+      this.Registrations = [];
+    }
 }

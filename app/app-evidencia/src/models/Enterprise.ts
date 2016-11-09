@@ -1,4 +1,4 @@
-import{ Problem } from './Problem';
+
 export class Enterprise{
 
 public _id : string;
@@ -10,5 +10,5 @@ public _id : string;
   public RegistrationDate : string;
   public Categories : Array<string>;
   public Website : string;
-  public Problems : Array<Problem>;
+  //public Problems : Array<Problem>;
 }

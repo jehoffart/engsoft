@@ -5,19 +5,43 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Problemas</ion-title>
+    <ion-title>Cadastro de Problemas</ion-title>
   </ion-navbar>
+
 </ion-header>
 
+
 <ion-content padding>
-  <ion-list>
-    <button ion-item *ngFor="let problem of problems" (click)="goToDetails(problem._id)">
-      <h2>{{ problem.Name }}</h2>
-      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-right></ion-icon>
-    </button>
-  </ion-list>
+  <form [formGroup]="problemForm" (ngSubmit)="save()">
+      <ion-item>
+        <ion-label floating>Nome</ion-label>
+        <ion-input type="text" formControlName="Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Descrição</ion-label>
+        <ion-textarea type="text" formControlName="Description"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Custo máximo</ion-label>
+        <ion-input type="text" formControlName="MaxCost" type = "number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Categoria</ion-label>
+        <ion-input type="text" #category></ion-input>
+      </ion-item>
+      <ion-item>
+      <button ion-button type="button" (click)="addCategories(category)">Add</button>
+        <ul>
+          <li *ngFor="let cat of problemForm.value.Categories; let i = index;">
+            {{cat}}
+          </li>
+        </ul>
+      </ion-item>
+      <button ion-button padding full color="secondary" [disabled]="!problemForm.valid">Cadastrar problema</button>
+    </form>
 </ion-content>

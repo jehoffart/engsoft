@@ -5,13 +5,18 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+<!--
   <ion-navbar>
     <ion-title>Projeto Evidência</ion-title>
   </ion-navbar>
+-->
 </ion-header>
 
-<ion-content padding class="form-login">
-  <form [formGroup]="registrationForm" (ngSubmit)="authentication()">
+
+<ion-content padding>
+  <img src="assets/icon/icon128.png"/>
+<ion-title>Projeto Evidência</ion-title>
+  <form [formGroup]="loginForm" (ngSubmit)="authentication()">
       <ion-item>
         <ion-label floating>Login</ion-label>
         <ion-input type="text" formControlName="Login"></ion-input>
@@ -20,8 +25,8 @@
         <ion-label floating>Senha</ion-label>
         <ion-input type="password" formControlName="Password"></ion-input>
       </ion-item>
-      <button ion-button padding full color="secondary" [disabled]="!registrationForm.valid">Entrar</button>
+      <button ion-button padding full color="secondary" [disabled]="!loginForm.valid">Entrar</button>
     </form>
-    <a [navPush]="registerUser">Cadastrar-se como Aluno</a><br>
-    <a [navPush]="registerEnterprise">Cadastrar-se como Empresa</a>
+<button class="btnCadastro" [navPush]="enterprise" (click)="showLoad('Carregando...')" ion-button padding full round color="light">Me cadastrar como EMPRESA</button>
+<button class="btnCadastro" [navPush]="user" (click)="showLoad('Carregando...')" ion-button padding full round color="light">Me cadastrar como ALUNO</button>
 </ion-content>

@@ -1,4 +1,4 @@
-import{ User } from './User';
+
 export class Project{
 
     public _id : string;
@@ -8,5 +8,10 @@ export class Project{
     public RegistrationDate : string;
     public Cost : number;
     public Categories : Array<string>;
-    public Team : Array<User>;
+    public Team : Array<string>;
+
+    constructor(){
+      this.Categories = [];
+      this.Team = ['581e564cb249d00434783a4b'];
+    }
 }

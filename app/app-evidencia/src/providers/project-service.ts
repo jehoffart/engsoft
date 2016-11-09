@@ -1,51 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Component } from '@angular/core';
-import { Http } from '@angular/http';
-import { BaseService } from './base-service';
+import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Project } from '../models/project'
 
-import {Project} from '../models/Project';
-import {User} from '../models/User';
+/*
+  Generated class for the ProjectService provider.
 
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular 2 DI.
+*/
 @Injectable()
 export class ProjectService {
 
-  private baseUrl: string;
-
-  constructor(public http: Http, private baseService: BaseService) {
+  constructor(public http: Http) {
     console.log('Hello ProjectService Provider');
-    this.baseUrl = "http://172.16.0.200:3000/project/";
   }
-
-  public getById(id) : any{
-    return this.baseService.get(this.baseUrl + id).map(res => <Project>(res.json()));
+  addProject(project:Project){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    // Note: This is only an example. The following API call will fail because there is no actual API to talk to.
+    return this.http.post('http://srv-facens9848.cloudapp.net:4000/project', project, options).map((res:Response) => res.json());
   }
-
-  public get() : any{
-    //console.log(this.baseService.get("https://randomuser.me/api/?results=10"));
-    return this.baseService.get(this.baseUrl).map(res => <Array<Project>>(res.json()));
-    //console.log(res);
-  }
-  public post(project: Project){
-    return  this.baseService.post(this.baseUrl,(project)).subscribe(res => {
-      console.log(res);
-    });
-  }
-
-  public put(project:Project, id) : any{
-      return this.baseService.put(this.baseUrl + id,project).subscribe(res => {
-        console.log(res);
-      });
-  }
-
-  public delete(id:any) : any{
-      return this.baseService.delete(this.baseUrl + id).subscribe(res => {
-        console.log(res);
-      });
-  }
-
-  public getUsers(id) : any{
-    return this.baseService.get(this.baseUrl + id).map(res => <Array<Project>>(res.json));
-  }
-
 }
