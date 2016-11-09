@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
-import 'rxjs/add/operator/map';
+import 'rxjs/RX';
 import { Project } from '../models/project'
 import { StorageService } from './storage-service';
+import {Observable} from 'rxjs/Rx';
 
 /*
   Generated class for the ProjectService provider.
