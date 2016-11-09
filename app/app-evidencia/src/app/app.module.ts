@@ -11,6 +11,7 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 
+import { StorageService } from '../providers/storage-service';
 @NgModule({
   declarations: [
     MyApp,
@@ -40,6 +41,6 @@ import { ListPage } from '../pages/list/list';
     ItemDetailsPage,
     ListPage
   ],
-  providers: []
+  providers: [StorageService]
 })
 export class AppModule {}

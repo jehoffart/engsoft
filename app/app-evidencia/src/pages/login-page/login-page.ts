@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Rx';
 import { Login } from '../../models/login';
 //providers
 import { LoginService } from '../../providers/login-service';
+import { StorageService } from '../../providers/storage-service';
 import { UserPage } from '../../pages/user-page/user-page';
 import { EnterprisePage } from '../../pages/enterprise-page/enterprise-page';
 import { MyProjectsPage } from '../../pages/my-projects-page/my-projects-page';
@@ -28,7 +29,7 @@ export class LoginPage {
   public enterprise:any;
   public user:any;
 
-  constructor(private toastCtrl: ToastController ,public loadingCtrl:LoadingController, public navCtrl: NavController, public formBuilder:FormBuilder, public loginService:LoginService) {
+  constructor(public storage:StorageService, private toastCtrl: ToastController ,public loadingCtrl:LoadingController, public navCtrl: NavController, public formBuilder:FormBuilder, public loginService:LoginService) {
     this.login = new Login();
     this.enterprise = EnterprisePage;
     this.user = UserPage;
@@ -50,7 +51,11 @@ export class LoginPage {
         if(data.success){
           console.log(data);
           this.showToast("Logged with success", 3000, "bottom");
-          this.navCtrl.setRoot(MyProjectsPage);
+
+          this.storage.setSession(this.login, data).then(
+            () => {this.navCtrl.setRoot(MyProjectsPage);},
+            error => {this.showToast("Erro ao armazenar sessão",3000,"top");}
+          );
         }else{
           this.showToast("Login ou senha incorreta",3000,"top");
           this.loginForm.reset();
