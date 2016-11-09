@@ -7,6 +7,7 @@ import { UserPage } from '../pages/user-page/user-page';
 import { ProjectPage } from '../pages/project-page/project-page';
 import { ProblemPage } from '../pages/problem-page/problem-page';
 import { MyProjectsPage } from '../pages/my-projects-page/my-projects-page';
+import { ListProblemPage } from '../pages/list-problem-page/list-problem-page';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
@@ -21,6 +22,7 @@ import { StorageService } from '../providers/storage-service';
     ProjectPage,
     ProblemPage,
     MyProjectsPage,
+    ListProblemPage,
     HelloIonicPage,
     ItemDetailsPage,
     ListPage
@@ -37,6 +39,7 @@ import { StorageService } from '../providers/storage-service';
     ProjectPage,
     ProblemPage,
     MyProjectsPage,
+    ListProblemPage,
     HelloIonicPage,
     ItemDetailsPage,
     ListPage

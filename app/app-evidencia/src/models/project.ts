@@ -12,6 +12,6 @@ export class Project{
 
     constructor(){
       this.Categories = [];
-      this.Team = ['581e564cb249d00434783a4b'];
+      this.Team = [];
     }
 }

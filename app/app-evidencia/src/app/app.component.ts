@@ -7,7 +7,7 @@ import { StatusBar } from 'ionic-native';
 import { LoginPage } from '../pages/login-page/login-page';
 import { ProjectPage } from '../pages/project-page/project-page';
 import { ProblemPage } from '../pages/problem-page/problem-page';
-
+import { ListProblemPage } from '../pages/list-problem-page/list-problem-page';
 
 @Component({
   templateUrl: 'app.html'
@@ -28,7 +28,8 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Cadastrar Projeto', component: ProjectPage },
-      { title: 'Cadastrar Problema', component: ProblemPage }
+      { title: 'Cadastrar Problema', component: ProblemPage },
+      { title: 'Listar Problema', component: ListProblemPage }
     ];
   }
 

@@ -13,22 +13,30 @@ import { StorageService } from './storage-service';
 @Injectable()
 export class ProblemService {
 
-token: string;
+public operator: any;
 
   constructor(public storage:StorageService, public http: Http) {
     console.log('Hello ProblemService Provider');
     this.storage.getSession().then(
-      data => this.token = data.operator.token,
+      data => this.operator = data.operator,
       error => console.error(error)
     );
   }
 
   addProblem(problem:Problem){
     let headers = new Headers({'Content-Type': 'application/json'});
-    headers.append("Authorization", this.token);
+    headers.append("Authorization", this.operator.token);
     let options = new RequestOptions({headers: headers});
     // Note: This is only an example. The following API call will fail because there is no actual API to talk to.
     return this.http.post('http://srv-facens9848.cloudapp.net:4000/problem', problem, options).map((res:Response) => res.json());
+  }
+
+  getAllProblems()
+  {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    headers.append("Authorization", this.operator.token);
+    let options = new RequestOptions({headers: headers});
+    return this.http.get('http://srv-facens9848.cloudapp.net:4000/problem', options).map(res => <Array<Problem>>(res.json()));
   }
 
 }

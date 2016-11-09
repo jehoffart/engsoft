@@ -15,8 +15,8 @@ export class StorageService {
     console.log('Hello StorageService Provider');
   }
 
-  setSession(login:any, operator:any ){
-    return NativeStorage.setItem('session-evidencia', {login: login, operator: operator});
+  setSession(operator:any ){
+    return NativeStorage.setItem('session-evidencia', {operator: operator});
   }
 
   getSession(){

@@ -22,8 +22,8 @@ public projects: Project[];
   constructor(public storage:StorageService, public navCtrl: NavController, public projectService : ProjectService) {
     this.storage.getSession().then(
       data => {
-        projectService.token = data.operator.token;
-        this.getAllProjects();
+        projectService.operator = data.operator;
+        this.getProjectsByUser();
       },
       error => console.error(error)
     );
@@ -34,8 +34,8 @@ public projects: Project[];
     console.log('Hello MyProjectsPage Page');
   }
 
-  getAllProjects(){
-    this.projectService.getAllProjects().subscribe(
+  getProjectsByUser(){
+    this.projectService.getProjectsByUser().subscribe(
       projs => {
         this.projects = projs;
     },

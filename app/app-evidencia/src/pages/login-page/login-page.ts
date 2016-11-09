@@ -52,7 +52,7 @@ export class LoginPage {
           console.log(data);
           this.showToast("Logged with success", 3000, "bottom");
 
-          this.storage.setSession(this.login, data).then(
+          this.storage.setSession(data).then(
             () => {this.navCtrl.setRoot(MyProjectsPage);},
             error => {this.showToast("Erro ao armazenar sessão",3000,"top");}
           );
