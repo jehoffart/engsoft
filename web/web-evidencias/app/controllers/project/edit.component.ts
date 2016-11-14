@@ -74,7 +74,14 @@ export class ProjectEditComponent implements OnInit {
         });
       });
       
-      this.users = this.userService.get();
+      this.userService.get().subscribe(
+          (users) => {
+            users.forEach( (userData: Object) => {
+              var user: User = new User(userData);
+              this.users.push(user);
+          });
+        }
+      );
     }
 
     initCategories() {

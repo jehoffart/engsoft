@@ -14,7 +14,7 @@ export class ProjectService {
 
   constructor(private http: Http) {}  
   get() {
-    return this.http.get(this.app.url + this.url)
+    return this.http.get(this.app.url + this.url, { headers: this.app.headers })
         .map(res => res.json());
   }
 

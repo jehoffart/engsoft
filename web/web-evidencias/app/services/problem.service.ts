@@ -14,7 +14,7 @@ export class ProblemService {
 
   constructor(private http: Http) {}  
   get() {
-    return this.http.get(this.app.url + this.url)
+    return this.http.get(this.app.url + this.url, { headers: this.app.headers })
         .map(res => res.json());
   }
 
@@ -30,13 +30,13 @@ export class ProblemService {
   }
 
   getById(id) : Observable<Problem> {
-    return this.http.get(this.app.url + this.url + "/" + id)
+    return this.http.get(this.app.url + this.url + "/" + id, { headers: this.app.headers })
       .map(res => <Problem> res.json());
   }
 
   put(problem) {
     return this.http
-      .put(this.app.url + this.url + problem._id, JSON.stringify(problem))
+      .put(this.app.url + this.url + problem._id, JSON.stringify(problem), { headers: this.app.headers })
       .map(res => <Problem> res.json());
   }
 

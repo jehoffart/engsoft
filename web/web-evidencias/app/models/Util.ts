@@ -24,7 +24,7 @@ export class Util {
 	}
 
 	ValidCoin(c: FormControl) {
-		let coin = /^(?:^\s*\d{1,3}(?:\.\d{3})*,\d{2}$|)$/;
+		let coin = /^(?:^\s*\d{1,3}(?:\.\d{3})*.\d{2}$|)$/;
   		return coin.test(c.value) ? null : {
     		ValidCoin: {
       			valid: false

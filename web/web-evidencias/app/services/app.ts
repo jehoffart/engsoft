@@ -10,7 +10,7 @@ export class App {
   public headers: Headers;
 
   constructor() {
-  	this.url = "http://srv-facens9848.cloudapp.net:3000/"; 
+  	this.url = "http://localhost:3000/"; 
   	this.token = "token";
     this.user = "id";
     this.type = "type";

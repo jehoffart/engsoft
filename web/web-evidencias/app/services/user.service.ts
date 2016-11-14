@@ -16,17 +16,8 @@ export class UserService {
   constructor(private http: Http) {}
     
   get() {
-    this.http.get(this.app.url + this.url)
-        .map(res => res.json())
-        .subscribe(
-          (users) => {
-            users.forEach( (userData: Object) => {
-              var user: User = new User(userData);
-              this.users.push(user);
-          });
-        }
-    );
-    return this.users;
+    return this.http.get(this.app.url + this.url, { headers: this.app.headers })
+        .map(res => res.json());
   }
 
   post(user) {
@@ -35,13 +26,13 @@ export class UserService {
   }
 
   getById(id) : Observable<User> {
-    return this.http.get(this.app.url + this.url + "/" + id)
+    return this.http.get(this.app.url + this.url + "/" + id, { headers: this.app.headers })
       .map(res => <User> res.json());
   }
 
   put(user) {
     return this.http
-      .put(this.app.url + this.url + user._id, JSON.stringify(user))
+      .put(this.app.url + this.url + user._id, JSON.stringify(user), { headers: this.app.headers })
       .map(res => <User> res.json());
   }
 

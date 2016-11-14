@@ -8,21 +8,21 @@
 <form [formGroup]="enterpriseForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="Name">Nome</label>
-        <input type="text" class="form-control" formControlName="Name" [(ngModel)]="model.Name" />
+        <input type="text" placeholder="Nome" class="form-control" formControlName="Name" [(ngModel)]="model.Name" />
         <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Name.valid || !submitted">O nome é obrigatório</div>
     </div>
     <div class="form-group">
         <label for="CNPJ">CNPJ</label>
-        <input type="text" class="form-control" maxlength="18" formControlName="CNPJ" [(ngModel)]="model.CNPJ" />
+        <input type="text" placeholder="99.999.999/0009-99" class="form-control" maxlength="18" formControlName="CNPJ" [(ngModel)]="model.CNPJ" />
         <div class="alert alert-danger" [hidden]="enterpriseForm.controls.CNPJ.valid || !submitted">O CNPJ deve ser digitado ou está num formato inválido</div>
     </div>
     <div class="form-group">
         <label for="Description">Descrição</label>
-        <textarea rows="5" class="form-control" formControlName="Description" [(ngModel)]="model.Description"></textarea>
+        <textarea rows="5" class="form-control" placeholder="Descrição" formControlName="Description" [(ngModel)]="model.Description"></textarea>
     </div>
     <div class="form-group">
         <label for="Website">Website</label>
-        <input type="text" class="form-control" formControlName="Website" placeholder="www.exemplo.com.br" [(ngModel)]="model.Website" />
+        <input type="text" class="form-control" placeholder="www.exemplo.com.br" formControlName="Website" placeholder="www.exemplo.com.br" [(ngModel)]="model.Website" />
         <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Website.valid || !submitted">O Website está num formato inválido</div>
     </div>
     
@@ -48,12 +48,12 @@
 
     <div class="form-group">
         <label for="Login">Usuário</label>
-        <input type="text" class="form-control" formControlName="Login" [(ngModel)]="model.Login" />
+        <input type="text" placeholder="Login" class="form-control" formControlName="Login" [(ngModel)]="model.Login" />
         <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Login.valid || !submitted">O usuário é obrigatório</div>
     </div>
     <div class="form-group">
         <label for="Password">Senha</label>
-        <input type="password" class="form-control" formControlName="Password" [(ngModel)]="model.Password" />
+        <input type="password" class="form-control" placeholder="Senha" formControlName="Password" [(ngModel)]="model.Password" />
         <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Password.valid || !submitted">A senha é obrigatória</div>
     </div>
     <div class="row">
