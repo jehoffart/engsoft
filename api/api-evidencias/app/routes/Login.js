@@ -29,6 +29,8 @@ module.exports  = function(app) {
      app.route('/auth')
     .post(api.auth);
 
+  app.route('/login/findByUser/:id')
+    .get(passport.authenticate('jwt', { session: false}),api.findByUser)
 
 
 

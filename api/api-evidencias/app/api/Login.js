@@ -92,5 +92,17 @@ api.auth = function(req, res){
 
 }
 
+api.findByUser = function(req, res) {
+   //console.log(req.params.id);
+    model.find({"ReferenceId": req.params.id })
+    .then(function(projects){
+      if(!projects) throw Error('Projeto não encontrado')
+        res.json(projects);      
+    }, function(error){
+        console.log(error);
+        res.status(500).json(error);
+    })        
+};
+
 
 module.exports = api;
