@@ -18,7 +18,7 @@ var schema = mongoose.Schema({
         default: Date.now
     },
     Cost: {
-        type: Number
+        type: String
     },
     Categories: {  
         type: [String]    

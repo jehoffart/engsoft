@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 
 
 var schema = mongoose.Schema({
@@ -29,7 +29,7 @@ schema.pre('save', function (next) {
             if (err) {
                 return next(err);
             }
-            bcrypt.hash(user.Password, salt, function (err, hash) {
+            bcrypt.hash(user.Password, salt,null, function (err, hash) {
                 if (err) {
                     return next(err);
                 }
