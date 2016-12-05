@@ -21,7 +21,7 @@
 
     <div class="form-group col-sm-6">
         <label>Problema</label>
-        <select [(ngModel)]="problem" formControlName="Problem" class="form-control">
+        <select [(ngModel)]="problemId" formControlName="Problem" class="form-control">
             <option [value]="p._id" *ngFor="let p of problems">{{p.Name}}</option>
         </select>
         <div class="alert alert-danger" [hidden]="(form.controls.Problem.valid && submitted) || !submitted">
@@ -98,6 +98,18 @@
                     <div class="alert alert-danger" [hidden]="(form.controls.Categories.controls[i].controls.Category.valid && submitted) || !submitted">
                         {{ error.Categories[i].Category }}
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div formArrayName="Answers" class="form-group col-lg-12">
+        <div class="formArray" *ngFor="let item of form.controls.Answers.controls; let i=index">
+            <div [formGroupName]="i">
+                <label>{{problem.Questions[i]}}</label>
+                <input type="text" class="form-control" placeholder="Resposta" [(ngModel)]="model.Answers[i]" formControlName="Answer"/>
+                <div class="alert alert-danger" [hidden]="(form.controls.Answers.controls[i].controls.Answer.valid && submitted) || !submitted">
+                    {{ error.Answers[i].Answer }}
                 </div>
             </div>
         </div>

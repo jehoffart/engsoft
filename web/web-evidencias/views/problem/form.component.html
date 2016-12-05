@@ -23,7 +23,7 @@
     
     <div class="form-group col-lg-6">
         <label for="MaxCost">Custo Máximo</label>
-        <input type="text" class="form-control" formControlName="MaxCost" [(ngModel)]="model.MaxCost" placeholder="1.450,00" />
+        <input type="text" class="form-control" formControlName="MaxCost" [(ngModel)]="model.MaxCost" placeholder="R$ 1.450,00" />
         <div class="alert alert-danger" [hidden]="(form.controls.MaxCost.valid && submitted) || !submitted">
             {{ error.MaxCost }}
         </div>

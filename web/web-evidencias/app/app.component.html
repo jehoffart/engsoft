@@ -16,6 +16,7 @@
       <ul class="nav navbar-nav side-nav menu">
         <li><a routerLinkActive="active" routerLink="/problem">Problema</a></li>
         <li *ngIf="isUser();"><a routerLinkActive="active" routerLink="/project">Projeto</a></li>
+        <li *ngIf="!isLogged();"><a routerLinkActive="active" routerLink="/project/form">Projeto</a></li>
         <li *ngIf="!isLogged();"><a routerLinkActive="active" routerLink="/enterprise/form">Empresa</a></li>
         <li *ngIf="isEnterprise();"><a routerLinkActive="active" routerLink="/enterprise">Empresa</a></li>
         <li *ngIf="isUser();"><a routerLinkActive="active" routerLink="/user">Usuário</a></li>

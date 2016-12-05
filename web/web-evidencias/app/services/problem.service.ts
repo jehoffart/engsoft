@@ -10,9 +10,9 @@ export class ProblemService extends BaseService {
     super(http, 'problem');
   }
 
-  addProject(problem, project) {
+  addProject(problem, registration) {
     return this.http
-      .post(this.app.url + this.entry + "/newProject/" + problem, JSON.stringify(project), { headers: this.app.headers })
+      .post(this.app.url + this.entry + "/newProject/" + problem, JSON.stringify(registration), { headers: this.app.headers })
       .map(res => res.json());
   }
 

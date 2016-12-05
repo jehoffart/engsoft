@@ -23,7 +23,8 @@ export class ProjectFormComponent extends FormController implements OnInit {
     private userError: {};
     private user: User = new User();
     private submittedUser = false;
-    private problem: string;
+    private problemId: string;
+    private problem: Problem = new Problem();
 
     constructor(protected route: ActivatedRoute, 
                 protected router: Router,
@@ -51,6 +52,7 @@ export class ProjectFormComponent extends FormController implements OnInit {
             Cost: ['', [Validators.required, this.validation.ValidCoin]],
             Categories: this.formBuilder.array([]),
             Users: this.formBuilder.array([]),
+            Answers: this.formBuilder.array([])
         });
 
         this.userForm = this.formBuilder.group({
@@ -72,7 +74,7 @@ export class ProjectFormComponent extends FormController implements OnInit {
     }    
 
     afterSave(data) {
-        this.problemService.addProject(this.problem, data).subscribe(data => this.afterAddProblem(data));
+        this.problemService.addProject(this.problemId, this.registration).subscribe(data => this.afterAddProblem(data));
     }
 
     afterAddProblem(data) {
@@ -80,7 +82,7 @@ export class ProjectFormComponent extends FormController implements OnInit {
     }
 
     afterGetModel(data) {
-        this.problemService.getByProject(data._id).subscribe(data => this.problem = data);
+        this.problemService.getByProject(data._id).subscribe(data => this.problemId = data);
 
         this.model = data;
         

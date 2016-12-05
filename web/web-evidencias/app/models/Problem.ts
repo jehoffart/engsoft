@@ -6,7 +6,7 @@ export class Problem extends Model {
     Name:string;
     Description: string;
     Questions: string[];
-    MaxCost: number;
+    MaxCost: string;
     Categories: string[];
     Registrations: [{
         Project: Project;
