@@ -6,6 +6,8 @@ var model = mongoose.model('Project');
 
 api.get = function(req, res) {  
 	res = util.setResponse(res);
+
+
 	model.aggregate(
            {
               $unwind: "$Team"
@@ -18,10 +20,7 @@ api.get = function(req, res) {
                     "foreignField": "_id",
                     "as": "Team_data"
                 }
-            }/*,
-            {
-                $match: { "Team_data": { $ne: [] } }
-            }*/
+            }
         )
 	.then(function(projects){
 		res.json(projects);
@@ -29,35 +28,37 @@ api.get = function(req, res) {
 		console.log(error);
 		res.status(500).json(error);
 	});  
+
 };
 
 api.getById = function(req, res) {
-    res = util.setResponse(res);
+    res = util.setResponse(res); 
+
+    var modelUser = mongoose.model('User');
+
     model.findById(req.params.id)
-    /*model.aggregate(
-            {
-                $match: {"_id": req.params.id }
-            },
-            {
-              $unwind: "$Team"
-           },
-           {
-                $lookup:
-                {
-                    "from": "users",
-                    "localField": "Team",
-                    "foreignField": "_id",
-                    "as": "Team_data"
-                }
-            }
-        )*/
     .then(function(project){
 		if(!project) throw Error('Projeto não encontrado')
-			res.json(project);      
+    /*
+            for( i in project.Team){
+      
+                modelUser.findById(mongoose.Types.ObjectId(i)).then(function(retorno){
+                    console.log(retorno);
+                }, 
+                function(error){
+                        console.log(error);
+                });
+            }*/
+			res.json(project); 
+
+    
     }, function(error){
 		console.log(error);
         res.status(500).json(error);
-    })   
+    });
+
+
+
 
 
 };
