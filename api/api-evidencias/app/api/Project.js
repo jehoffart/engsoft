@@ -6,7 +6,23 @@ var model = mongoose.model('Project');
 
 api.get = function(req, res) {  
 	res = util.setResponse(res);
-	model.find({})
+	model.aggregate(
+           {
+              $unwind: "$Team"
+           },
+           {
+                $lookup:
+                {
+                    "from": "users",
+                    "localField": "Team",
+                    "foreignField": "_id",
+                    "as": "Team_data"
+                }
+            }/*,
+            {
+                $match: { "Team_data": { $ne: [] } }
+            }*/
+        )
 	.then(function(projects){
 		res.json(projects);
 	}, function(error){
@@ -17,14 +33,33 @@ api.get = function(req, res) {
 
 api.getById = function(req, res) {
     res = util.setResponse(res);
-	model.findById(req.params.id)
+    model.findById(req.params.id)
+    /*model.aggregate(
+            {
+                $match: {"_id": req.params.id }
+            },
+            {
+              $unwind: "$Team"
+           },
+           {
+                $lookup:
+                {
+                    "from": "users",
+                    "localField": "Team",
+                    "foreignField": "_id",
+                    "as": "Team_data"
+                }
+            }
+        )*/
     .then(function(project){
 		if(!project) throw Error('Projeto não encontrado')
 			res.json(project);      
     }, function(error){
 		console.log(error);
         res.status(500).json(error);
-    })        
+    })   
+
+
 };
 
 api.delete = function(req, res) {
