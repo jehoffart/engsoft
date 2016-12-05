@@ -90,4 +90,17 @@ api.newProject = function(req, res){
 }
 
 
+
+api.findByProject = function(req, res){
+  res = util.setResponse(res);
+    model.find({"Registrations.ProjectId": req.params.id})
+    .then(function(problem){
+      if(!problem) throw Error('Problema não encontrado')
+        res.json(problem);      
+    }, function(error){
+        console.log(error);
+        res.status(500).json(error);
+    }) 
+}
+
 module.exports = api;

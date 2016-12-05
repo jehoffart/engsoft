@@ -30,6 +30,8 @@ module.exports  = function(app) {
     app.route('/problem/newProject/:id')
     .post(passport.authenticate('jwt', { session: false}),api.newProject);
         
-
+    app.route('/problem/findByProject/:id')
+    .post(passport.authenticate('jwt', { session: false}),api.findByProject);
+        
 
 };
