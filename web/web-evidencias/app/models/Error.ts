@@ -61,8 +61,10 @@ export class Error {
 						return 'Este não é um site válido'
 
 					case 'ValidCoin':
-						return 'O formato da moeda deve ser 1.000,00'
+						return 'O formato da moeda deve ser R$ 1.000,00'
 
+					case 'ValidCnpj':
+						return 'O CNPJ está num formado inválido'
 					default:
 						return 'Erro deconhecido';
 				}
