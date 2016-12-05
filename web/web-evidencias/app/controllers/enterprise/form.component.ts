@@ -24,7 +24,7 @@ export class EnterpriseFormComponent extends FormController implements OnInit {
     ngOnInit() {
         this.form = this.formBuilder.group({
             Name: ['', Validators.required],
-            CNPJ: ['', [Validators.required, Validators.maxLength(18)]],
+            CNPJ: ['', [Validators.required, Validators.maxLength(18), this.validation.ValidCnpj]],
             Description: [''],
             Website: ['', this.validation.Url],
             Password: ['', Validators.required],

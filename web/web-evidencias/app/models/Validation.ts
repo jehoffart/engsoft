@@ -6,8 +6,9 @@ export class Validation {
   	Url(control: FormControl) {
 	  	if(!control.value) return null;
 	
-	  	let url = /^(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]$/;
-		
+	  	var regexQuery = "^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$";
+    	var url = new RegExp(regexQuery,"i");
+
     	return url.test(control.value) ? null : 
     	{
   			ValidURL: {
@@ -32,9 +33,17 @@ export class Validation {
 	ValidCoin(control: FormControl) {
 		if(!control.value) return null;
 
-		let coin = /^(?:^\s*\d{1,3}(?:\.\d{3})*.\d{2}$|)$/;
+		var value = control.value.split(' ');
+
+		if(value.length < 2) return {
+  			ValidCoin: {
+    			valid: false
+  			}
+		};
+
+		let coin = /^(?:^\s*\d{1,3}(?:\.\d{3})*.\d{2}$|)$/
 		
-		return coin.test(control.value) ? null : {
+		return coin.test(control.value.split(' ')[1]) ? null : {
   			ValidCoin: {
     			valid: false
   			}
