@@ -1,8 +1,8 @@
 <div class="page-header">
     <h2>
         Usuário
-        
-        <a *ngIf="isUser();" routerLink="/{{entry}}/show" class="btn btn-info btn-sm">
+
+        <a *ngIf="isUser();" routerLink="/{{entry}}" class="btn btn-info btn-sm">
             <span class="glyphicon glyphicon-eye-open"></span>
         </a>
     </h2>
@@ -14,17 +14,17 @@
         <input type="text" class="form-control" placeholder="Nome" formControlName="Name" [(ngModel)]="model.Name" />
         <div class="alert alert-danger" [hidden]="(form.controls.Name.valid && submitted) || !submitted">
             {{ error.Name }}
-        </div>  
+        </div>
     </div>
-    
+
     <div class="form-group col-sm-4">
         <label for="Age">Idade</label>
         <input type="text" class="form-control" formControlName="Age" placeholder="Idade" [(ngModel)]="model.Age" />
         <div class="alert alert-danger" [hidden]="(form.controls.Age.valid && submitted) || !submitted">
             {{ error.Age }}
-        </div>  
+        </div>
     </div>
-    
+
     <div class="form-group col-sm-12">
         <label for="Email">E-mail</label>
         <input type="text" class="form-control" formControlName="Email" placeholder="E-mail" [(ngModel)]="model.Email" />
@@ -32,7 +32,7 @@
             {{ error.Email }}
         </div>
     </div>
-    
+
     <div class="form-group col-sm-8">
         <label for="City">Cidade</label>
         <input type="text" class="form-control" formControlName="City" [(ngModel)]="model.City" placeholder="Cidade" />
@@ -40,7 +40,7 @@
             {{ error.City }}
         </div>
     </div>
-    
+
     <div class="form-group col-sm-4">
         <label for="State">Estado</label>
         <input type="text" class="form-control" formControlName="State" [(ngModel)]="model.State" placeholder="Estado" />
@@ -48,7 +48,7 @@
             {{ error.State }}
         </div>
     </div>
-    
+
     <div class="form-group col-sm-12">
         <label for="Street">Endereço</label>
         <input type="text" class="form-control" formControlName="Street" [(ngModel)]="model.Street" placeholder="Endereço" />
@@ -56,12 +56,12 @@
             {{ error.Street }}
         </div>
     </div>
-    
+
     <div class="form-group col-sm-12">
         <label for="About">Sobre</label>
         <textarea rows="5" class="form-control" formControlName="About" [(ngModel)]="model.About" placeholder="Sobre"></textarea>
     </div>
-    
+
     <div class="form-group col-sm-6">
         <label for="Login">Usuário</label>
         <input type="text" class="form-control" formControlName="Login" [(ngModel)]="model.Login" placeholder="Usuário" readonly="true" />
@@ -69,7 +69,7 @@
             {{ error.Login }}
         </div>
     </div>
-    
+
     <div class="form-group col-sm-6">
         <label for="Password">Senha</label>
         <input type="password" class="form-control" formControlName="Password" [(ngModel)]="model.Password" placeholder="Senha" />
@@ -80,10 +80,10 @@
 
     <div class="row">
         <div class="col-lg-3 col-lg-offset-3">
-            <a *ngIf="isLogged()" class="btn btn-danger form-control" routerLink="/{{entry}}/show">Cancelar</a> 
+            <a *ngIf="isLogged()" class="btn btn-danger form-control" routerLink="/{{entry}}/show">Cancelar</a>
         </div>
         <div class="col-lg-3">
-            <button type="submit" class="btn btn-success form-control">Salvar</button> 
+            <button type="submit" class="btn btn-success form-control">Salvar</button>
         </div>
     </div>
 </form>
