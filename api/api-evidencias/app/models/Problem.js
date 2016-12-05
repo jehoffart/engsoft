@@ -14,6 +14,7 @@ var schema = mongoose.Schema({
         },
         MaxCost: {
             type: String
+            
         },
         Categories: {
             type: [String]
