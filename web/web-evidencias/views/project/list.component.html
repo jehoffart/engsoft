@@ -1,42 +1,44 @@
 <div class="page-header">
     <h2>
         Projeto
-        <a routerLink="/project/create" class="btn btn-success btn-md"><span class="glyphicon glyphicon-plus"></span></a>
+        
+        <a routerLink="/{{entry}}/form" class="btn btn-success btn-sm">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
     </h2>
 </div>
 
-<table class="table table-striped" [mfData]="projects" #mf="mfDataTable" [mfRowsOnPage]="10">
+<table class="table table-striped" [mfData]="list" #mf="mfDataTable" [mfRowsOnPage]="10">
     <thead>
-        <tr>
-            <th style="width: 40%">
-                <mfDefaultSorter by="Name">Nome</mfDefaultSorter>
-            </th>
-            <th style="width: 20%">
-                <mfDefaultSorter by="Cost">Custo</mfDefaultSorter>
-            </th>
-            <th style="width: 20%">
-                <mfDefaultSorter by="Status">Status</mfDefaultSorter>
-            </th>
-            <th style="width: 20%">Opções</th>
-        </tr>
+    <tr>
+        <th style="width: 40%">
+            <mfDefaultSorter by="Name">Nome</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="Cost">Custo</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="Status">Status</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">Opções</th>
+    </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let item of mf.data">
-            <td>{{item.Name}}</td>
-            <td>{{item.Cost}}</td>
-            <td>{{item.Status}}</td>
-            <td>
-                <a routerLink="/project/show/{{item._id}}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-eye-open"></span></a>
-                <a routerLink="/project/edit/{{item._id}}" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-                <button (click)="delete(item._id)" class="btn btn-md btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-            </td>              
-        </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="5">
-            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+    <tr *ngFor="let item of mf.data">
+        <td>{{item.Name}}</td>
+        <td>{{item.Cost}}</td>
+        <td>{{item.Status}}</td>
+        <td>
+            <a routerLink="/{{entry}}/show/{{item._id}}" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </a>
+            <a *ngIf="isUser();" routerLink="/{{entry}}/form/{{item._id}}" class="btn btn-sm btn-primary">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            <button *ngIf="isUser();" (click)="Delete(item._id)" class="btn btn-sm btn-danger">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
         </td>
     </tr>
-    </tfoot>
+    </tbody>
 </table>

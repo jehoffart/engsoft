@@ -2,17 +2,24 @@
     <h2>Login</h2>
 </div>
 
-<div class="col-lg-6 col-lg-offset-3">
-    <div class="row">
-        <label for="username">Usuário</label>
-        <input [(ngModel)]="username" id="username" type="text" class="form-control">
-    </div>
-    <div class="row">
-        <label for="password">Password</label>
-        <input [(ngModel)]="password" id="password" type="password" class="form-control">
-    </div>
-    <div class="row" style="margin-top: 15px;">
-        <span>{{errorMsg}}</span>
-        <button (click)="login()" class="btn btn-success form-control">Login</button>
-    </div>
+<div class="col-sm-6 col-sm-offset-3">
+    <form [formGroup]="form" (submit)="login()">
+        <div class="row alert alert-danger" [hidden]="(!loginError && submitted) || !submitted">
+            Usuário ou Senha inválidos
+        </div>
+        
+        <div class="row">
+            <label for="username">Usuário</label>
+            <input formControlName="username" [(ngModel)]="username" type="text" class="form-control">
+            <div class="alert alert-danger" [hidden]="(form.controls.username.valid && submitted) || !submitted">{{ error.username }}</div>
+        </div>
+        <div class="row">
+            <label for="password">Password</label>
+            <input formControlName="password" [(ngModel)]="password" type="password" class="form-control">
+            <div class="alert alert-danger" [hidden]="(form.controls.password.valid && submitted) || !submitted">{{ error.password }}</div>
+        </div>
+        <div class="row" style="margin-top: 15px;">
+            <button (click)="login()" type="submit" class="btn btn-primary form-control">Login</button>
+        </div>
+    </form>
 </div>

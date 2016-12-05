@@ -1,11 +1,14 @@
 <div class="page-header">
     <h2>
         Problema
-        <a *ngIf="!auth.getToken()" routerLink="/problem/create" class="btn btn-success btn-md"><span class="glyphicon glyphicon-plus"></span></a>
+        
+        <a *ngIf="isEnterprise()" routerLink="/{{entry}}/form" class="btn btn-success btn-sm">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
     </h2>
 </div>
 
-<table class="table table-striped" [mfData]="problems" #mf="mfDataTable" [mfRowsOnPage]="10">
+<table class="table table-striped" [mfData]="list" #mf="mfDataTable" [mfRowsOnPage]="10">
     <thead>
     <tr>
         <th style="width: 60%">
@@ -22,9 +25,15 @@
         <td>{{item.Name}}</td>
         <td>{{item.MaxCost}}</td>
         <td>
-            <a routerLink="/problem/show/{{item._id}}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-eye-open"></span></a>
-            <a *ngIf="!auth.getToken()" routerLink="/problem/edit/{{item._id}}" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-            <button *ngIf="!auth.getToken()" (click)="delete(item._id)" class="btn btn-md btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+            <a routerLink="/{{entry}}/show/{{item._id}}" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </a>
+            <a *ngIf="isEnterprise();" routerLink="/{{entry}}/form/{{item._id}}" class="btn btn-sm btn-primary">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            <button *ngIf="isEnterprise();" (click)="Delete(item._id)" class="btn btn-sm btn-danger">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
         </td>
     </tr>
     </tbody>

@@ -12,12 +12,7 @@ export class Enterprise extends Model {
     Categories: string[];
     Website: string;
     Problems: Problem[];
-
-    addCategory(category) {
-        if(!this.Categories) this.Categories = [];
-        this.Categories.push(category);
-    }
-
+    
     attributeNames: string[] = ['_id', 'CNPJ', 'Name', 'Login', 'Password', 'Description', 'RegistationDate', 
     'Categories', 'WebSite', 'Problems'];
 }
