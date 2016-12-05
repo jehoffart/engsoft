@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProblemService } from '../../services/problem.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { EnterpriseService } from '../../services/enterprise.service';
 import { Problem } from '../../models/Problem';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,7 +9,7 @@ import { FormController } from './../formcontroller';
 
 @Component({
     templateUrl: '../../../../views/problem/form.component.html',
-    providers: [ ProblemService, AuthenticationService ]
+    providers: [ ProblemService, AuthenticationService, EnterpriseService ]
 })
 export class ProblemFormComponent extends FormController implements OnInit {
    
@@ -16,7 +17,8 @@ export class ProblemFormComponent extends FormController implements OnInit {
                 protected router: Router,
                 protected auth: AuthenticationService,
                 protected _service: ProblemService,
-                protected formBuilder: FormBuilder) {
+                protected formBuilder: FormBuilder,
+                private enterpriseService: EnterpriseService) {
       super(route, router, auth, _service, formBuilder, 'problem');
       this.model = new Problem();
     }
@@ -32,9 +34,14 @@ export class ProblemFormComponent extends FormController implements OnInit {
 
         this.error = this.errorObj.initError(this.form);
         this.GetModel();
+        this.model.EnterpriseId = this.getLoginId();
     }    
 
     afterSave(data) {
+        this.enterpriseService.addProblem(this.getLoginId(), data).subscribe(d => this.afterAddProblem(data));
+    }
+
+    afterAddProblem(data) {
         this.router.navigate([this.entry + '/show/' + data._id])
     }
 

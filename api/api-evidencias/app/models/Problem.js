@@ -19,7 +19,7 @@ var schema = mongoose.Schema({
         Categories: {
             type: [String]
         },
-        EnterpriseId
+        EnterpriseId:
         {
             type: mongoose.Schema.Types.ObjectId, 
             ref: 'Enterprise'

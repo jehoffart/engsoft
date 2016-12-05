@@ -74,7 +74,8 @@ export class ProjectFormComponent extends FormController implements OnInit {
     }    
 
     afterSave(data) {
-        this.problemService.addProject(this.problemId, this.registration).subscribe(data => this.afterAddProblem(data));
+        var obj = {Project: data, Answers: new Array()};
+        this.problemService.addProject(this.problemId, obj).subscribe(data => this.afterAddProblem(data));
     }
 
     afterAddProblem(data) {

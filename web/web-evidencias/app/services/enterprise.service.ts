@@ -8,4 +8,10 @@ export class EnterpriseService extends BaseService {
   constructor(protected http: Http) {
     super(http, 'enterprise');
   }
+
+	addProblem(enterpriseId, project) {
+		return this.http
+		.post(this.app.url + this.entry + "/newProblem/" + enterpriseId, JSON.stringify(project), { headers: this.app.headers })
+		.map(res => res.json());
+	}
 }

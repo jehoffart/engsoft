@@ -4,6 +4,7 @@ import {Project} from './Project';
 export class Problem extends Model {
     _id: string;
     Name:string;
+    EnterpriseId:string;
     Description: string;
     Questions: string[];
     MaxCost: string;
