@@ -13,7 +13,7 @@ var schema = mongoose.Schema({
             type: [String] 
         },
         MaxCost: {
-            type: Number
+            type: String
         },
         Categories: {
             type: [String]
