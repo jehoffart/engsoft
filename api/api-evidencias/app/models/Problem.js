@@ -19,6 +19,11 @@ var schema = mongoose.Schema({
         Categories: {
             type: [String]
         },
+        EnterpriseId
+        {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Enterprise'
+        },
         Registrations: [
             {
                 ProjectId: 
@@ -32,9 +37,7 @@ var schema = mongoose.Schema({
                 }
             }
         ]
-         
-    
-
+        
 
 });
 
