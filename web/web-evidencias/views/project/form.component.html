@@ -1,86 +1,111 @@
 <div class="page-header">
     <h2>
         Projeto
-        <a routerLink="/project" class="btn btn-default btn-md"><span class="glyphicon glyphicon-th-list"></span></a>
-        <a *ngIf="model._id" routerLink="/project/show/{{model._id}}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-eye-open"></span></a>
+        <a routerLink="/{{entry}}" class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+        <a *ngIf="model._id" routerLink="/{{entry}}/show/{{model._id}}" class="btn btn-info btn-sm">
+            <span class="glyphicon glyphicon-eye-open"></span>
+        </a>
     </h2>
 </div>
 
-<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group col-sm-6">
         <label for="Name">Nome</label>
-        <input type="text" class="form-control" formControlName="Name" [(ngModel)]="model.Name" placeholder="Nome do Projeto" />
-        <div class="alert alert-danger" [hidden]="projectForm.controls.Name.valid || !submitted">O nome é obrigatório</div>
+        <input type="text" class="form-control" formControlName="Name" [(ngModel)]="model.Name" placeholder="Nome" />
+        <div class="alert alert-danger" [hidden]="(form.controls.Name.valid && submitted) || !submitted">
+            {{ error.Name }}
+        </div>     
     </div>
-    <div class="form-group">
+
+    <div class="form-group col-sm-6">
         <label>Problema</label>
-        <select [ngModel]="problem" name="problem" formControlName="Problem" class="form-control">
+        <select [(ngModel)]="problem" formControlName="Problem" class="form-control">
             <option [value]="p._id" *ngFor="let p of problems">{{p.Name}}</option>
         </select>
-        <div class="alert alert-danger" [hidden]="projectForm.controls.Problem.valid || !submitted">O problema é obrigatório</div>
-    </div>
-
-    <div formArrayName="Users" class="form-group">
-        <div>
-            <label for="user">Usuário</label>
-            <button type="button" class="btn btn-sm btn-success" (click)="addUser()">
-                <span class="glyphicon glyphicon-plus"></span>
-            </button>
-            <button type="button" class="btn btn-sm btn-danger" *ngIf="projectForm.controls.Users.controls.length > 1" (click)="removeUser(projectForm.controls.Users.controls.length - 1)">
-                <span class="glyphicon glyphicon-trash"></span>
-            </button>
-            <button type="button" class="btn btn-sm btn-primary" (click)="modalUser.open()">
-                <span class="glyphicon glyphicon-plus"></span>
-                Novo Usuário
-            </button>
-        </div>
-        <div *ngFor="let item of projectForm.controls.Users.controls; let i=index" class="col-lg-12 l-p-0 m-b-15 r-p-0">
-            <div [formGroupName]="i">
-                <select name="User" formControlName="user" class="form-control" placeholder="Usuário">
-                    <option [value]="u._id" *ngFor="let u of users">{{u.Name}} - {{u.Email}}</option>
-                </select>
-                <div class="alert alert-danger" [hidden]="projectForm.controls.Users.controls[i].controls.user.valid || !submitted">O usuário é obrigatório</div>
-            </div>
+        <div class="alert alert-danger" [hidden]="(form.controls.Problem.valid && submitted) || !submitted">
+            {{ error.Problem }}
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-sm-12">
         <label for="Description">Descrição</label>
-        <textarea rows="5" class="form-control" formControlName="Description" [(ngModel)]="model.Description" placeholder="Descrição do Projeto"></textarea>
+        <textarea rows="5" class="form-control" formControlName="Description" [(ngModel)]="model.Description" placeholder="Descrição"></textarea>
     </div>
-    <div class="form-group col-lg-6 l-p-0">
+
+    <div class="form-group col-sm-6">
         <label for="Status">Status</label>
-        <input type="text" placeholder="Status do Projeto" class="form-control" formControlName="Status" [(ngModel)]="model.Status" />
+        <input type="text" placeholder="Status" class="form-control" formControlName="Status" [(ngModel)]="model.Status" />
     </div>
-    <div class="form-group col-lg-6 r-p-0">
+
+    <div class="form-group col-sm-6">
         <label for="Cost">Custo</label>
         <input type="text" class="form-control" placeholder="1.450,00" formControlName="Cost" [(ngModel)]="model.Cost" />
-        <div class="alert alert-danger" [hidden]="projectForm.controls.Cost.valid || !submitted">O custo está no padrão inválido</div>
+        <div class="alert alert-danger" [hidden]="(form.controls.Cost.valid && submitted) || !submitted">
+            {{ error.Cost }}
+        </div>
     </div>
 
-    <div formArrayName="Categories" class="form-group">
-        <div>
-            <label for="category">Categoria</label>
-            <button type="button" class="btn btn-sm btn-success" (click)="addCategories()">
-                <span class="glyphicon glyphicon-plus"></span>
-            </button>
-            <button type="button" class="btn btn-sm btn-danger" *ngIf="projectForm.controls.Categories.controls.length > 0" (click)="removeCategories(projectForm.controls.Categories.controls.length - 1)">
-                <span class="glyphicon glyphicon-trash"></span>
-            </button>
+    <div class="col-sm-12 row">
+        <div formArrayName="Users" class="form-group col-sm-6">
+            <div>
+                <label for="user">Usuário</label>
+                
+                <button type="button" class="btn btn-sm btn-success" (click)="addUsers(true)">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                
+                <button type="button" class="btn btn-sm btn-danger" *ngIf="form.controls.Users.controls" (click)="delUsers()">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+                
+                <button type="button" class="btn btn-sm btn-primary" (click)="modalUser.open()">
+                    <span class="glyphicon glyphicon-user"></span>
+                </button>
+            </div>
+
+            <div class="formArray" *ngFor="let item of form.controls.Users.controls; let i=index">
+                <div [formGroupName]="i">
+                    <select formControlName="User" class="form-control" placeholder="Usuário" [(ngModel)]="model.Team[i]">
+                        <option [value]="u._id" *ngFor="let u of users">{{u.Name}} - {{u.Email}}</option>
+                    </select>
+                    <div class="alert alert-danger" [hidden]="(form.controls.Users.controls[i].controls.User.valid && submitted) || !submitted">
+                        {{ error.Users[i].User }}
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div *ngFor="let item of projectForm.controls.Categories.controls; let i=index" class="col-lg-12 l-p-0 m-b-15 r-p-0">
-            <div [formGroupName]="i">
-                <div class="col-lg-6 l-p-0">
-                    <input type="text" class="form-control" placeholder="Categoria" formControlName="Category"/>
-                    <div class="alert alert-danger" [hidden]="projectForm.controls.Categories.controls[i].controls.Category.valid || !submitted">A categoria é obrigatória</div>
+
+        <div formArrayName="Categories" class="form-group col-lg-6">
+            
+            <div>
+                <label for="category">Categoria</label>
+                
+                <button type="button" class="btn btn-sm btn-success" (click)="addCategory(true)">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+
+                <button type="button" class="btn btn-sm btn-danger" *ngIf="form.controls.Categories.controls" (click)="delCategory()">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </div>
+
+            <div class="formArray" *ngFor="let item of form.controls.Categories.controls; let i=index">
+                <div [formGroupName]="i">
+                    <input type="text" class="form-control" placeholder="Categoria" [(ngModel)]="model.Categories[i]" formControlName="Category"/>
+                    <div class="alert alert-danger" [hidden]="(form.controls.Categories.controls[i].controls.Category.valid && submitted) || !submitted">
+                        {{ error.Categories[i].Category }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col-lg-3 col-lg-offset-3">
-            <a class="btn btn-danger form-control" routerLink="/project">Cancelar</a> 
+            <a class="btn btn-danger form-control" routerLink="/{{entry}}">Cancelar</a> 
         </div>
         <div class="col-lg-3">
             <button type="submit" class="btn btn-success form-control">Salvar</button> 
@@ -88,62 +113,90 @@
     </div>
 </form>
 
-<div class="row">
+
+<form [formGroup]="userForm">
     <modal #modalUser>
         <modal-header>
             <h4>Usuário</h4>
         </modal-header>
         <modal-content>          
-            <form [formGroup]="userForm">
-                <div class="form-group">
+            
+            <div class="row">
+
+                <div class="form-group col-sm-8">
                     <label for="Name">Nome</label>
-                    <input type="text" class="form-control" formControlName="Name" [(ngModel)]="userFormModel.Name" />
-                    <div class="alert alert-danger" [hidden]="userForm.controls.Name.valid || !submittedUser">O nome é obrigatório</div>
+                    <input type="text" class="form-control" placeholder="Nome" formControlName="Name" [(ngModel)]="user.Name" />
+                    <div class="alert alert-danger" [hidden]="(userForm.controls.Name.valid && submittedUser) || !submittedUser">
+                        {{ userError.Name }}
+                    </div>  
                 </div>
-                <div class="form-group">
+                
+                <div class="form-group col-sm-4">
                     <label for="Age">Idade</label>
-                    <input type="text" class="form-control" formControlName="Age" [(ngModel)]="userFormModel.Age" />
-                    <div class="alert alert-danger" [hidden]="userForm.controls.Age.valid || !submittedUser">A idade é obrigatória</div>
+                    <input type="text" class="form-control" formControlName="Age" placeholder="Idade" [(ngModel)]="user.Age" />
+                    <div class="alert alert-danger" [hidden]="(userForm.controls.Age.valid && submittedUser) || !submittedUser">
+                        {{ userError.Age }}
+                    </div>  
                 </div>
-                <div class="form-group">
+                
+                <div class="form-group col-sm-12">
                     <label for="Email">E-mail</label>
-                    <input type="text" class="form-control" formControlName="Email" [(ngModel)]="userFormModel.Email" />
-                    <div class="alert alert-danger" [hidden]="userForm.controls.Email.valid || !submittedUser">O e-mail é obrigatório</div>
+                    <input type="text" class="form-control" formControlName="Email" placeholder="E-mail" [(ngModel)]="user.Email" />
+                    <div class="alert alert-danger" [hidden]="(userForm.controls.Email.valid && submittedUser) || !submittedUser">
+                        {{ userError.Email }}
+                    </div>
                 </div>
-                <div class="form-group">
+                
+                <div class="form-group col-sm-8">
                     <label for="City">Cidade</label>
-                    <input type="text" class="form-control" formControlName="City" [(ngModel)]="userFormModel.City" />
-                    <div class="alert alert-danger" [hidden]="userForm.controls.City.valid || !submittedUser">A cidade é obrigatória</div>
+                    <input type="text" class="form-control" formControlName="City" [(ngModel)]="user.City" placeholder="Cidade" />
+                    <div class="alert alert-danger" [hidden]="(userForm.controls.City.valid && submittedUser) || !submittedUser">
+                        {{ userError.City }}
+                    </div>
                 </div>
-                <div class="form-group">
+                
+                <div class="form-group col-sm-4">
                     <label for="State">Estado</label>
-                    <input type="text" class="form-control" formControlName="State" [(ngModel)]="userFormModel.State" />
-                    <div class="alert alert-danger" [hidden]="userForm.controls.State.valid || !submittedUser">O estado é obrigatório</div>
+                    <input type="text" class="form-control" formControlName="State" [(ngModel)]="user.State" placeholder="Estado" />
+                    <div class="alert alert-danger" [hidden]="(userForm.controls.State.valid && submittedUser) || !submittedUser">
+                        {{ userError.State }}
+                    </div>
                 </div>
-                <div class="form-group">
+                
+                <div class="form-group col-sm-12">
                     <label for="Street">Endereço</label>
-                    <input type="text" class="form-control" formControlName="Street" [(ngModel)]="userFormModel.Street" />
-                    <div class="alert alert-danger" [hidden]="userForm.controls.Street.valid || !submittedUser">O endereço é obrigatória</div>
+                    <input type="text" class="form-control" formControlName="Street" [(ngModel)]="user.Street" placeholder="Endereço" />
+                    <div class="alert alert-danger" [hidden]="(userForm.controls.Street.valid && submittedUser) || !submittedUser">
+                        {{ userError.Street }}
+                    </div>
                 </div>
-                <div class="form-group">
+                
+                <div class="form-group col-sm-12">
                     <label for="About">Sobre</label>
-                    <textarea rows="5" class="form-control" formControlName="About" [(ngModel)]="userFormModel.About"></textarea>
+                    <textarea rows="5" class="form-control" formControlName="About" [(ngModel)]="user.About" placeholder="Sobre"></textarea>
                 </div>
-                <div class="form-group">
+                
+                <div class="form-group col-sm-6">
                     <label for="Login">Usuário</label>
-                    <input type="text" class="form-control" formControlName="Login" [(ngModel)]="userFormModel.Login" />
-                    <div class="alert alert-danger" [hidden]="userForm.controls.Login.valid || !submittedUser">O usuário é obrigatório</div>
+                    <input type="text" class="form-control" formControlName="Login" [(ngModel)]="user.Login" placeholder="Usuário" />
+                    <div class="alert alert-danger" [hidden]="(userForm.controls.Login.valid && submittedUser) || !submittedUser">
+                        {{ userError.Login }}
+                    </div>
                 </div>
-                <div class="form-group">
+                
+                <div class="form-group col-sm-6">
                     <label for="Password">Senha</label>
-                    <input type="password" class="form-control" formControlName="Password" [(ngModel)]="userFormModel.Password" />
-                    <div class="alert alert-danger" [hidden]="userForm.controls.Password.valid || !submittedUser">A senha é obrigatória</div>
+                    <input type="password" class="form-control" formControlName="Password" [(ngModel)]="user.Password" placeholder="Senha" />
+                    <div class="alert alert-danger" [hidden]="(userForm.controls.Password.valid && submittedUser) || !submittedUser">
+                        {{ userError.Password }}
+                    </div>
                 </div>
-            </form>
+            </div>
+            
         </modal-content>
         <modal-footer>
-            <button type="button" (click)="modalUser.close();" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" (click)="modalUser.close();" class="btn btn-default">Cancelar</button>
             <button type="button" (click)="saveUser(); modalUser.close();" class="btn btn-primary">Salvar</button>
         </modal-footer>
     </modal>
-</div>
+</form>

@@ -1,33 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication.service';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
-import { Subscription } from 'rxjs/Rx';
+import { AuthenticationService } from '../../services/authentication.service';
+import { ListController } from './../listcontroller';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'project-list',
     templateUrl: '../../../../views/project/list.component.html',
     providers: [ ProjectService, AuthenticationService ]
 })
-export class ProjectListComponent implements OnInit {
-    projects: Project[] = [];
-    private subscription: Subscription; 
-
-    constructor(private _service: ProjectService, 
-                private auth: AuthenticationService) {}
+export class ProjectListComponent extends ListController implements OnInit {
+    
+    constructor(protected route: ActivatedRoute, 
+                protected router: Router,
+                protected auth: AuthenticationService,
+                protected _service: ProjectService) {
+      super(route, router, auth, _service, 'project');
+    }
 
     ngOnInit() {
-    	this.auth.checkCredentials("project");
-      	this._service.get().subscribe(projects => this.projects = projects);
+        this.GetList();
     }
 
-    private sortByWordLength = (a:any) => {
-        return a.name.length;
-    }
-
-    delete(id) {
-      this._service.delete(id).subscribe((res) => {
-        window.location.href = "/project";
-      });
+    GetList() {
+        this._service.findByUser(this.getLoginId()).subscribe(data => this.list = data);
     }
 };

@@ -1,65 +1,83 @@
 <div class="page-header">
     <h2>
         Empresa
-        <a *ngIf="auth.getToken()" routerLink="/enterprise/show/{{auth.getToken()}}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-eye-open"></span></a>
+        
+        <a *ngIf="isEnterprise();" routerLink="/{{entry}}/show/{{getLoginId()}}" class="btn btn-info btn-sm">
+            <span class="glyphicon glyphicon-eye-open"></span>
+        </a>
     </h2>
 </div>
 
-<form [formGroup]="enterpriseForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group col-sm-6">
         <label for="Name">Nome</label>
         <input type="text" placeholder="Nome" class="form-control" formControlName="Name" [(ngModel)]="model.Name" />
-        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Name.valid || !submitted">O nome é obrigatório</div>
+        <div class="alert alert-danger" [hidden]="(form.controls.Name.valid && submitted) || !submitted">
+            {{ error.Name }}
+        </div>
     </div>
-    <div class="form-group">
+    <div class="form-group col-lg-6">
         <label for="CNPJ">CNPJ</label>
-        <input type="text" placeholder="99.999.999/0009-99" class="form-control" maxlength="18" formControlName="CNPJ" [(ngModel)]="model.CNPJ" />
-        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.CNPJ.valid || !submitted">O CNPJ deve ser digitado ou está num formato inválido</div>
+        <input type="text" maxlength="18" placeholder="99.999.999/0009-99" class="form-control" formControlName="CNPJ" [(ngModel)]="model.CNPJ" />
+        <div class="alert alert-danger" [hidden]="(form.controls.CNPJ.valid && submitted) || !submitted">
+            {{ error.CNPJ }}
+        </div>
     </div>
-    <div class="form-group">
+    <div class="form-group col-lg-12">
         <label for="Description">Descrição</label>
         <textarea rows="5" class="form-control" placeholder="Descrição" formControlName="Description" [(ngModel)]="model.Description"></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group col-lg-12">
         <label for="Website">Website</label>
-        <input type="text" class="form-control" placeholder="www.exemplo.com.br" formControlName="Website" placeholder="www.exemplo.com.br" [(ngModel)]="model.Website" />
-        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Website.valid || !submitted">O Website está num formato inválido</div>
+        <input type="text" class="form-control" placeholder="www.facens.br" formControlName="Website" [(ngModel)]="model.Website" />
+        <div class="alert alert-danger" [hidden]="(form.controls.Website.valid && submitted) || !submitted">
+            {{ error.Website }}
+        </div>
     </div>
     
-    <div formArrayName="Categories" class="form-group">
+    <div formArrayName="Categories" class="form-group col-lg-12">
+        
         <div>
             <label for="category">Categoria</label>
-            <button type="button" class="btn btn-sm btn-success" (click)="addCategories()">
+            
+            <button type="button" class="btn btn-sm btn-success" (click)="addCategory(true)">
                 <span class="glyphicon glyphicon-plus"></span>
             </button>
-            <button type="button" class="btn btn-sm btn-danger" *ngIf="enterpriseForm.controls.Categories.controls.length > 0" (click)="removeCategories(enterpriseForm.controls.Categories.controls.length - 1)">
+
+            <button type="button" class="btn btn-sm btn-danger" *ngIf="form.controls.Categories.controls" (click)="delCategory()">
                 <span class="glyphicon glyphicon-trash"></span>
             </button>
         </div>
-        <div *ngFor="let item of enterpriseForm.controls.Categories.controls; let i=index" class="col-lg-12 l-p-0 m-b-15 r-p-0">
+
+        <div class="formArray" *ngFor="let item of form.controls.Categories.controls; let i=index">
             <div [formGroupName]="i">
-                <div class="col-lg-6 l-p-0">
-                    <input type="text" class="form-control" placeholder="Categoria" formControlName="Category"/>
-                    <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Categories.controls[i].controls.Category.valid || !submitted">A categoria é obrigatória</div>
+                <input type="text" class="form-control" placeholder="Categoria" [(ngModel)]="model.Categories[i]" formControlName="Category"/>
+                <div class="alert alert-danger" [hidden]="(form.controls.Categories.controls[i].controls.Category.valid && submitted) || !submitted">
+                    {{ error.Categories[i].Category }}
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-lg-6">
         <label for="Login">Usuário</label>
-        <input type="text" placeholder="Login" class="form-control" formControlName="Login" [(ngModel)]="model.Login" />
-        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Login.valid || !submitted">O usuário é obrigatório</div>
+        <input type="text" placeholder="Login" class="form-control" formControlName="Login" [(ngModel)]="model.Login" *ngIf="isLogged()" readonly="true" />
+        <input type="text" placeholder="Login" class="form-control" formControlName="Login" [(ngModel)]="model.Login" *ngIf="!isLogged()" />
+        <div class="alert alert-danger" [hidden]="(form.controls.Login.valid && submitted) || !submitted">
+            {{ error.Login }}
+        </div>
     </div>
-    <div class="form-group">
+    <div class="form-group col-lg-6">
         <label for="Password">Senha</label>
         <input type="password" class="form-control" placeholder="Senha" formControlName="Password" [(ngModel)]="model.Password" />
-        <div class="alert alert-danger" [hidden]="enterpriseForm.controls.Password.valid || !submitted">A senha é obrigatória</div>
+        <div class="alert alert-danger" [hidden]="(form.controls.Password.valid && submitted) || !submitted">
+            {{ error.Password }}
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-3 col-lg-offset-3">
-            <a *ngIf="auth.getToken()" class="btn btn-danger form-control" routerLink="/enterprise/show/{{auth.getToken()}}">Cancelar</a> 
-            <a *ngIf="!auth.getToken()" class="btn btn-danger form-control" routerLink="/">Cancelar</a> 
+            <a *ngIf="isLogged()" class="btn btn-danger form-control" routerLink="/{{entry}}/show">Cancelar</a> 
+            <a *ngIf="!isLogged()" class="btn btn-danger form-control" routerLink="/">Cancelar</a> 
         </div>
         <div class="col-lg-3">
             <button type="submit" class="btn btn-success form-control">Salvar</button> 

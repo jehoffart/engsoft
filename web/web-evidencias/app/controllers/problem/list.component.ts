@@ -1,29 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication.service';
 import { Problem } from '../../models/problem';
 import { ProblemService } from '../../services/problem.service';
-import { Subscription } from 'rxjs/Rx';
+import { AuthenticationService } from '../../services/authentication.service';
+import { ListController } from './../listcontroller';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'problem-list',
     templateUrl: '../../../../views/problem/list.component.html',
     providers: [ ProblemService, AuthenticationService ]
 })
-export class ProblemListComponent implements OnInit {
-    problems: Problem[] = [];
-    private subscription: Subscription; 
+export class ProblemListComponent extends ListController implements OnInit {
     
-    constructor(private _service: ProblemService, 
-                private auth: AuthenticationService) {}
-
-    ngOnInit() {
-    	//this.auth.checkCredentials("problem");
-        this._service.get().subscribe(problems => this.problems = problems);
+    constructor(protected route: ActivatedRoute, 
+                protected router: Router,
+                protected auth: AuthenticationService,
+                protected _service: ProblemService) {
+      super(route, router, auth, _service, 'problem');
     }
 
-    delete(id) {
-      this._service.delete(id).subscribe((res) => {
-        window.location.href = "/problem";
-      });
+    ngOnInit() {
+        this.GetList();
     }
 };

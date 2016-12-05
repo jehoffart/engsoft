@@ -1,58 +1,86 @@
 <div class="page-header">
     <h2>
         Usuário
-        <a routerLink="/user/show/{{auth.getToken()}}" class="btn btn-info btn-md"><span class="glyphicon glyphicon-eye-open"></span></a>
+        
+        <a *ngIf="isUser();" routerLink="/{{entry}}/show" class="btn btn-info btn-sm">
+            <span class="glyphicon glyphicon-eye-open"></span>
+        </a>
     </h2>
 </div>
 
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group col-sm-8">
         <label for="Name">Nome</label>
-        <input type="text" class="form-control" formControlName="Name" [(ngModel)]="model.Name" />
-        <div class="alert alert-danger" [hidden]="userForm.controls.Name.valid || !submitted">O nome é obrigatório</div>
+        <input type="text" class="form-control" placeholder="Nome" formControlName="Name" [(ngModel)]="model.Name" />
+        <div class="alert alert-danger" [hidden]="(form.controls.Name.valid && submitted) || !submitted">
+            {{ error.Name }}
+        </div>  
     </div>
-    <div class="form-group">
+    
+    <div class="form-group col-sm-4">
         <label for="Age">Idade</label>
-        <input type="text" class="form-control" formControlName="Age" [(ngModel)]="model.Age" />
-        <div class="alert alert-danger" [hidden]="userForm.controls.Age.valid || !submitted">A idade é obrigatória</div>
+        <input type="text" class="form-control" formControlName="Age" placeholder="Idade" [(ngModel)]="model.Age" />
+        <div class="alert alert-danger" [hidden]="(form.controls.Age.valid && submitted) || !submitted">
+            {{ error.Age }}
+        </div>  
     </div>
-    <div class="form-group">
+    
+    <div class="form-group col-sm-12">
         <label for="Email">E-mail</label>
-        <input type="text" class="form-control" formControlName="Email" [(ngModel)]="model.Email" />
-        <div class="alert alert-danger" [hidden]="userForm.controls.Email.valid || !submitted">O e-mail é obrigatório</div>
+        <input type="text" class="form-control" formControlName="Email" placeholder="E-mail" [(ngModel)]="model.Email" />
+        <div class="alert alert-danger" [hidden]="(form.controls.Email.valid && submitted) || !submitted">
+            {{ error.Email }}
+        </div>
     </div>
-    <div class="form-group">
+    
+    <div class="form-group col-sm-8">
         <label for="City">Cidade</label>
-        <input type="text" class="form-control" formControlName="City" [(ngModel)]="model.City" />
-        <div class="alert alert-danger" [hidden]="userForm.controls.City.valid || !submitted">A cidade é obrigatória</div>
+        <input type="text" class="form-control" formControlName="City" [(ngModel)]="model.City" placeholder="Cidade" />
+        <div class="alert alert-danger" [hidden]="(form.controls.City.valid && submitted) || !submitted">
+            {{ error.City }}
+        </div>
     </div>
-    <div class="form-group">
+    
+    <div class="form-group col-sm-4">
         <label for="State">Estado</label>
-        <input type="text" class="form-control" formControlName="State" [(ngModel)]="model.State" />
-        <div class="alert alert-danger" [hidden]="userForm.controls.State.valid || !submitted">O estado é obrigatório</div>
+        <input type="text" class="form-control" formControlName="State" [(ngModel)]="model.State" placeholder="Estado" />
+        <div class="alert alert-danger" [hidden]="(form.controls.State.valid && submitted) || !submitted">
+            {{ error.State }}
+        </div>
     </div>
-    <div class="form-group">
+    
+    <div class="form-group col-sm-12">
         <label for="Street">Endereço</label>
-        <input type="text" class="form-control" formControlName="Street" [(ngModel)]="model.Street" />
-        <div class="alert alert-danger" [hidden]="userForm.controls.Street.valid || !submitted">O endereço é obrigatória</div>
+        <input type="text" class="form-control" formControlName="Street" [(ngModel)]="model.Street" placeholder="Endereço" />
+        <div class="alert alert-danger" [hidden]="(form.controls.Street.valid && submitted) || !submitted">
+            {{ error.Street }}
+        </div>
     </div>
-    <div class="form-group">
+    
+    <div class="form-group col-sm-12">
         <label for="About">Sobre</label>
-        <textarea rows="5" class="form-control" formControlName="About" [(ngModel)]="model.About"></textarea>
+        <textarea rows="5" class="form-control" formControlName="About" [(ngModel)]="model.About" placeholder="Sobre"></textarea>
     </div>
-    <div class="form-group">
+    
+    <div class="form-group col-sm-6">
         <label for="Login">Usuário</label>
-        <input type="text" class="form-control" formControlName="Login" [(ngModel)]="model.Login" />
-        <div class="alert alert-danger" [hidden]="userForm.controls.Login.valid || !submitted">O usuário é obrigatório</div>
+        <input type="text" class="form-control" formControlName="Login" [(ngModel)]="model.Login" placeholder="Usuário" readonly="true" />
+        <div class="alert alert-danger" [hidden]="(form.controls.Login.valid && submitted) || !submitted">
+            {{ error.Login }}
+        </div>
     </div>
-    <div class="form-group">
+    
+    <div class="form-group col-sm-6">
         <label for="Password">Senha</label>
-        <input type="text" class="form-control" formControlName="Password" [(ngModel)]="model.Password" />
-        <div class="alert alert-danger" [hidden]="userForm.controls.Password.valid || !submitted">A senha é obrigatória</div>
+        <input type="password" class="form-control" formControlName="Password" [(ngModel)]="model.Password" placeholder="Senha" />
+        <div class="alert alert-danger" [hidden]="(form.controls.Password.valid && submitted) || !submitted">
+            {{ error.Password }}
+        </div>
     </div>
+
     <div class="row">
         <div class="col-lg-3 col-lg-offset-3">
-            <a class="btn btn-danger form-control" routerLink="/user/show/{{model._id}}">Cancelar</a> 
+            <a *ngIf="isLogged()" class="btn btn-danger form-control" routerLink="/{{entry}}/show">Cancelar</a> 
         </div>
         <div class="col-lg-3">
             <button type="submit" class="btn btn-success form-control">Salvar</button> 
