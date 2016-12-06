@@ -20,7 +20,7 @@ api.get = function(req, res) {
 
 api.getById = function(req, res) {
     res = util.setResponse(res);
-    console.log(req)
+    //console.log(req)
    // var id = jwt.decode(req.params.id, config.secret);
    // console.log(id);
 	model.findById(req.params.id)
@@ -89,7 +89,7 @@ api.post = function(req, res){
 api.put = function(req, res){
     res = util.setResponse(res);
 	model.findByIdAndUpdate(req.params.id, req.body)
-    .then(function(){
+    .then(function(user){
         res.json(user);
     }, function(error){
        console.log(error);

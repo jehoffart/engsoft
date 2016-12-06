@@ -8,20 +8,7 @@ api.get = function(req, res) {
 	res = util.setResponse(res);
 
 
-	model.aggregate(
-           {
-              $unwind: "$Team"
-           },
-           {
-                $lookup:
-                {
-                    "from": "users",
-                    "localField": "Team",
-                    "foreignField": "_id",
-                    "as": "Team_data"
-                }
-            }
-        )
+	model.find({})
 	.then(function(projects){
 		res.json(projects);
 	}, function(error){
@@ -36,30 +23,22 @@ api.getById = function(req, res) {
 
     var modelUser = mongoose.model('User');
 
-    model.findById(req.params.id)
-    .then(function(project){
-		if(!project) throw Error('Projeto não encontrado')
-    /*
-            for( i in project.Team){
-      
-                modelUser.findById(mongoose.Types.ObjectId(i)).then(function(retorno){
-                    console.log(retorno);
-                }, 
-                function(error){
-                        console.log(error);
-                });
-            }*/
-			res.json(project); 
 
-    
+model.findById(req.params.id)
+    .then(function(project){
+        if(!project) throw Error('Projeto não encontrado')
+
+            modelUser.find({_id: {$in: project.Team}}).then(function(retorno){
+               // console.log(retorno);
+                project.Team = retorno;
+              //  console.log(project.Team);
+                res.json(project);
+            });
+            
     }, function(error){
-		console.log(error);
+        console.log(error);
         res.status(500).json(error);
     });
-
-
-
-
 
 };
 
@@ -90,7 +69,7 @@ api.post = function(req, res){
 api.put = function(req, res){
 	res = util.setResponse(res);
 	model.findByIdAndUpdate(req.params.id, req.body)
-	.then(function(){
+	.then(function(project){
 		res.json(project);
 	}, function(error){
 		console.log(error);

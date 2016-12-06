@@ -52,10 +52,11 @@ api.post = function(req, res){
     })
 }
 
+
 api.put = function(req, res){
     res = util.setResponse(res);
      model.findByIdAndUpdate(req.params.id, req.body)
-     .then(function(){
+     .then(function(problem){
          res.json(problem);
      }, function(error){
         console.log(error);

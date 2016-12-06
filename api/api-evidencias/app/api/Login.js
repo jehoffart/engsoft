@@ -55,7 +55,7 @@ api.post = function(req, res){
 api.put = function(req, res){
 	res = util.setResponse(res);
 	model.findByIdAndUpdate(req.params.id, req.body)
-	.then(function(){
+	.then(function(login){
 		res.json(login);
 	}, function(error){
 		console.log(error);

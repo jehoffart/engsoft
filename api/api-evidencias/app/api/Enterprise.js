@@ -18,7 +18,6 @@ api.get = function(req, res) {
 };
 
 api.getById = function(req, res) {
-
     res = util.setResponse(res);
 	model.findById(req.params.id)
     .then(function(enterprise){
@@ -79,7 +78,7 @@ api.post = function(req, res){
 api.put = function(req, res){
 	res = util.setResponse(res);
 	model.findByIdAndUpdate(req.params.id, req.body)
-	.then(function(){
+	.then(function(enterprise){
 		res.json(enterprise);
 	}, function(error){
 		console.log(error);
