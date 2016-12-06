@@ -18,15 +18,79 @@ api.get = function(req, res) {
 
 api.getById = function(req, res) {
 	res = util.setResponse(res);
+
+  var modelProject = mongoose.model('Project');
+   
+  var array = [];
+
+  model.findById(req.params.id).lean().exec(function(err, problem){
+       var i = problem.Registrations.length -1;
+
+      problem.Registrations.forEach(function(item,index){
+
+              modelProject.find({_id: item.ProjectId}).then(function(retorno){
+                  array.push(retorno[0]);
+                 // console.log(JSON.stringify(retorno));
+            
+                // console.log(index);
+                 //console.log(i);
+               
+                  if(index>= i)
+                  {
+                    problem.RegistrationsData = array;
+                      res.json(problem);
+                  }
+                
+              })
+
+      });
+
+
+
+  });
+    
+
+/*
+
+      problem.Registrations.forEach(function(item){
+            modelProject.find({_id: item.ProjectId}).then(function(retorno){
+                array.push(retorno);
+              // console.log(retorno);
+            });
+          });
+
     model.findById(req.params.id)
     .then(function(problem){
       if(!problem) throw Error('Problema não encontrado')
-        res.json(problem);      
+
+
+          problem.Registrations.forEach(function(item){
+            modelProject.find({_id: item.ProjectId}).then(function(retorno){
+               // array.push(retorno);
+                //console.log(retorno);
+                problem.Registrations
+
+
+            });
+          });
+
+*/
+
+/*
+            modelProject.find({_id: {$in: problem.Registrations}}).then(function(retorno){
+                console.log(retorno);
+                problem.Registrations = retorno;
+              //  console.log(project.Team);
+                res.json(problem);
+            });
+          
+        
+       res.json(problem);
     }, function(error){
         console.log(error);
         res.status(500).json(error);
-    })        
-};
+    })     */   
+};  
 
 api.delete = function(req, res) {
 	res = util.setResponse(res);
