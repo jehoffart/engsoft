@@ -31,7 +31,7 @@ module.exports  = function(app) {
     .post(passport.authenticate('jwt', { session: false}),api.newProject);
         
     app.route('/problem/findByProject/:id')
-    .post(passport.authenticate('jwt', { session: false}),api.findByProject);
+    .get(passport.authenticate('jwt', { session: false}),api.findByProject);
         
 
 };
