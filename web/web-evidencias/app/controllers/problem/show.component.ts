@@ -22,4 +22,9 @@ export class ProblemShowComponent extends ShowController implements OnInit {
     ngOnInit() {
         this.GetModel();
     }
+
+    problemIsEnterprise(id) {
+        if(!this.isEnterprise()) return false;
+        return this.getLoginId() === id;
+    }
 };

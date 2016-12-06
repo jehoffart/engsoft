@@ -52,7 +52,6 @@ export class ProjectFormComponent extends FormController implements OnInit {
             Cost: ['', [Validators.required, this.validation.ValidCoin]],
             Categories: this.formBuilder.array([]),
             Users: this.formBuilder.array([]),
-            Answers: this.formBuilder.array([])
         });
 
         this.userForm = this.formBuilder.group({

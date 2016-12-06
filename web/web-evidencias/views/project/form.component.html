@@ -103,18 +103,6 @@
         </div>
     </div>
 
-    <div formArrayName="Answers" class="form-group col-lg-12">
-        <div class="formArray" *ngFor="let item of form.controls.Answers.controls; let i=index">
-            <div [formGroupName]="i">
-                <label>{{problem.Questions[i]}}</label>
-                <input type="text" class="form-control" placeholder="Resposta" [(ngModel)]="model.Answers[i]" formControlName="Answer"/>
-                <div class="alert alert-danger" [hidden]="(form.controls.Answers.controls[i].controls.Answer.valid && submitted) || !submitted">
-                    {{ error.Answers[i].Answer }}
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <div class="row">
         <div class="col-lg-3 col-lg-offset-3">
             <a class="btn btn-danger form-control" routerLink="/{{entry}}">Cancelar</a> 

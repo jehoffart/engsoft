@@ -21,4 +21,9 @@ export class ProblemListComponent extends ListController implements OnInit {
     ngOnInit() {
         this.GetList();
     }
+
+    problemIsEnterprise(id) {
+        if(!this.isEnterprise()) return false;
+        return this.getLoginId() === id;
+    }
 };

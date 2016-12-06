@@ -16,7 +16,7 @@ export abstract class ShowController extends BaseController {
     GetModel() {
       this.route.params.subscribe((params: any) => {
         var id = params['id'];
-        if(id) this._service.getById(id).subscribe(data => this.model = data);
+        if(id) this._service.getById(id).subscribe(data => this.afterGetModel(data));
       });
     }
 
@@ -24,5 +24,9 @@ export abstract class ShowController extends BaseController {
       this._service.delete(id).subscribe((data) => {
         this.router.navigate([this.entry]);
       });
+    }
+
+    afterGetModel(data) {
+      this.model = data;
     }
 }
