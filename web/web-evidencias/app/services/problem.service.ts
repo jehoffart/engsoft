@@ -18,7 +18,7 @@ export class ProblemService extends BaseService {
 
   getByProject(id) {
     return this.http
-      .post(this.app.url + this.entry + "/findbyproject/" + id, { headers: this.app.headers })
+      .get(this.app.url + this.entry + "/findbyproject/" + id, { headers: this.app.headers })
       .map(res => res.json());
   }
 }

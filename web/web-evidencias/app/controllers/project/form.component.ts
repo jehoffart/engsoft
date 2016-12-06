@@ -16,7 +16,7 @@ import { FormController } from './../formcontroller';
     providers: [ AuthenticationService, ProjectService, ProblemService, UserService ]
 })
 export class ProjectFormComponent extends FormController implements OnInit {
-   
+
     private users: User[] = new Array();
     private problems: Problem[] = new Array();
     private userForm: FormGroup;
@@ -26,7 +26,7 @@ export class ProjectFormComponent extends FormController implements OnInit {
     private problemId: string;
     private problem: Problem = new Problem();
 
-    constructor(protected route: ActivatedRoute, 
+    constructor(protected route: ActivatedRoute,
                 protected router: Router,
                 protected auth: AuthenticationService,
                 protected _service: ProjectService,
@@ -65,12 +65,12 @@ export class ProjectFormComponent extends FormController implements OnInit {
             Login: ['', Validators.required],
             Password: ['', Validators.required]
         });
-    
+
         this.error = this.errorObj.initError(this.form);
         this.userError = this.errorObj.initError(this.userForm);
-        
+
         this.GetModel();
-    }    
+    }
 
     afterSave(data) {
         var obj = {Project: data, Answers: new Array()};
@@ -82,10 +82,10 @@ export class ProjectFormComponent extends FormController implements OnInit {
     }
 
     afterGetModel(data) {
-        this.problemService.getByProject(data._id).subscribe(data => this.problemId = data);
+        this.problemService.getByProject(data._id).subscribe(d => this.problemId = d._id);
 
         this.model = data;
-        
+
         for(var i = 0; i < this.model.Categories.length; i++){
             this.addCategory(false);
         }
@@ -143,7 +143,7 @@ export class ProjectFormComponent extends FormController implements OnInit {
 
     saveUser() {
         this.submittedUser = true;
-      
+
         if(!this.userForm.valid) {
             this.userError = this.errorObj.getError(this.userForm);
             return;
