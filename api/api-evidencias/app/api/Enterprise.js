@@ -19,10 +19,22 @@ api.get = function(req, res) {
 
 api.getById = function(req, res) {
     res = util.setResponse(res);
+
+    var modelProblem = mongoose.model('Problem');
+
+
 	model.findById(req.params.id)
     .then(function(enterprise){
       if(!enterprise) throw Error('Empresa não encontrado')
-        res.json(enterprise);
+
+      	       modelProblem.find({_id: {$in: enterprise.Problems}}).then(function(retorno){
+               // console.log(retorno);
+                enterprise.Problems = retorno;
+              //  console.log(project.Team);
+                res.json(enterprise);
+            });
+            
+
     }, function(error){
         console.log(error);
         res.status(500).json(error);
