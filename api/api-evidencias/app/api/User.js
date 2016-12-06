@@ -20,7 +20,7 @@ api.get = function(req, res) {
 
 api.getById = function(req, res) {
     res = util.setResponse(res);
-    //console.log(req)
+    console.log(req)
    // var id = jwt.decode(req.params.id, config.secret);
    // console.log(id);
 	model.findById(req.params.id)
